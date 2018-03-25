@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+<script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+<title>登录</title>
+<link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+<link rel="stylesheet" href="__PUBLIC__/Home/css/xiaotian.css">
+<script type="text/javascript" src="__PUBLIC__/Home/js/zepto.full.js"></script>
+</head>
+
+<body class="gray">
+<input type="hidden" id='userid' value="{$userid}">
+<div class="login-wrap">
+	<div class="z-logo-pic" style="background: #fff; margin-bottom: 0.2rem; padding:0.6rem 0 0.5rem 0">
+		<img src="__PUBLIC__/Common/logo.jpg" alt="" width="100px" height="100px" style="display: block; margin: 0 auto">
+	</div>
+	<form action="" id="form">
+		<input id="tel" type="number" class="login-txt login-txt-tel" name="" placeholder="输入您的手机号码">
+		<div style="overflow: hidden;">
+			<input id="code" type="number" class="login-txt login-txt-captcha" name="" placeholder="输入验证码">
+			<button id="getcode" type="button" class="login-btn login-btn-captcha">获取验证码</button>
+		</div>
+		<button type="button" class="login" id="login">登录</button>
+	</form>
+</div>
+<script type="text/javascript">
+// 获取验证码
+var countdown=60; 
+function settime(obj) { 
+    if (countdown == 0) { 
+        obj.removeAttribute("disabled");    
+        obj.innerHTML="获取验证码";
+        countdown = 60; 
+        return;
+    } else { 
+	    var reg = /^1[3|4|5|7|8]\d{9}$/;
+		var tel = $('#tel').val();
+		if (tel == '') {
+			showMessage('请输入手机号码');
+			return false;
+		} else if (!reg.test(tel)) {
+			showMessage('请正确的手机号码');
+			return false;
+		}
+        obj.setAttribute("disabled", true); 
+        obj.innerHTML="重新发送(" + countdown + ")"; 
+        countdown--; 
+    } 
+	setTimeout(function() { 
+    	settime(obj) 
+	},1000) 
+}
+
+$('#getcode').click(function(){
+	var url="{:U('Login/sendcode')}";
+	var tel = $('#tel').val();
+	var code = $('#code').val();
+	var userid=$('#userid').val()
+	$.post(url,{'phone':tel,'userid':userid},function(res){
+		if(res.Code==0){
+			showMessage(res.Msg)
+		}else{
+			showMessage(res.Msg)
+		}
+	},'json');
+})
+$('#login').on('click', function(){
+	var reg = /^1[3|4|5|7|8]\d{9}$/;
+	var tel = $('#tel').val();
+	var code = $('#code').val();
+	if (tel == '') {
+		showMessage('请输入手机号码');
+		return false;
+	} else if (!reg.test(tel)) {
+		showMessage('请正确的手机号码');
+		return false;
+	} else if (code == '') {
+		showMessage('请输入验证码');
+		return false;
+	}
+	var url="{:U('login')}";
+	var userid=$('#userid').val()
+	$.post(url,{'phone':tel,'code':code,'userid':userid},function(res){
+		if(res.Code==0){
+			showMessage('登录成功！');
+			setTimeout(function(){
+				window.location.href="{:U('Home/Index/index')}";
+			},1000)
+		}else{
+				showMessage(res.Msg);
+		}
+	},'json')
+});
+$('#getcode').on('click', function(){
+	settime(this);
+});
+
+function showMessage(msg) {
+			if (! $('.msg').length) {
+				$('body').append('<div class="msg" style="position: fixed;bottom: 20%;left: 50%;margin-left: -30%;height: 0.8rem;line-height: 0.8rem;width: 60%;background-color: rgba(0,0,0,.75);border-radius: 0.6rem;text-align: center;color: #fff; z-index:999;display: none;font-size: 1.2em">' + msg + '</div>');
+				$('.msg').fadeIn(200);
+				setTimeout(function(){
+					$('.msg').fadeOut(200,function(){
+						$(this).remove();
+					});
+				},1500)
+			}
+		}
+</script>
+</body>
+</html>

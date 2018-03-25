@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+    <title>商务套餐</title>
+    <link rel="stylesheet" href="__PUBLIC__/Home/Agent/css/taizhou.css">
+    <script type="text/javascript" src="__PUBLIC__/Home/Agent/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Home/Agent/js/public.js"></script>
+</head>
+<body style="background: #fff;">
+<div>
+    <volist name="list" id="goods">
+    <div class="package_box">
+        <a href="/Home/Agent/packageDetail/?id={$goods['id']}">
+        <div class="package_item clearfix">
+            <div class="left">
+                <div class="package_full">{$goods['goods_name']}</div>
+                <div class="package_small">房卡数量：{$goods['goods_nums']}</div>
+                <!-- <div class="package_small">赠送数量：{$goods['give_goods_nums']}</div> -->
+                <!-- <div class="package_small">合计数量：{$goods['total_nums']}（颗）</div> -->
+                <div class="package_small">套餐金额：{$goods['price']}（元）</div>
+            </div>
+            <div class="right">
+                <img src="__PUBLIC__/Home/Agent/img/package.png"/>
+            </div>
+        </div>
+        </a>
+    </div>
+    </volist>
+        <div class="form_btn form_btn_out">
+            <button class="out_login">退出登录</button>
+        </div>
+        <!-- 遮盖层   -->
+        <div class="xba-blank"></div>
+        <div class="xba-cover">
+            <p class="xba-f xba-f1">取消</p>
+            <p class="xba-f xba-f2">确认退出</p>
+        </div>
+</div>
+</body>
+<script>
+    $(function(){
+        $('.out_login').click(function(){
+            $('.xba-blank').css('display','block');
+            $('.xba-cover').css('display','block');
+        })
+        $('.xba-f1').click(function(){
+            $('.xba-blank').css('display','none');
+            $('.xba-cover').css('display','none');
+        })
+        $('.xba-f2').click(function(){
+            $('.xba-blank').css('display','none');
+            $('.xba-cover').css('display','none');
+
+            // $.post("{:U('Login/logout')}",{},function(res){
+            //     if (res.code == '1') {
+            //         if (res.url != '') {
+            //             webTip(res.msg);
+            //             setTimeout(function(){
+            //                 window.location.href = res.url;
+            //             },1500);
+            //         }
+            //     }
+            // },'json')
+        
+            window.location.href = "{:U('Login/logout')}";
+        })
+    })
+</script>
+<include file="Index:public_wxshare" />
+</html>

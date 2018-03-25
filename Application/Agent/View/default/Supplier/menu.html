@@ -1,0 +1,13 @@
+<ul>
+	<li<if condition="in_array(CONTROLLER_NAME, array('Agent'))">{:chr(32)}class="current"</if>>
+		<a class="date-tit sys-tj" href="{:U('Agent/agentInfo')}" class="addons">个人信息</a>
+		<ul class="Jcon-ctr">
+			<li class="<if condition="in_array(ACTION_NAME, array('agentInfo'))">on</if>">
+				<a href="{:U('Agent/agentInfo')}" target="_self">查看个人信息</a>
+			</li>
+			<li class="<if condition="in_array(ACTION_NAME, array('changePassword'))">on</if>">
+				<a href="{:U('Agent/changePassword')}" target="_self">修改密码</a>
+			</li>
+		</ul>
+	</li>
+</ul>

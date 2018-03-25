@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+<script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+<title>售后详情</title>
+<link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+<link rel="stylesheet" href="__PUBLIC__/Home/css/xiaotian.css">
+<script type="text/javascript" src="__PUBLIC__/Home/js/zepto.full.js"></script>
+</head>
+
+<body class="gray p">
+<div class="order-detail-header">
+	<p class="order-status order-status-deliver">{$return_status[$order_return['status']]}</p>
+	<p>售后编号：{$order_return['return_sn']}</p>
+	<p>申请时间：{$order_return['dateline']|date='Y-m-d H:i:s',###}</p>
+</div>
+
+<div class="order-cells order-detail-cells">
+	<div class="order-cell">
+		<div class="order-cell-bd">商品信息</div>
+	</div>
+	<div class="order-cell">
+		<ul class="order-detail-product">
+			<li class="order-detail-product-item">
+				<img src="{$order_detail['goods_image']}" class="order-detail-product-cover">
+				<div class="order-detail-product-description">
+					<div class="order-detail-product-description-item">
+						<span class="order-detail-product-name">{$order_detail['goods_name']} {$order_detail['specifications_text']}</span>
+					</div>
+					<div class="order-detail-product-description-item">
+						<span class="order-detail-product-num">×{$order_detail['goods_number']}</span>
+						<span class="order-detail-product-price" data-num="1">¥{$order_detail['goods_price']}</span>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div class="order-cell">
+		<div class="order-cell-bd">退款数量</div>
+		<div class="order-cell-ft">{$order_return['apply_number']}</div>
+	</div>
+	<div class="order-cell">
+		<div class="order-cell-bd">退款金额</div>
+		<div class="order-cell-ft">¥{$order_return['real_money']}</div>
+	</div>
+	<div class="order-cell">
+		<div class="order-cell-bd">退款需求</div>
+                <div class="order-cell-ft">
+                    <if condition="$order_return['apply_type'] eq 2">
+                        仅退款
+                    <else />
+                        退货并退款
+                    </if>
+                </div>
+	</div>
+	<div class="order-cell">
+		<div class="order-cell-bd">退款原因</div>
+		<div class="order-cell-ft">{$order_return['apply_reason']}</div>
+	</div>
+	<div class="order-cell">
+		<div class="order-cell-bd">退款说明</div>
+		<div class="order-cell-ft">{$order_return['apply_desc']}</div>
+	</div>
+        <notempty  name="order_return.apply_pics">
+            <div class="order-cell">
+                    <div class="order-cell-bd">上传照片<!-- <span style="font-size: 12px;color: #eee">（点击查看大图，长按删除）</span> --></div>
+                    <!-- <div class="order-refund-pic">
+                            <ul class="order-refund-pic-group"></ul>
+                            <div class="order-refund-pic-upload">
+                                    <input type="file" name="" id="picUpload">
+                            </div>
+                    </div> -->
+                    <ul class="z-onload-pic clearfix">
+                            <volist name="order_return.apply_pics" id="apply_pic">
+                            <li>
+                                <img src="{$apply_pic}" />
+                            </li>
+                            </volist>
+                    </ul>
+            </div>
+        </notempty>
+	<div class="order-cell">
+		<div class="order-cell-bd">退款账号</div>
+		<div class="order-cell-ft">原支付账户</div>
+	</div>
+    
+        <eq name="order_return.apply_type" value="1">
+        <br>
+	<div class="order-cell">
+		<div class="order-cell-bd"><strong>请将商品寄往以下地址</strong></div>
+		<div class="order-cell-ft"></div>
+	</div>
+	<div class="order-cell">
+		<div class="order-cell-bd">退货收件人</div>
+		<div class="order-cell-ft">{$aftersales_business_info.aftersales_consignee}</div>
+	</div>
+	<div class="order-cell">
+		<div class="order-cell-bd">联系电话</div>
+		<div class="order-cell-ft">{$aftersales_business_info.aftersales_tel}</div>
+	</div>
+	<div class="order-cell">
+		<div class="order-cell-bd">退货地址</div>
+		<div class="order-cell-ft">{$aftersales_business_info.aftersales_address}</div>
+	</div>
+        </eq>
+    
+    <neq name="order_return.express_name" value="">
+        <br>
+        <div class="order-cell">
+		<div class="order-cell-bd"><strong>商品物流信息</strong></div>
+		<div class="order-cell-ft"></div>
+	</div>
+	<div class="order-cell">
+		<div class="order-cell-bd">物流公司</div>
+		<div class="order-cell-ft">{$order_return.express_name}</div>
+	</div>
+	<div class="order-cell">
+		<div class="order-cell-bd">物流单号</div>
+		<div class="order-cell-ft">{$order_return.express_no}</div>
+	</div>
+    </neq>
+    
+    
+</div>
+<input type='hidden' id='order_id' value="{$order_info['id']|default='0'}" />
+<if condition="($order_return['status'] eq '1')">
+<div class="order-bar">
+            <button class="order-confirm" id='confirmReceipt' data-return_id="{$order_return['id']}" data-order_id="{$order_return['order_id']}" data-odetail_id="{$order_return['order_detail_id']}">填写退货物流单</button>
+</div>
+</if>
+<script type="text/javascript">
+$(function(){
+
+        // 消息提示
+	function showMessage(msg) {
+		if (! $('.msg').length) {
+			$('body').append('<div class="msg" style="position: fixed;bottom: 20%;left: 50%;margin-left: -40%;height: 0.8rem;line-height: 0.8rem;width: 80%;background-color: rgba(0,0,0,.75);border-radius: 0.6rem;text-align: center;color: #fff;display: none;font-size: 1.2em">' + msg + '</div>');
+			$('.msg').fadeIn(200);
+			setTimeout(function(){
+				$('.msg').fadeOut(200,function(){
+					$(this).remove();
+				});
+			},1500)
+		}
+	}
+        //申请售后
+        $("#confirmReceipt").click(function(){
+                var return_id = $(this).attr("data-return_id");
+                var _url = "{:U('aftersalesVer')}";
+                var _param  =   new Object();
+                _param.order_id   = $(this).attr("data-order_id");
+                _param.odetail_id = $(this).attr("data-odetail_id");
+
+                // console.log(_url);
+                // console.log(_param);
+                // console.log("/Order/aftersales/?order_id={$order_info['id']}&odetail_id={$od['id']}");
+
+                $.post(_url,_param,function(res){
+                    if (res.code == '1') {
+                        window.location.href = "/Order/aftersalesExpress/?return_id="+return_id;
+                    }else{
+                        tip(res.msg);
+                        return false;
+                    }
+                },'json');
+        });
+});
+</script>
+</body>
+</html>

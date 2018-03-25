@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+<script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+<title>评价</title>
+<link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+<link rel="stylesheet" href="__PUBLIC__/Home/css/xiaotian.css">
+<script type="text/javascript" src="__PUBLIC__/Home/js/zepto.full.js"></script>
+<style type="text/css">
+	.comment-item {
+		margin-bottom: 0.3rem;
+	}
+	.comment-item:after, .comment-bd:after {
+		content: '';
+		display: block;
+		clear: both;
+	}
+	.comment-hd {
+		float: left;
+		margin-right: 0.6rem;
+		line-height: 0.6rem;
+		font-size: 1.5em;
+		color: #666666;
+	}
+	.comment-bd {
+		float: left;
+		width: 4rem;
+	}
+	.comment-star {
+		float: left;
+		width: 0.6rem;
+		height: 0.6rem;
+		margin-right: 0.2rem;
+		border-radius: 0.08rem;
+		background-color: #eee;
+		background-image: url('img/star.png');
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: 0.4rem;
+	}
+	.comment-star-light {
+		background-color: #fabf40;
+	}
+	.comment-content {
+		width: 100%;
+		height: 2.8rem;
+		font: inherit;
+		font-size: 1.5em;
+		resize: none;
+	}
+</style>
+</head>
+
+<body class="gray p">
+<div class="z-comment-content">
+	<img src="__PUBLIC__/Home/img/goods01.png" alt="" class="z-comment-img">
+	<textarea placeholder="亲，对于商品还有服务，来谈谈你的看法吧"></textarea>
+</div>
+<div class="order-cells z-comment-star">
+	<div class="order-cell">
+		<div class="comment">
+			<div class="comment-item">
+				<div class="comment-hd">描述相符</div>
+				<ul class="comment-bd">
+					<li class="comment-star"></li>
+					<li class="comment-star"></li>
+					<li class="comment-star"></li>
+					<li class="comment-star"></li>
+					<li class="comment-star"></li>
+				</ul>
+			</div>
+			<div class="comment-item">
+				<div class="comment-hd">物流服务</div>
+				<ul class="comment-bd">
+					<li class="comment-star"></li>
+					<li class="comment-star"></li>
+					<li class="comment-star"></li>
+					<li class="comment-star"></li>
+					<li class="comment-star"></li>
+				</ul>
+			</div>
+			<div class="comment-item">
+				<div class="comment-hd">服务态度</div>
+				<ul class="comment-bd">
+					<li class="comment-star"></li>
+					<li class="comment-star"></li>
+					<li class="comment-star"></li>
+					<li class="comment-star"></li>
+					<li class="comment-star"></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="z-comment-btn line-top"><button class="z-comment-confirm">提交</button></div>
+<script type="text/javascript" src="__PUBLIC__/Home/js/zepto.full.js"></script>
+<script type="text/javascript">
+	$('.comment-bd .comment-star').on('tap', function(){
+		var index = $(this).index();
+		var star = $(this).parent().find('.comment-star');
+		star.removeClass('comment-star-light');
+		for (var i = 0; i <= index; i++) {
+			star.eq(i).addClass('comment-star-light');
+		}
+		$(this).parent().data("score", index + 1);
+	});
+
+	$('.z-comment-confirm').on("tap",function(){
+		var starOn = $('.comment-star-light').length;
+		if(starOn == 0){
+			showMessage("请亲为我们的服务打星哦~~");
+		}else{
+			alert(2)
+		}
+	});
+
+	// 消息提示
+	function showMessage(msg) {
+		if (! $('.msg').length) {
+			$('body').append('<div class="msg" style="position: fixed;bottom: 20%;left: 50%;margin-left: -30%;height: 0.8rem;line-height: 0.8rem;width: 60%;background-color: rgba(0,0,0,.75);border-radius: 0.6rem;text-align: center;color: #fff;display: none;font-size: 1.2em">' + msg + '</div>');
+			$('.msg').fadeIn(200);
+			setTimeout(function(){
+				$('.msg').fadeOut(200,function(){
+					$(this).remove();
+				});
+			},1500)
+		}
+	};
+</script>
+</body>
+</html>

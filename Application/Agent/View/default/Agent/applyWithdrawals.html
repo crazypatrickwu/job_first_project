@@ -1,0 +1,81 @@
+<extend name="Common:base" />
+<!-- fake fields are a workaround for chrome autofill getting the wrong fields -->
+<block name="title">申请提现</block>
+<block name="menu">
+    <include file="Agent:menu" />
+</block>
+
+<block name="main">
+    <div class="pageheader">
+        <h1 class="pagetitle">申请提现</h1>
+        <span class="pagedesc"></span>
+    </div>
+    <div id="contentwrapper" class="contentwrapper">
+        <form class="stdform stdform2"  onsubmit="return checkform();" method="post">
+            <div class="line-dete">
+                <label>您的账户余额</label>
+                <span class="field">
+                    {$agent_info['available_balance']|default='0.00'}（元）
+                </span>
+            </div>
+
+            <div class="line-dete">
+                <label>申请金额</label>
+                <span class="field">
+                    <input style="display: none;" type="text" name="pay_nums"/>
+                    <input type="text" id="pay_nums" name="pay_nums" class="smallinput" placeholder="请输入提现金额" />（元）
+                </span>
+            </div>
+            <div class="line-dete">
+                <label>账户密码</label>
+                <span class="field">
+                    <input style="display: none;" type="password" name="agent_password"/>
+                    <input type="password" id="agent_password" name="agent_password" class="smallinput" placeholder="请输入您的登录密码" />
+                </span>
+            </div>
+            <div class="line-dete">
+                <label style="color:red;">注意：</label>
+                <span class="field">
+                    1、每笔提现收取固定手续费5元
+                    <br>
+                    2、可提现时间在上午9点到下午4点之间，超过这短时间不可提现
+                    <br>
+                    3、满500元可提现
+                </span>
+            </div>
+            <div class="line-dete">
+                <label></label>
+                <span class="field">
+                    <input type="submit" class="big-btn stdbtn" value="确认"  />
+                    <input type="button" class="big-btn stdbtn" onclick="window.history.back(-1);" value="返回" />
+                </span>
+            </div>
+        </form>
+    </div>
+</block>
+
+
+<block name="script">
+    <script type="text/javascript">
+        var add_status = false;
+        function checkform(){
+            if (add_status) {
+                return;
+            };
+            var pay_nums = $("#pay_nums").val();
+            if(pay_nums == ''){
+                alert('请输入提现金额');
+                return false;
+            }
+            if (Number(pay_nums) < 1) {
+                alert('账户余额不足1元，不能申请提现');
+                return false;
+            };
+            if ((money%100) != 0) {
+                webTip('提现金额为100的倍数');
+                return false;
+            };
+            add_status = true;
+        }
+    </script>
+</block>

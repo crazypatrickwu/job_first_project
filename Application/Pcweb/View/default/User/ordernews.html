@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+<script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+<title>订单消息</title>
+<link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+<link rel="stylesheet" href="__PUBLIC__/Home/css/xiaotian.css">
+<script type="text/javascript" src="__PUBLIC__/Home/js/zepto.full.js"></script>
+</head>
+
+<body class="gray">
+<input type="hidden" id="count" value="{$count}">
+<div class="z-contain">
+		<volist name="info" id='vo' >
+		    <div class="z-sys-main">
+				<span class="z-sys-time">{:date('Y-m-d H:i:s',$vo['dateline'])}</span>
+				<div class="z-order-contain">
+				       <switch name="vo.mes_type">
+	                      <case value="1">
+	                      <a href="{:U('Home/Shop/orderdetail',array('order_id'=>$vo['order_id']))}">
+								<img src="{$vo.thumb}" alt="">
+								<name>订单编号：{$vo.order_sn}</name>
+								<p>确认时间：{:date('Y-m-d',$vo['dateline'])}</p>
+								<!-- <price>￥999</price>
+								<num>x1</num> -->
+								<div class="z-order-end line-top">
+									<em>{$vo.msg}</em>
+									<i>去查看</i>
+								</div>
+							</a>
+	                      </case>
+	                      <case value="2">
+	                      <a href="{:U('Home/Shop/orderdetail',array('order_id'=>$vo['order_id']))}">
+								<img src="{$vo.thumb}" alt="">
+								<name>订单编号：{$vo.order_sn}</name>
+								<p>发货时间：{:date('Y-m-d',$vo['dateline'])}</p>
+								<!-- <price>￥999</price>
+								<num>x1</num> -->
+								<div class="z-order-end line-top">
+									<em>{$vo.msg}</em>
+									<i>去查看</i>
+								</div>
+							</a>
+	                      </case>
+	                      <case value="3">
+	                      <a href="{:U('Home/Shop/orderdetail',array('order_id'=>$vo['order_id']))}">
+								<img src="{$vo.thumb}" alt="">
+								<name>订单编号：{$vo.order_sn}</name>
+								<p>消息时间：{:date('Y-m-d',$vo['dateline'])}</p>
+								<!-- <price>￥999</price>
+								<num>x1</num> -->
+								<div class="z-order-end line-top">
+									<em>{$vo.msg}</em>
+									<i>去查看</i>
+								</div>
+							</a>
+	                      </case>
+	                      <case value="4">
+	                      <a href="{:U('Home/Order/orderdetail',array('order_id'=>$vo['order_id']))}">
+								<img src="{$vo.thumb}" alt="">
+								<name>订单编号：{$vo.order_sn}</name>
+								<p>消息时间：{:date('Y-m-d',$vo['dateline'])}</p>
+								<!-- <price>￥999</price>
+								<num>x1</num> -->
+								<div class="z-order-end line-top">
+									<em>{$vo.msg}</em>
+									<i>去查看</i>
+								</div>
+							</a>
+	                      </case><!-- aftersalesdetail --><!-- rray('return_id'=>$vo['return_id']))} -->
+	                      <case value="5">
+	                      <a href="{:U('Home/Order/orderdetail',array('order_id'=>$vo['order_id']))}">
+								<img src="{$vo.thumb}" alt="">
+								<name>订单编号：{$vo.order_sn}</name>
+								<p>消息时间：{:date('Y-m-d',$vo['dateline'])}</p>
+								<!-- <price>￥999</price>
+								<num>x1</num> -->
+								<div class="z-order-end line-top">
+									<em>{$vo.msg}</em>
+									<i>去查看</i>
+								</div>
+						   </a>
+	                      </case>
+	                      <case value="6">
+	                      	<if condition="$vo['type'] eq 0">
+			                      <a href="{:U('Home/Order/ordercomment',array('order_id'=>$vo['order_id']))}">
+										<img src="{$vo.thumb}" alt="">
+										<name>订单编号：{$vo.order_sn}</name>
+										<p>消息时间：{:date('Y-m-d',$vo['dateline'])}</p>
+										<!-- <price>￥999</price>
+										<num>x1</num> -->
+										<div class="z-order-end line-top">
+											<em>{$vo.msg}</em>
+											<i>去查看</i>
+										</div>
+								   </a>
+						   <else/>
+						        <a href="{:U('Home/Shop/orderdetail',array('order_id'=>$vo['order_id']))}">
+										<img src="{$vo.thumb}" alt="">
+										<name>订单编号：{$vo.order_sn}</name>
+										<p>消息时间：{:date('Y-m-d',$vo['dateline'])}</p>
+										<!-- <price>￥999</price>
+										<num>x1</num> -->
+										<div class="z-order-end line-top">
+											<em>{$vo.msg}</em>
+											<i>去查看</i>
+										</div>
+								   </a>
+						  </if>
+	                      </case>
+	                      <case value="7">
+	                      <a href="{:U('Home/Shop/aftersalesdetail',array('return_id'=>$vo['return_id']))}">
+								<img src="{$vo.thumb}" alt="">
+								<name>订单编号：{$vo.order_sn}</name>
+								<p>消息时间：{:date('Y-m-d',$vo['dateline'])}</p>
+								<!-- <price>￥999</price>
+								<num>x1</num> -->
+								<div class="z-order-end line-top">
+									<em>{$vo.msg}</em>
+									<i>去查看</i>
+								</div>
+						   </a>
+	                      </case>
+	                      <case value="8">
+	                      <a href="{:U('Home/Order/aftersalesdetail',array('return_id'=>$vo['return_id']))}">
+								<img src="{$vo.thumb}" alt="">
+								<name>订单编号：{$vo.order_sn}</name>
+								<p>消息时间：{:date('Y-m-d',$vo['dateline'])}</p>
+								<!-- <price>￥999</price>
+								<num>x1</num> -->
+								<div class="z-order-end line-top">
+									<em>{$vo.msg}</em>
+									<i>去查看</i>
+								</div>
+						   </a>
+	                      </case>
+	                     <case value="9">
+	                      <a href="{:U('Home/Shop/aftersalesdetail',array('return_id'=>$vo['return_id']))}">
+								<img src="{$vo.thumb}" alt="">
+								<name>订单编号：{$vo.order_sn}</name>
+								<p>消息时间：{:date('Y-m-d',$vo['dateline'])}</p>
+								<!-- <price>￥999</price>
+								<num>x1</num> -->
+								<div class="z-order-end line-top">
+									<em>{$vo.msg}</em>
+									<i>去查看</i>
+								</div>
+						   </a>
+	                      </case>
+	                      <case value="10">
+	                      <a href="{:U('Home/Order/aftersalesdetail',array('return_id'=>$vo['return_id']))}">
+								<img src="{$vo.thumb}" alt="">
+								<name>订单编号：{$vo.order_sn}</name>
+								<p>消息时间：{:date('Y-m-d',$vo['dateline'])}</p>
+								<!-- <price>￥999</price>
+								<num>x1</num> -->
+								<div class="z-order-end line-top">
+									<em>{$vo.msg}</em>
+									<i>去查看</i>
+								</div>
+						   </a>
+	                      </case>
+	                     <case value="11">
+		                     	<if condition="$vo['type'] eq 0 ">
+				                      <a href="{:U('Home/Order/aftersalesdetail',array('return_id'=>$vo['return_id']))}">
+											<img src="{$vo.thumb}" alt="">
+											<name>订单编号：{$vo.order_sn}</name>
+											<p>消息时间：{:date('Y-m-d',$vo['dateline'])}</p>
+											<!-- <price>￥999</price>
+											<num>x1</num> -->
+											<div class="z-order-end line-top">
+												<em>{$vo.msg}</em>
+												<i>去查看</i>
+											</div>
+									   </a>
+							   <else />
+							           <a href="{:U('Home/Shop/aftersalesdetail',array('order_id'=>$vo['order_id']))}">
+											<img src="{$vo.thumb}" alt="">
+											<name>订单编号：{$vo.order_sn}</name>
+											<p>消息时间：{:date('Y-m-d',$vo['dateline'])}</p>
+											<!-- <price>￥999</price>
+											<num>x1</num> -->
+											<div class="z-order-end line-top">
+												<em>{$vo.msg}</em>
+												<i>去查看</i>
+											</div>
+									   </a>
+							   </if>
+	                      </case>
+	                     <case value="12">
+	                      <a href="{:U('Home/Shop/orderdetail',array('order_id'=>$vo['order_id']))}">
+								<img src="{$vo.thumb}" alt="">
+								<name>订单编号：{$vo.order_sn}</name>
+								<p>消息时间：{:date('Y-m-d',$vo['dateline'])}</p>
+								<!-- <price>￥999</price>
+								<num>x1</num> -->
+								<div class="z-order-end line-top">
+									<em>{$vo.msg}</em>
+									<i>去查看</i>
+								</div>
+						   </a>
+	                      </case>
+	                     <case value="13">
+	                      <a href="{:U('Home/Shop/orderdetail',array('order_id'=>$vo['order_id']))}">
+								<img src="{$vo.thumb}" alt="">
+								<name>订单编号：{$vo.order_sn}</name>
+								<p>消息时间：{:date('Y-m-d',$vo['dateline'])}</p>
+								<!-- <price>￥999</price>
+								<num>x1</num> -->
+								<div class="z-order-end line-top">
+									<em>{$vo.msg}</em>
+									<i>去查看</i>
+								</div>
+						   </a>
+	                      </case>
+	                      <default />
+	                      <a href="{:U('Index/index')}">
+							<img src="{$vo.thumb}" alt="">
+							<name>订单编号：{$vo.order_sn}</name>
+							<p>消息时间：{:date('Y-m-d',$vo['dateline'])}</p>
+							<!-- <price>￥999</price>
+							<num>x1</num> -->
+							<div class="z-order-end line-top">
+								<em>{$vo.msg}</em>
+								<i>去评价</i>
+							</div>
+						  </a>
+                     </switch>
+				</div>
+			</div>
+		</volist>
+</div>
+<script type="text/javascript">
+   var totalpage = parseInt($('#count').val());
+	var page = 0;
+    var falg = false;
+   $(document).scroll(function(){
+            var totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop()) + 20;
+            if(totalheight >= $(document).height()){
+                if(falg) return;
+                falg = true;
+                page = parseInt(page)+1;
+                if(page >= totalpage){
+                    page = totalpage;
+                    return false;
+                }
+                console.log(page);
+                 loadContents(page);
+            }
+        });
+    
+     function loadContents(page,order){
+            var url ="{:U('User/Ordernews')}";
+            // setTimeout(function(){
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: {'page':page},
+                    success: function(res){
+
+	                      var res=JSON.parse(res);
+	                       // alert(JSON.stringify(res.info));
+                        if(res.Code==0){
+                        	$.each(res.info, function(i,val){
+                        		// alert(val.order_id);
+                                var str ='<div class="z-sys-main">';
+                                    str +='<span class="z-sys-time">'+val.dateline+'</span>';
+                                    str +='<div class="z-order-contain">';
+                                    if(val.mes_type==1){
+										  str+='<a href="/Home/Shop/orderdetail/order_id/'+val.order_id+'">';
+										  str+='<img src="'+val.thumb+'" alt="">';
+										  str+='<name>订单编号：'+val.order_sn+'</name>';
+										  str+='<p>消息时间：'+val.date+'</p>'
+										  str+='<div class="z-order-end line-top">';
+										  str+='<em>'+val.msg+'</em>';
+										  str+='<i>去查看</i>';
+										  str+='</div>';
+										  str+='</a>'
+                                    }else if(val.mes_type==2){
+										  str+='<a href="/Home/Shop/orderdetail/order_id/'+val.order_id+'">';
+										  str+='<img src="'+val.thumb+'" alt="">';
+										  str+='<name>订单编号：'+val.order_sn+'</name>';
+										  str+='<p>消息时间：'+val.date+'</p>'
+										  str+='<div class="z-order-end line-top">';
+										  str+='<em>'+val.msg+'</em>';
+										  str+='<i>去查看</i>';
+										  str+='</div>';
+										  str+='</a>'
+                                    }else if(val.mes_type==3){
+										  str+='<a href="/Home/Shop/orderdetail/order_id/'+val.order_id+'">';
+										  str+='<img src="'+val.thumb+'" alt="">';
+										  str+='<name>订单编号：'+val.order_sn+'</name>';
+										  str+='<p>消息时间：'+val.date+'</p>'
+										  str+='<div class="z-order-end line-top">';
+										  str+='<em>'+val.msg+'</em>';
+										  str+='<i>去查看</i>';
+										  str+='</div>';
+										  str+='</a>'
+                                    }else if(val.mes_type==4){
+										  str+='<a href="/Home/Order/orderdetail/order_id/'+val.order_id+'">';
+										  str+='<img src="'+val.thumb+'" alt="">';
+										  str+='<name>订单编号：'+val.order_sn+'</name>';
+										  str+='<p>消息时间：'+val.date+'</p>'
+										  str+='<div class="z-order-end line-top">';
+										  str+='<em>'+val.msg+'</em>';
+										  str+='<i>去查看</i>';
+										  str+='</div>';
+										  str+='</a>'
+                                    }else if(val.mes_type==5){
+										  str+='<a href="/Home/Shop/orderdetail/order_id/'+val.order_id+'">';
+										  str+='<img src="'+val.thumb+'" alt="">';
+										  str+='<name>订单编号：'+val.order_sn+'</name>';
+										  str+='<p>消息时间：'+val.date+'</p>'
+										  str+='<div class="z-order-end line-top">';
+										  str+='<em>'+val.msg+'</em>';
+										  str+='<i>去查看</i>';
+										  str+='</div>';
+										  str+='</a>'
+                                    }else if(val.mes_type==6){
+                                    	if(val.type ==1){
+                                              str+='<a href="/Home/Shop/orderdetail/order_id/'+val.order_id+'">';
+											  str+='<img src="'+val.thumb+'" alt="">';
+											  str+='<name>订单编号：'+val.order_sn+'</name>';
+											  str+='<p>消息时间：'+val.date+'</p>'
+											  str+='<div class="z-order-end line-top">';
+											  str+='<em>'+val.msg+'</em>';
+											  str+='<i>去查看</i>';
+											  str+='</div>';
+											  str+='</a>'
+                                    	}else{
+											  str+='<a href="/Home/Order/orderdetail/order_id/'+val.order_id+'">';
+											  str+='<img src="'+val.thumb+'" alt="">';
+											  str+='<name>订单编号：'+val.order_sn+'</name>';
+											  str+='<p>消息时间：'+val.date+'</p>'
+											  str+='<div class="z-order-end line-top">';
+											  str+='<em>'+val.msg+'</em>';
+											  str+='<i>去查看</i>';
+											  str+='</div>';
+											  str+='</a>'
+										  }
+                                    }else if(val.mes_type==7){
+										  str+='<a href="/Home/Shop/aftersalesdetail/return_id/'+val.return_id+'">';
+										  str+='<img src="'+val.thumb+'" alt="">';
+										  str+='<name>订单编号：'+val.order_sn+'</name>';
+										  str+='<p>消息时间：'+val.date+'</p>'
+										  str+='<div class="z-order-end line-top">';
+										  str+='<em>'+val.msg+'</em>';
+										  str+='<i>去查看</i>';
+										  str+='</div>';
+										  str+='</a>'
+                                    }else if(val.mes_type==8){
+										  str+='<a href="/Home/Order/aftersalesdetail/return_id/'+val.return_id+'">';
+										  str+='<img src="'+val.thumb+'" alt="">';
+										  str+='<name>订单编号：'+val.order_sn+'</name>';
+										  str+='<p>消息时间：'+val.date+'</p>'
+										  str+='<div class="z-order-end line-top">';
+										  str+='<em>'+val.msg+'</em>';
+										  str+='<i>去查看</i>';
+										  str+='</div>';
+										  str+='</a>'
+                                    }else if(val.mes_type==9){
+										  str+='<a href="/Home/Shop/aftersalesdetail/return_id/'+val.return_id+'">';
+										  str+='<img src="'+val.thumb+'" alt="">';
+										  str+='<name>订单编号：'+val.order_sn+'</name>';
+										  str+='<p>消息时间：'+val.date+'</p>'
+										  str+='<div class="z-order-end line-top">';
+										  str+='<em>'+val.msg+'</em>';
+										  str+='<i>去查看</i>';
+										  str+='</div>';
+										  str+='</a>'
+                                    }else if(val.mes_type==10){
+										  str+='<a href="/Home/Order/aftersalesdetail/return_id/'+val.return_id+'">';
+										  str+='<img src="'+val.thumb+'" alt="">';
+										  str+='<name>订单编号：'+val.order_sn+'</name>';
+										  str+='<p>消息时间：'+val.date+'</p>'
+										  str+='<div class="z-order-end line-top">';
+										  str+='<em>'+val.msg+'</em>';
+										  str+='<i>去查看</i>';
+										  str+='</div>';
+										  str+='</a>'
+                                    }else if(val.mes_type==11){
+                                    	if(val.type == 1){
+                                    		 str+='<a href="/Home/Shop/aftersalesdetail/return_id/'+val.return_id+'">';
+											  str+='<img src="'+val.thumb+'" alt="">';
+											  str+='<name>订单编号：'+val.order_sn+'</name>';
+											  str+='<p>消息时间：'+val.date+'</p>'
+											  str+='<div class="z-order-end line-top">';
+											  str+='<em>'+val.msg+'</em>';
+											  str+='<i>去查看</i>';
+											  str+='</div>';
+											  str+='</a>';
+                                    	}else{
+										  str+='<a href="/Home/Order/aftersalesdetail/return_id/'+val.return_id+'">';
+										  str+='<img src="'+val.thumb+'" alt="">';
+										  str+='<name>订单编号：'+val.order_sn+'</name>';
+										  str+='<p>消息时间：'+val.date+'</p>'
+										  str+='<div class="z-order-end line-top">';
+										  str+='<em>'+val.msg+'</em>';
+										  str+='<i>去查看</i>';
+										  str+='</div>';
+										  str+='</a>'
+										  }
+                                    }else if(val.mes_type==12){
+										  str+='<a href="/Home/Shop/aftersalesdetail/return_id/'+val.return_id+'">';
+										  str+='<img src="'+val.thumb+'" alt="">';
+										  str+='<name>订单编号：'+val.order_sn+'</name>';
+										  str+='<p>消息时间：'+val.date+'</p>'
+										  str+='<div class="z-order-end line-top">';
+										  str+='<em>'+val.msg+'</em>';
+										  str+='<i>去查看</i>';
+										  str+='</div>';
+										  str+='</a>'
+                                    }else{
+										  str+='<a href="/Home/Shop/orderdetail/order_id/'+val.order_id+'">';
+										  str+='<img src="'+val.thumb+'" alt="">';
+										  str+='<name>订单编号：'+val.order_sn+'</name>';
+										  str+='<p>消息时间：'+val.date+'</p>'
+										  str+='<div class="z-order-end line-top">';
+										  str+='<em>'+val.msg+'</em>';
+										  str+='<i>去查看：</i>';
+										  str+='</div>';
+										  str+='</a>'
+                                    }
+                                    str+='</div>';
+                                    str+='</div>';
+                                    $('.z-contain').append(str);
+                               })
+                        	}
+                           falg = false;
+                        }
+	      //                if(res.Code==0){
+							// var str='';
+							// $.each(res.data, function(i,val){      
+						 //      str +='<li>';
+						 //      str +='<a href='+val.url+'>';
+						 //      str +='<img src='+val.goods_image+' alt="">';
+						 //      str +='<h4>'+val.goods_name.substr(0,10)+'</h4>';
+						 //      str +='<p>'+val.introduction.substr(0,10)+'</p>';
+						 //      str +='<price>￥'+val.goods_price+'</price>';
+						 //      str +='</a>';
+						 //      str +='</li>';
+						 //  });
+		     //            $('#goods_product').append(str);
+		     //        }
+                    
+                });
+            // },2000);
+        }
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <include file="Public/header" />
+  </head>
+  <body class=""> 
+  <!--<![endif]-->
+    <div class="navbar">
+        <include file="Public/top" />
+    </div>
+    <div class="sidebar-nav">
+        <div class="container-fluid">
+            <div class="row-fluid">
+              <div class="well">
+                  <table class="table td_fanyong_pz">
+                    <tbody>
+                            <tr>
+                                <td class="center td_fanyong_pz" style="width: 35%;vertical-align:middle;">可提现余额：</td>
+                                <td class="center td_fanyong_pz" style="vertical-align:middle;text-align:right;"><font color="green" size="6">{$agent_info['available_balance']|default="0.00"}</font>(元)</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="center td_fanyong_pz" style="text-align:right;vertical-align:middle;">
+                                  <a href="{:U('Agent/agentRebate',array('type'=>2))}">[可提现记录]</a>
+                                  <a href="{:U('Agent/applyWithdrawals')}">[申请提现]</a>
+                                </td>
+                            </tr>
+                    </tbody>
+                  </table>
+              </div>   
+            </div>
+        </div>
+        <include file="Public/menu" />
+    </div>
+  </body>
+</html>
+
+

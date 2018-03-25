@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+    <title>个人购买</title>
+    <script src="__PUBLIC__/Home/Agent/js/jquery.min.js"></script>
+    <script src="__PUBLIC__/Home/Agent/js/mobiscroll.custom-2.6.2.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/Agent/css/mobiscroll.custom-2.6.2.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/Home/Agent/css/taizhou.css">
+</head>
+<body style="background: #fff;">
+<div>
+    <div class="bg_top">
+        <div class="search_time">
+            <span>加入时间</span><input type="text" id="start_time" value=""/>至 <input type="text" id="end_time" value=""/><a href="javascript:;" id="search_btn">搜索</a>
+        </div>
+    </div>
+    <div class="list_box">
+        <if condition="empty($myRechargeRecored)">
+            <div align="center" style="text-align: center !important;line-height:80px;">没有相关数据~！</div>
+        <else />
+            <div class="list_main_result">
+                <volist name="myRechargeRecored" id="recored">
+                    <div class="item_box pur_box">
+                        <div class="clearfix pur_title">
+                            <div class="left">编号：{$recored['id']}</div><div class="right time">订单编号：{$recored['Order']['order_sn']}</div>
+                        </div>
+                        <div class="ash"><label>购买数量</label>：{$recored['pay_nums']}</div>
+                        <div class="ash"><label>描述</label>：{$recored['desc']}</div>
+                        <div class="ash"><label>购买时间</label>：{$recored['add_time']|time_format=###}</div>
+                    </div>
+                </volist>
+            </div>
+        </if>
+    </div>
+</div>
+<script>
+    $(function () {
+        var opt = {
+            theme: "android-ics light",
+            display: 'modal', //显示方式
+            lang: "zh",
+            setText: '确定', //确认按钮名称
+            cancelText: "取消",
+            dateFormat: 'yyyy-mm-dd', //返回结果格式化为年月格式
+            dateOrder: 'yyyymmdd', //面板中日期排列格式
+            onBeforeShow: function (inst) {
+                //	console.info( inst.settings.wheels);
+            },
+            headerText: function (valueText) { //自定义弹出框头部格式
+                //	console.info(valueText);
+                array = valueText.split('-');
+                return array[0] + "年" + array[1] + "月" + array[2] + "日";
+            }
+        };
+        $("#start_time").mobiscroll().date(opt);
+        $("#end_time").mobiscroll().date(opt);
+    });
+
+    var falg = false;
+    var _url ="{:U('Home/Recharge/myRechargeRecored')}";
+    function loadContents(page){
+        var start_time = $("#start_time").val();
+        var end_time = $("#end_time").val();
+        var _param  =   new Object();
+            _param.page = page;
+            _param.start_time = start_time;
+            _param.end_time = end_time;
+            _param.type       =   "{:I('get.type')}";
+            _param.isAjax       =   1;
+        setTimeout(function(){
+            $.get(_url,_param,function(res){
+                if (res.code == '1') {
+                    timer=0;
+                    $('#loading').html('');
+                    var new_html = '';
+                    $.each(res.info,function(i,list) {
+                        new_html +='<div class="item_box pur_box">';
+                        new_html +='<div class="clearfix pur_title">';
+                        new_html +='<div class="left">编号：'+list.id+'</div><div class="right time">订单编号：'+list.Order.order_sn+'</div>';
+                        new_html +='</div>';
+                        new_html +='<div class="ash"><label>购买数量</label>：'+list.pay_nums+'</div>';
+                        new_html +='<div class="ash"><label>描述</label>：'+list.desc+'</div>';
+                        new_html +='<div class="ash"><label>购卡时间</label>：'+list.add_time+'</div>';
+                        new_html +='</div>';
+
+                    });
+                    $(".list_main_result").append(new_html);
+                    falg = false;
+                };
+            },'json');
+        },1500);
+    };
+
+    /*点击搜索*/
+    var search_btn_status = false;
+    $("#search_btn").on('click',function(){
+        if (search_btn_status) {return};
+        $(".list_main_result").html("");
+        loadContents(1);
+        search_btn_status = false;
+    });
+
+
+    /*删除搜索文字*/
+    $(".search_box").find("i").on("click",function(){
+        $("#start_time").val("");
+        $("#end_time").val("");
+        // $("#keyword").val("").focus();
+    });
+</script>
+</body>
+<include file="Index:public_wxshare" />
+</html>

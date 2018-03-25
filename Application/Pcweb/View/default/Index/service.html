@@ -1,0 +1,48 @@
+<include file="public_header" />
+<div class="main">
+	<div class="contain">
+		<div class="banner">
+			<img src="__PUBLIC__/Pcweb/img/banner.png" alt="">
+		</div>
+		<div class="service">
+			<div class="service-left">
+				<volist name="pcweb_user_service_list" id="vo">
+					<span <if condition="$key eq 0">class="active"</if>>
+						<i>></i>
+						{$vo['title']}
+					</span>
+				</volist>
+			</div>
+			<div class="service-right">
+				<volist name="pcweb_user_service_list" id="vo">
+				<div class="service-content <if condition='$key gt 0'>hide</if>">
+					<h3>{$vo['title']}</h3>
+					<article>
+						{$vo['content']}
+					</article>
+				</div>
+				</volist>
+			</div>
+		</div>
+	</div>
+</div>
+<include file="public_footer" />
+<script src="__PUBLIC__/Pcweb/js/jquery.min.js"></script>
+<script src="__PUBLIC__/Pcweb/js/common.js"></script>
+<script>
+;(function(){
+	var span = $(".service-left span");
+	var div = $(".service-content");
+	span.on("click",function(){
+		var index = $(this).index();
+		if($(this).hasClass("active")){
+			return false;
+		}
+		$(this).addClass('active').siblings().removeClass('active');
+		div.eq(index).show().siblings().hide();
+
+	})
+})();
+</script>
+</body>
+</html>

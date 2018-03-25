@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+<script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+<title>商品管理</title>
+<link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+<link rel="stylesheet" href="__PUBLIC__/Home/css/xiaotian.css">
+<script type="text/javascript" src="__PUBLIC__/Home/js/zepto.full.js"></script>
+</head>
+
+<body class="gray">
+<div class="z-p-nav line-bottom">
+	<span class="onsell z-add-img">{$sale_status}</span>
+	<span class="onorder z-add-img">{$order}</span>
+	<span class="onkinds z-add-img">{$get_category}</span>
+</div>
+<div class="z-contain z-contain3">
+<volist name='info' id='vo'>
+	<div class="z-p-contain line-bottom" id="check_{$vo.id}">
+		<img src="{$vo.goods_image}" alt="" class="z-pro-img">
+		<name> {$vo.goods_name}</name>
+		<p class="z-p-intro">{$vo.introduction}</p>
+		<i class="z-p-money">￥{$vo.goods_price}</i>
+		<em class="z-p-amount">销量:{$vo.goods_buy}</em>
+		<em class="z-p-collect">收藏:{$vo.goods_collect}</em>
+		<div class="z-pro-btn clearfix">
+		   <if condition="$vo.is_sale eq 1">
+		    <a  onclick="check_ud('{$vo.id}','2')"><span><img src="__PUBLIC__/Home/img/arrow-b.png" alt="">下架</span></a>
+		   <else />
+		  <a  onclick="check_ud('{$vo.id}','1')"><span><img src="__PUBLIC__/Home/img/arrow-t.png" alt="">上架</span></a>
+		   </if>
+		</div>
+	</div>
+	</volist>
+</div>
+
+<div class="z-p-popup">
+	<div class="z-popup-bg"></div>
+	<ul class="z-popup-list ">
+	<a href="{:U('Shop/manage',array('get_sale_status'=>'1','get_order'=>$_GET['get_order'],'get_category'=>$_GET['get_category']))}">
+		<li class="line-bottom <eq name='get_sale_status' value='1' >z-popup-click</eq>">销售中</li>
+	</a>
+	<a href="{:U('Shop/manage',array('get_sale_status'=>'2','get_order'=>$_GET['get_order'],'get_category'=>$_GET['get_category']))}">
+		<li class="line-bottom <eq name='get_sale_status' value='2' >z-popup-click</eq>">未上架</li>
+	</a>
+	</ul>
+</div>
+<div class="z-p-popup">
+	<div class="z-popup-bg"></div>
+	<ul class="z-popup-list">
+		<a href="{:U('Shop/manage',
+		array('get_sale_status'=>$_GET['get_sale_status'],'get_order'=>'1','get_category'=>$_GET['get_category']))}">
+		<li class="line-bottom <eq name='get_order' value='1' >z-popup-click</eq>">销量排行</li>
+	    </a>
+		<a href="{:U('Shop/manage',
+		array('get_sale_status'=>$_GET['get_sale_status'],'get_order'=>'2','get_category'=>$_GET['get_category']))}">
+		<li class="line-bottom <eq name='get_order' value='2' >z-popup-click</eq>">售价排行</li>
+		</a>
+		<a href="{:U('Shop/manage',
+		array('get_sale_status'=>$_GET['get_sale_status'],'get_order'=>'3','get_category'=>$_GET['get_category']))}">
+		<li class="line-bottom <eq name='get_order' value='3' >z-popup-click</eq> ">最新上架</li>
+		</a>
+		<a href="{:U('Shop/manage',
+		array('get_sale_status'=>$_GET['get_sale_status'],'get_order'=>'4','get_category'=>$_GET['get_category']))}">
+		<li class="line-bottom <eq name='get_order' value='4' >z-popup-click</eq> ">收藏最多</li>
+		</a>
+	</ul>
+</div>
+<div class="z-p-popup">
+	<div class="z-popup-bg"></div>
+	<ul class="z-popup-list">
+		<volist name="category" id="v">
+         <a href="{:U('Shop/manage',
+         array('get_sale_status'=>$_GET['get_sale_status'],'get_order'=>$_GET['get_order'],'get_category'=>$v['id']))}">
+		<li class="line-bottom  <eq name='get_categoryid' value='$v.id' >z-popup-click</eq>" >{$v.category_name}</li></a>
+		</a>
+		</volist>
+	</ul>
+</div>
+<div class="z-nopro">
+	<img src="__PUBLIC__/Home/img/nopro.png" alt="">
+	<p>您还没有商品，快去上架商品吧··</p>
+	<!-- <i>+</i> -->
+</div>
+
+<div class="z-all-btn">
+	<a href="{:U('Shop/allmanage',
+	array('get_sale_status'=>$_GET['get_sale_status'],'get_order'=>$_GET['get_order'],'get_category'=>$_GET['get_category']))}"><em class="z-all-red">批量管理</em></a>
+</div>
+</body>
+<script>
+  function check_ud(id,is_sale){
+     	var url="{:U('Shop/manage')}";
+     	var data={};
+     	data.id=id;
+     	data.is_sale=is_sale;
+     	ajax_go(url,data);
+      }
+     function ajax_go(url,data){
+       $.post(url,{"data":data},function(res){
+       	var res = JSON.parse(res)
+          if(res.Code=='0'){
+          	showMessage(res.Msg);
+          	var str='';
+          	$('#check_'+res.data).html(str);
+          	$('#check_'+res.data).remove();
+          }else if(res.Code=='1'){
+          	showMessage(res.Msg);
+          	var str='';
+          	$('#check_'+res.data).html(str);
+          	$('#check_'+res.data).remove();
+          }else{
+          	showMessage(res.Msg);
+          }
+      });
+     }
+     function showMessage(msg) {
+		if (! $('.msg').length) {
+			$('body').append('<div class="msg" style="position: fixed;bottom: 20%;left: 50%;margin-left: -30%;height: 0.8rem;line-height: 0.8rem;width: 60%;background-color: rgba(0,0,0,.75);border-radius: 0.6rem;text-align: center;color: #fff;display: none;font-size: 1.2em">' + msg + '</div>');
+			$('.msg').fadeIn(200);
+			setTimeout(function(){
+				$('.msg').fadeOut(200,function(){
+					$(this).remove();
+				});
+			},1500)
+		}
+	}
+$(function(){
+    
+	showPro();
+    
+	$('.z-p-nav span').on('tap', function(e){
+		$(this).toggleClass('z-add-click').siblings('span').removeClass('z-add-click');
+		var i = $(this).index();
+		var _this = $(this);
+		var info = $('.z-p-popup').eq(i);
+		var height = 0;
+
+		if (info.is(':visible')) {
+			info.animate({'height': '0px'},300,function(){
+				info.removeAttr('style');
+			});
+		} else {
+			$('.z-p-popup').hide();
+			info.show();
+			height = info.height();
+			info.css({'height': '0','overflow': 'hidden'});
+			setTimeout(function(){
+				info.animate({'height': height + 'px'},300);
+			},0);
+		}
+
+		$('.z-popup-bg').on("tap",function(){
+			info.animate({'height': '0px'},300,function(){
+				info.removeAttr('style');
+			});
+		});
+	});
+
+	$('.z-popup-list li').on("tap",function(){
+		$(this).toggleClass('z-popup-click').siblings('li').removeClass('z-popup-click');
+	});
+   
+	 function showPro(){
+	        var length = $('.z-p-contain').length;
+	           
+	        if(length == 0){
+	        	
+	            $('.z-all-btn').hide();
+	            $('.z-nopro').show();
+	          
+	        }else{
+	            $('.z-all-btn').show();
+	           
+	        }
+	    }
+
+	
+  
+});
+</script>
+</html>

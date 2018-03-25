@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+  <title>用户充值</title>
+  <script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+</head>
+<style type="text/css">
+@charset 'utf-8';
+body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,form,fieldset,table,td,img,div{margin:0;padding:0;border:0;} 
+body{background-color:#f2f2f2;color:#333;font-size:14px;-webkit-text-size-adjust: none;font-family: "微软雅黑", sans-serif;-webkit-tap-highlight-color: rgba(0,0,0,0);} 
+ul,ol{list-style-type:none;} 
+select,input,img,select{vertical-align:middle;}
+div,a,b,em,i{vertical-align: top;} 
+body,html{ height: 100%; width: 100%;}
+body{ -webkit-user-select:none;-webkit-overflow-scrolling:touch; background: #fff;padding-top;1px; }
+a{text-decoration:none; color: #333;} 
+img{ border:none;}
+i,em{ font-style: normal;}
+button{outline: none;}
+.recharge{}
+.recharge-box{
+  padding: 0.3rem;
+  font-size: 15px;
+  color: #494949;
+  border:solid 1px #ccc;
+  font-weight: 800;
+}
+.recharge-box span{
+  float: right;
+  font-weight: normal;
+}
+.recharge-user{
+  margin-top: 0.3rem;
+}
+.recharge-chose{
+  margin: 0.4rem 0.3rem 0.3rem 0.3rem;
+}
+.recharge-chose>p{
+  font-size: 13px;
+  color: #a6a6a6;
+}
+.chose-list{
+  margin-top: 0.2rem;
+  margin-bottom: 0.3rem;
+  font-size: 0;
+}
+.chose-list-item{
+  display: inline-block;
+  width: 2.2rem;
+  height: 1.2rem;
+  background: #f0f0f0;
+  border-radius: 0.1rem;
+  margin-right: 0.15rem;
+  margin-top: 0.1rem;
+  overflow: hidden;
+}
+.chose-list-item:nth-child(3n){
+  margin-right: 0;
+}
+.chose-list-item.active{
+  background: #ffd64c;
+}
+.chose-list-item>.num{
+  font-size: 0;
+  text-align: center;
+  margin-top: 0.2rem;
+}
+.chose-list-item>.num>img{
+  display: inline-block;
+  height: 0.3rem;
+  vertical-align: top;
+  line-height: 0.4rem;
+  margin-right: 0.05rem;
+}
+.chose-list-item>.num>span{
+  display: inline-block;
+  line-height: 0.4rem;
+  vertical-align: top;
+  font-size: 14px;
+  color: #3f3f3f;
+  font-weight: 500;
+}
+.chose-list-item>p{
+  font-size: 12px;
+  color: #a6a6a6;
+  text-align: center;
+  line-height: 0.4rem;
+}
+.recharge-p{
+  margin-top: -1px;
+}
+.pay-num{
+  color: #e60012;
+}
+.recharge-btn{
+  display: block;
+  width: 5rem;
+  height: 0.8rem;
+  background: #18cd2d;
+  color: #fff;
+  font-size: 16px;
+  border:none;
+  margin:0.7rem auto;
+  border-radius: 0.1rem;
+}
+.recharge-btn:active{
+  background: #15b728;
+}
+.recharge-code{
+  text-align: center;
+}
+.recharge-code>p{
+  font-size: 12px;
+  color: #a6a6a6;
+  margin-bottom: 0.2rem;
+}
+.recharge-code>img{
+  width: 1.8rem;
+  height: 1.8rem;
+}
+.recharge-gift{
+  margin-bottom: -1px;
+  display: none;
+}
+.gift-num{
+  color: #e60012;
+}
+</style>
+<body>
+<div class="recharge" id="app">
+  <div class="recharge-box recharge-user">
+    <span>  修改>></span>
+    玩家游戏ID： {$player_accounts_info['userid']}
+  </div>
+  <div class="recharge-chose">
+    <p>选择房卡数量</p>
+    <ul class="chose-list">
+        <volist name="list" id="goods">
+            <eq name="key" value="0">
+              <li class="chose-list-item active" data-num="{$goods['goods_price']}" data-id="{$goods['id']}"  <if condition="($goods['give_goods_nums']) gt 0">data-gift="{$goods['give_goods_nums']}"</if>>
+                <div class="num">
+                  <img src="__PUBLIC__/Home/Agent/img/zuanshi.png" alt="">
+                  <span>
+                    ×{$goods['goods_nums']}
+                    <if condition="($goods['give_goods_nums']) gt 0">(赠)</if>
+                  </span>
+                </div>
+                <p>{$goods['goods_name']}</p>
+              </li>
+            <else />
+              <li class="chose-list-item" data-num="{$goods['goods_price']}" data-id="{$goods['id']}" <if condition="($goods['give_goods_nums']) gt 0">data-gift="{$goods['give_goods_nums']}"</if>>
+                <div class="num">
+                  <img src="__PUBLIC__/Home/Agent/img/zuanshi.png" alt="">
+                  <span>
+                    ×{$goods['goods_nums']}
+                    <if condition="($goods['give_goods_nums']) gt 0">(赠)</if>
+                  </span>
+                </div>
+                <p>{$goods['goods_name']}</p>
+              </li>
+            </eq>
+
+      </volist>
+      
+    </ul>
+    <p>请使用微信支付，支付成功之后在APP内查看</p>
+  </div>
+  
+    <div class="recharge-box recharge-gift" <if condition="($list[0]['give_goods_nums']) gt 0"> style="display:block;"</if>>
+      <span><i class="gift-num">{$list[0]['give_goods_nums']}</i>房卡</span>
+      赠送：
+    </div>
+
+  <div class="recharge-box">
+    <span class="now-price">{$list[0]['goods_price']}元</span>
+    当前价格
+  </div>
+  <div class="recharge-box recharge-p">
+    <span class="pay-num">{$list[0]['goods_price']}元</span>
+    余额支付
+  </div>
+        <input type="hidden" name="goods_id" id="goods_id" value="{$list[0]['id']}" />
+  <button type="button" class="recharge-btn">确认支付：￥{$list[0]['goods_price']}</button>
+  <div class="recharge-code">
+    <p>通道二维码(可长按转发)</p>
+    <img src="__PUBLIC__/Home/Agent/img/code.png" alt="">
+  </div>
+</div>
+<script>
+  var li = document.getElementsByClassName('chose-list-item');
+  var price = document.getElementsByClassName('now-price')[0];
+  var pay_num = document.getElementsByClassName('pay-num')[0];
+  var btn = document.getElementsByClassName('recharge-btn')[0];
+  var giftNum = document.getElementsByClassName('gift-num')[0];
+  var gifBox = document.getElementsByClassName('recharge-gift')[0];
+  for(var i=0;i<li.length; i++){
+    li[i].index = i;
+    li[i].onclick = function(){
+      if(this.className=="chose-list-item active"){
+        return false;
+      }
+      var num = this.dataset.num;
+      var m = this.dataset.gift;
+      if(m){
+        gifBox.style.display = "block";
+        giftNum.innerHTML = m;
+      }else{
+        gifBox.style.display = "none";
+      }
+
+      var g_id = this.dataset.id;
+      for(var n=0;n<li.length;n++){
+        li[n].className="chose-list-item"
+      }
+      $("#goods_id").val(g_id);
+      li[this.index].className="chose-list-item active";
+      price.innerHTML = num+"元";
+      pay_num.innerHTML = num+"元";
+      btn.innerHTML = "确认支付：￥"+num;
+    }
+  }
+</script>
+<script type="text/javascript" src="__PUBLIC__/Home/Agent/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Home/Agent/js/public.js"></script>
+<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
+<script type="text/javascript">
+    $(function(){
+        //玩家游戏ID
+        $(".recharge-user").click(function(){
+            window.location.href = "{:U('playerInfoReg')}";
+        });
+
+        //确认支付
+        var btn_pay_status = false;
+        $(".recharge-btn").click(function() {
+            if (btn_pay_status) {
+                return false;
+            };
+            // webTip('请联系商家购买');return;
+            var goods_id    =   $("#goods_id").val();
+            if(goods_id == '0'){
+                alert('缺少参数！');
+                return false;
+            }
+
+            btn_pay_status = true;
+//                window.open("/Agent/Goods/confirmPay/goods_id/"+goods_id);
+            // window.location.href = "/Agent/Goods/confirmPay/goods_id/"+goods_id;
+            var _param = new Object();
+            _param.goodsid = goods_id;
+            $.post('{:U("payConfirm")}', _param, function(ret) {
+                if (ret.code == '1') {
+                    //调起微信支付
+                    // alert(api_json);
+                    var api_json = eval("("+ret.PayInfo+")");
+                    WeixinJSBridge.invoke(
+                         'getBrandWCPayRequest',api_json,function(res){
+                            // alert(res.err_msg);
+                             WeixinJSBridge.log(res.err_msg);
+                             switch(res.err_msg) {
+                                 case 'get_brand_wcpay_request:cancel':
+                                     //alert('支付取消');
+                                     btn_pay_status = false;
+                                     webTip('支付未完成！',function(){
+//                                             window.location.href = "{:U('Order/orderlist')}";
+                                         window.location.href = window.location.href;
+                                     });
+                                     break;
+                                 case 'get_brand_wcpay_request:fail':
+                                     btn_pay_status = false;
+                                     webTip('支付失败！',function(){
+                                         window.location.href = window.location.href;
+                                     });
+                                     break;
+                                 case 'get_brand_wcpay_request:ok':
+                                     webTip('支付成功，请在APP上查看',function(){
+                                            // window.location.href = "{:U('Order/orderlist')}";
+                                         window.location.href = window.location.href;
+                                     },3000);
+                                     break;
+                                 default:
+                                     alert(JSON.stringify(res));
+                                     break;
+                             }
+                         }
+                     );
+                    return;
+                } else {
+                    btn_pay_status = false;
+                    alert(ret.msg);
+                    return false;
+                }
+            }, 'json');
+        });
+    });
+</script>
+</body>
+</html>

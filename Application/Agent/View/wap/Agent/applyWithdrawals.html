@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <include file="Public/header" />
+  </head>
+  <body class=""> 
+  <!--<![endif]-->
+    <div class="navbar">
+        <include file="Public/top" />
+    </div>
+    <div class="sidebar-nav">
+        <ul class="breadcrumb">
+            <li><a href="{:U('Index/index')}">首页</a> <span class="divider">/</span></li>
+            <li class="active">申请提现</li>
+        </ul>
+        <div class="container-fluid">
+            <div class="row-fluid">
+				<form id="FormData" action="{:U('')}" method="post">               
+					<input type="hidden" name="id" value="{$agentInfo['id']}" />
+					<div class="well">
+					    <div id="myTabContent" class="tab-content">
+					      <div class="tab-pane active in" id="home">
+						      <label>登录账号：<font color="#5A6883" style="width:200px;">{$agent_info['phone']}</font></label>
+						      <label>可提现余额：<font color="green" style="width:200px;">{$agent_info['available_balance']}</font>（元）</label>
+						      <br>
+						      <label>申请金额：</label>
+						      <input type="text" id="pay_nums" name="pay_nums" class="input-xlarge" placeholder="请输入申请提现的金额" />
+						      <label>账户密码：</label>
+						      <input type="password" id="agent_password" name="agent_password" class="input-xlarge" placeholder="请输入您的登录密码" />
+					      </div>
+					  	</div>
+					</div>
+					<div class="btn-toolbar" style="text-align:center;">
+                    	<input type="hidden" name="user_id" value="{$user_info['userid']|default='0'}" />
+					    <button class="btn btn-primary" style="margin-left:2px;"><i class="icon-ok-sign"></i>确定</button>
+					    <button class="btn btn-primary" style="margin-left:2px;" onclick="javascript:history.back(-1);return false;"><i class="icon-step-backward"></i>返回</button>
+					  	<div class="btn-group"></div>
+					</div>
+					  	<span style="font-size:12px;">
+					  		<p style="margin:0 20px;">注意：</p>
+					  		<p style="margin:0 20px;">1、每笔提现收取固定手续费5元</p> 
+					  		<p style="margin:0 20px;">2、可提现时间在上午9点到下午4点之间，超过这短时间不可提现</p> 
+					  		<p style="margin:0 20px;">3、满500元可提现</p> 
+					  	</span>
+				</form>
+            </div>
+        </div>
+    </div>
+<script type="text/javascript">
+CommonJs.FormCheck	= function(FormObj){
+	if(CommonJs.Loading){ return false;}
+	CommonJs.Loading 								= true;
+	CommonJs.SubmitData.pay_nums					= $("input[name='pay_nums']").val();
+	CommonJs.SubmitData.agent_password				= $("input[name='agent_password']").val();
+	CommonJs.SubmitData.user_id						= $("input[name='user_id']").val();
+	if(!CheckJs.required(CommonJs.SubmitData.pay_nums)){
+		_inform('请输入提现金额',function(){CommonJs.Loading = false;});return false;
+	}
+	if(!CheckJs.required(CommonJs.SubmitData.agent_password)){
+		_inform('请输入账户密码',function(){CommonJs.Loading = false;});return false;
+	}
+	CommonJs.Loading = false
+	return true;
+};
+CommonJs.JsSave("#FormData");
+</script>
+    
+  </body>
+</html>

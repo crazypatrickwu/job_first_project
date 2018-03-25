@@ -1,0 +1,182 @@
+<extend name="Common:base" />
+
+<block name="title">银行信息</block>
+<block name='style'>
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/jquery.datetimepicker.css" type="text/css" />
+</block>
+<block name="menu">
+    <include file="Agent:menu" />
+</block>
+
+<block name="main">
+    <div class="pageheader">
+        <h1 class="pagetitle">银行信息</h1>
+        <span class="pagedesc"></span>
+    </div>
+    <div id="contentwrapper" class="contentwrapper">
+        <form class="stdform stdform2" action="" method="post">
+            <div class="line-dete">
+                <label>真实姓名</label>
+                <span class="field">
+                    <input type="text" id="truename" name="truename" class="smallinput" value="{$agent_withdrawals_account['truename']}" />
+                </span>
+            </div>
+            <div class="line-dete">
+                <label>支付宝账号</label>
+                <span class="field">
+                    <input type="text"id="alipay_account" name="alipay_account" class="smallinput" value="{$agent_withdrawals_account['alipay_account']}" />
+                </span>
+            </div>
+            <div class="line-dete">
+                <label>提现银行</label>
+                <span class="field">
+                    <div class="ip-shop-dizi">
+                        <select name="bank_name" id="bank_name" class="Jselect">
+                            <option value="">--请选择--</option>
+                            <volist name="bankList" id="bank">
+                                <if condition="$bank eq $agent_withdrawals_account['bank_name']">
+                                <option value="{$bank}" selected>{$bank}</option>
+                                <else />
+                                <option value="{$bank}">{$bank}</option>
+                                </if>
+                            </volist>
+                        </select>
+                    </div>
+                </span>
+            </div>
+
+            <div class="line-dete">
+                <label>支行名称</label>
+                <span class="field">
+                    <input type="text" id="bank_card" name="bank_subbranch" class="smallinput" value="{$agent_withdrawals_account['bank_subbranch']}" />
+                </span>
+            </div>
+            
+            <div class="line-dete">
+                <label>银行卡号码</label>
+                <span class="field">
+                    <input type="text" id="bank_card" name="bank_card" class="smallinput" value="{$agent_withdrawals_account['bank_card']}" />
+                </span>
+            </div>
+
+            <div class="line-dete">
+                <label>账户密码</label>
+                <span class="field">
+                    <input style="display: none;" type="password" name="agent_password"/>
+                    <input type="password" id="agent_password" name="agent_password" class="smallinput" placeholder="请输入您的登录密码" />
+                </span>
+            </div>
+            <div class="line-dete">
+                <label></label>
+                <span class="field">
+                    <input type="submit" class="big-btn stdbtn" value="保存" />
+                    <input type="button" class="big-btn stdbtn" onclick="window.history.back(-1);" value="返回" />
+                </span>
+            </div>
+        </form>
+    </div>
+</block>
+
+<block name="script">
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/ajaxfileupload.js"></script>
+    <script type="text/javascript">
+    var getZoneAddress = "{:U('Agent/getChildZone')}";
+    var zoneData = [];
+    var id = $("#province").find("option:selected").attr('data-id')
+    var fullElement = $("#city");
+    if (zoneData[id] != undefined) {
+        fullData(zoneData[id], fullElement);
+    } else {
+        $.ajax({
+            url: getZoneAddress,
+            type: 'POST',
+            dataType: 'json',
+            data: {pid: id}
+        }).done(function(data) {
+            zoneData[id] = data;
+            fullData(zoneData[id], fullElement);
+        });
+    }
+    //初始化
+    $("#province").change(function() {
+        var id = $(this).find("option:selected").attr('data-id')
+        var fullElement = $("#city");
+        if (zoneData[id] != undefined) {
+            fullData(zoneData[id], fullElement);
+        } else {
+            $.ajax({
+                url: getZoneAddress,
+                type: 'POST',
+                dataType: 'json',
+                data: {pid: id}
+            }).done(function(data) {
+                zoneData[id] = data;
+                fullData(zoneData[id], fullElement);
+            });
+        }
+    });
+
+    // 填充数据
+    function fullData(data, element, name) {
+        var string = [];
+        for (var i in data) {
+            string.push('<option data-id="' + data[i].id + '" value="' + data[i].region_name + '">' + data[i].region_name + '</option>');
+        }
+        element.html(string.join(''));
+        element.trigger("change");
+    }
+
+    // 省列表改变
+    $('.ip-shop-dizi').on('change', "#province", function() {
+        var id = $(this).find("option:selected").attr('data-id')
+        var fullElement = $("#city");
+
+        if (zoneData[id] != undefined) {
+            fullData(zoneData[id], fullElement);
+        } else {
+            $.ajax({
+                url: getZoneAddress,
+                type: 'POST',
+                dataType: 'json',
+                data: {pid: id}
+            }).done(function(data) {
+                zoneData[id] = data;
+                fullData(zoneData[id], fullElement);
+            });
+        }
+    });
+
+    // 市列表改变
+    $('.ip-shop-dizi').on('change', "#city", function() {
+        var id = $(this).find("option:selected").attr('data-id');
+        var fullElement = $("#county");
+
+        if (zoneData[id] != undefined) {
+            fullData(zoneData[id], fullElement);
+        } else {
+            $.ajax({
+                url: getZoneAddress,
+                type: 'POST',
+                dataType: 'json',
+                data: {pid: id}
+            }).done(function(data) {
+                if (data.length <= 0) {
+                    fullElement.remove();
+                } else {
+                    zoneData[id] = data;
+                    fullData(zoneData[id], fullElement);
+                }
+            });
+        }
+    });
+
+    $(".applyWithdrawals").on('click',function(){
+            var available_balance = $(".available_balance").val();
+            if (Number(available_balance) < 1) {
+                alert('账户余额不足1元，不能申请提现');
+                return false;
+            };
+            window.location.href = "{:U('applyWithdrawals')}";
+    });
+    </script>
+</block>

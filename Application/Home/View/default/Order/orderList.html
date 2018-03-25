@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+    <title>购卡订单</title>
+    <link rel="stylesheet" href="__PUBLIC__/Home/Agent/css/taizhou.css">
+</head>
+<body style="background: #fff;">
+<div>
+    <div class="bg_top">
+        <div class="order_input_top"><input type="text" placeholder="输入代理编号"/></div>
+        <div class="order_input_bottom"><input type="text" placeholder="加入时间"/><button class="btn_zi">支付状态</button></div>
+    </div>
+    <div class="package_box">
+
+        <if condition="empty($orderList)">
+            <div align="center" style="text-align: center !important;line-height:80px;">没有相关数据~！</div>
+        <else />
+            <volist name="orderList" id="list">
+                <div class="package_item clearfix">
+                    <div class="left">
+                        <div class="package_full">{$list['goods_name']}</div>
+                        <div class="package_small">{$list['order_sn']}</div>
+                        <div class="package_small">订单金额：{$list['total_amount']}</div>
+                        <div class="package_small">下单时间：{$list['add_time']|time_format=###}</div>
+                    </div>
+                    <div class="right">
+                        <if condition="$list['pay_status'] EQ 1">
+                            已支付
+                        <else />
+                            未支付
+                        </if>
+                    </div>
+                </div>
+            </volist>
+        </if>
+    </div>
+</div>
+</body>
+</html>

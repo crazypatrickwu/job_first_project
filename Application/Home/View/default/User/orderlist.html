@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+<script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+<title>我的订单</title>
+<link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+<link rel="stylesheet" href="__PUBLIC__/Home/css/xiaotian.css">
+<script type="text/javascript" src="__PUBLIC__/Home/js/zepto.full.js"></script>
+</head>
+
+<body class="gray" style="padding-top: 0.88rem;">
+<ul class="order-list-tab">
+	<li class="order-list-tab-item order-list-tab-item-active">全部</li>
+	<li class="order-list-tab-item"><a href="{:U('User/orderpay')}">待付款</a></li>
+	<li class="order-list-tab-item"><a href="{:U('User/orderdeliver')}">待发货</li>
+	<li class="order-list-tab-item"><a href="{:U('User/orderreceive')}">待收货</li>
+	<li class="order-list-tab-item"><a href="{:U('###')}">待评价</li>
+</ul>
+<div class="order-cells order-list-cells">
+	<div class="order-cell">
+		<div class="order-cell-bd">订单编号：00001</div>
+		<div class="order-cell-ft">待付款</div>
+	</div>
+	<div class="order-cell">
+		<img src="__PUBLIC__/Home/img/product.jpg" class="order-product-cover">
+		<div class="order-product-description">
+			<div class="order-product-description-item">
+				<span class="order-product-name">商品名字</span>
+				<span class="order-product-price">￥100</span>
+			</div>
+			<div class="order-product-description-item">
+				<span class="order-product-num">×1</span>
+			</div>
+		</div>
+	</div>
+	<div class="order-cell">
+		<div class="order-cell-ft order-list-price">共1件商品 实际收款<span>￥8900</span></div>
+	</div>
+	<div class="order-cell">
+		<!-- <a href="javascript:void(0);" class="order-contact">联系卖家</a> -->
+		<div class="order-btn-group">
+			<a href="{:U('User/orderpay')}"><button class="order-btn-primary">去付款</button></a>
+		</div>
+	</div>
+</div>
+<div class="order-cells order-list-cells">
+	<div class="order-cell">
+		<div class="order-cell-bd">订单编号：00001</div>
+		<div class="order-cell-ft">已关闭</div>
+	</div>
+	<div class="order-cell">
+		<img src="__PUBLIC__/Home/img/product.jpg" class="order-product-cover">
+		<div class="order-product-description">
+			<div class="order-product-description-item">
+				<span class="order-product-name">商品名字</span>
+				<span class="order-product-price">￥100</span>
+			</div>
+			<div class="order-product-description-item">
+				<span class="order-product-num">×1</span>
+			</div>
+		</div>
+	</div>
+	<div class="order-cell">
+		<img src="__PUBLIC__/Home/img/product.jpg" class="order-product-cover">
+		<div class="order-product-description">
+			<div class="order-product-description-item">
+				<span class="order-product-name">商品名字</span>
+				<span class="order-product-price">￥100</span>
+			</div>
+			<div class="order-product-description-item">
+				<span class="order-product-num">×1</span>
+			</div>
+		</div>
+	</div>
+	<div class="order-cell">
+		<div class="order-cell-ft order-list-price">共1件商品 实际收款<span>￥8900</span></div>
+	</div>
+	<div class="order-cell">
+		<div class="order-btn-group">
+			<button class="order-btn-default">删除</button>
+		</div>
+	</div>
+</div>
+<div class="order-cells order-list-cells">
+	<div class="order-cell">
+		<div class="order-cell-bd">订单编号：00001</div>
+		<div class="order-cell-ft">已完成</div>
+	</div>
+	<div class="order-cell">
+		<img src="__PUBLIC__/Home/img/product.jpg" class="order-product-cover">
+		<div class="order-product-description">
+			<div class="order-product-description-item">
+				<span class="order-product-name">商品名字</span>
+				<span class="order-product-price">￥100</span>
+			</div>
+			<div class="order-product-description-item">
+				<span class="order-product-num">×1</span>
+			</div>
+		</div>
+	</div>
+	<div class="order-cell">
+		<div class="order-cell-ft order-list-price">共1件商品 实际收款<span>￥8900</span></div>
+	</div>
+	<div class="order-cell">
+		<div class="order-btn-group">
+			<button class="order-btn-default">删除</button>
+		</div>
+	</div>
+</div>
+<div class="order-cells order-list-cells">
+	<div class="order-cell">
+		<div class="order-cell-bd">订单编号：00001</div>
+		<div class="order-cell-ft">待收货</div>
+	</div>
+	<div class="order-cell">
+		<img src="__PUBLIC__/Home/img/product.jpg" class="order-product-cover">
+		<div class="order-product-description">
+			<div class="order-product-description-item">
+				<span class="order-product-name">商品名字</span>
+				<span class="order-product-price">￥100</span>
+			</div>
+			<div class="order-product-description-item">
+				<span class="order-product-num">×1</span>
+			</div>
+		</div>
+	</div>
+	<div class="order-cell">
+		<div class="order-cell-ft order-list-price">共1件商品 实际收款<span>￥8900</span></div>
+	</div>
+	<div class="order-cell">
+		<!-- <a href="javascript:void(0);" class="order-contact">联系卖家</a> -->
+		<div class="order-btn-group">
+			<a href="{:U('User/orderreceive')}"><button class="order-btn-primary">确认收货</button></a>
+		</div>
+	</div>
+</div>
+<div class="order-cells order-list-cells">
+	<div class="order-cell">
+		<div class="order-cell-bd">订单编号：00001</div>
+		<div class="order-cell-ft">已完成</div>
+	</div>
+	<div class="order-cell">
+		<img src="__PUBLIC__/Home/img/product.jpg" class="order-product-cover">
+		<div class="order-product-description">
+			<div class="order-product-description-item">
+				<span class="order-product-name">商品名字</span>
+				<span class="order-product-price">￥100</span>
+			</div>
+			<div class="order-product-description-item">
+				<span class="order-product-num">×1</span>
+			</div>
+		</div>
+	</div>
+	<div class="order-cell">
+		<div class="order-cell-ft order-list-price">共1件商品 实际收款<span>￥8900</span></div>
+	</div>
+	<div class="order-cell">
+		<!-- <a href="javascript:void(0);" class="order-contact">联系卖家</a> -->
+		<div class="order-btn-group">
+			<a href="{:U('User/ordercomment')}"><button class="order-btn-primary">评价</button></a>
+		</div>
+	</div>
+</div>
+<a href="order_detail_deliver.html">
+<div class="order-cells order-list-cells">
+	<div class="order-cell">
+		<div class="order-cell-bd">订单编号：00001</div>
+		<div class="order-cell-ft">待发货</div>
+	</div>
+	<div class="order-cell">
+		<img src="__PUBLIC__/Home/img/product.jpg" class="order-product-cover">
+		<div class="order-product-description">
+			<div class="order-product-description-item">
+				<span class="order-product-name">商品名字</span>
+				<span class="order-product-price">￥100</span>
+			</div>
+			<div class="order-product-description-item">
+				<span class="order-product-num">×1</span>
+			</div>
+		</div>
+	</div>
+	<div class="order-cell">
+		<div class="order-cell-ft order-list-price">共1件商品 实际收款<span>￥8900</span></div>
+	</div>
+	<div class="order-cell">
+		<span class="order-btn-text">待发货...</span>
+	</div>
+</div>
+</a>
+<script type="text/javascript">
+$(function(){
+	function clearFileVal() {
+        var file = $("#picUpload");
+        file.after(file.clone().val(""));
+        file.remove();
+    }
+
+	$("#picUpload").on("change", function () {
+        var file, img;
+        var _URL = window.URL || window.webkitURL;
+        if ((file = this.files[0])) {
+            //文件规则
+            var allowType = ["jpg", "png", "gif", "JPG", "PNG", "GIF"];
+            var picType = file.name.slice(-3);
+            var allowTypeFlag = false;
+            for (var item in allowType) {
+                if (picType == allowType[item]) allowTypeFlag = true;
+            }
+            if (allowTypeFlag) {
+                img = new Image();
+                img.onload = function () {
+                    $('.order-refund-pic-group').append('<li><img src="' + img.src + '"></li>');
+                };
+                img.src = _URL.createObjectURL(file);
+            } else {
+                showMessage("文件格式不正确，请上传jpg、png、gif格式的图片");
+                clearFileVal();
+            }
+        }
+    });
+    $('.order-refund-pic-group').on('longTap', 'li', function(e){
+    	$(this).remove();
+    }).on('tap', 'li', function(){
+    	var src = $(this).find('img').attr('src');
+    	showBigPic(src);
+    });
+
+    $('.pic-view').on('tap', function(){
+    	$(this).hide();
+    });
+
+    function showBigPic(src) {
+    	$('.pic-view').find('img').attr('src', src);
+    	$('.pic-view').show();
+    }
+
+    // 消息提示
+	function showMessage(msg) {
+		if (! $('.msg').length) {
+			$('body').append('<div class="msg" style="position: fixed;bottom: 20%;left: 50%;margin-left: -40%;height: 0.8rem;line-height: 0.8rem;width: 80%;background-color: rgba(0,0,0,.75);border-radius: 0.6rem;text-align: center;color: #fff;display: none;font-size: 1.2em">' + msg + '</div>');
+			$('.msg').fadeIn(200);
+			setTimeout(function(){
+				$('.msg').fadeOut(200,function(){
+					$(this).remove();
+				});
+			},1500)
+		}
+	}
+});
+</script>
+</body>
+</html>

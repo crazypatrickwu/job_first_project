@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+        <script>!function(n) {
+                var e = n.document, t = e.documentElement, i = 750, d = i / 100, o = "orientationchange"in n ? "orientationchange" : "resize", a = function() {
+                    var n = t.clientWidth || 320;
+                    n > 750 && (n = 750), t.style.fontSize = n / d + "px"
+                };
+                e.addEventListener && (n.addEventListener(o, a, !1), e.addEventListener("DOMContentLoaded", a, !1))
+            }(window);</script>
+        <title>气泡</title>
+        <link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+        <link rel="stylesheet" href="__PUBLIC__/Home/css/xiaotian.css">
+        <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/swiper3.min.css">
+        <script type="text/javascript" src="__PUBLIC__/Home/js/zepto.full.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/Home/js/swiper3.min.js"></script>
+    </head>
+
+    <body class="gray p">
+        <div class="gallery-mask">
+            <div class="gallery-content">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper"></div>
+                    <div class="swiper-button-prev swiper-button-white"></div>
+                    <div class="swiper-button-next swiper-button-white"></div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" value="0" id="page">
+        <input type="hidden" id="totalpage" value="<?php echo $info['discuz_page']; ?>" />
+        <div class="z-b-nav line-bottom">
+            <span><a href="{:U('Discuz/issue',array('id' =>$info['user_id']))}">发布</a></span>
+            <span class="z-nav-info">消息</span>	
+            <ul class="z-nav-list">
+                <li><a href="{:U('Discuz/mytitle')}">
+                        <if condition="$noticeCount gt 0">
+                            <num>{$noticeCount}</num>
+                        </if>
+                        消息提醒</a></li>
+                <li><a href="{:U('Discuz/mynews')}">
+                        <!--<num>2</num>-->
+                        我的主题</a>
+                </li>
+                <li><a href="{:U('Discuz/myreply')}">
+                        <!--<num>3</num>-->
+                        我的回复</a>
+                </li>
+            </ul>
+        </div>
+        <div class="z-contain z-contain2" id="discuz_show">
+            <!-- <volist name="info.discuz_list" id="dis">
+            <div class="z-b-main" data-id="{$dis['id']}" >
+                    <a href="/Discuz/detail/?id={$dis['id']}">
+                            <div class="z-maintop">
+                                    <img src="{$dis['avatar']}" alt="">
+                                    <name >{$dis['nickname']}
+                                    <if condition="$dis['sex'] eq 1">
+                                    <em class="boy">
+                                    </em>
+                                    <elseif condition="$dis['sex'] eq 2"/>
+                                    <em class="girl">
+                                    </em>
+                                    </if>
+                                    </name>
+                                    <if condition="$dis['school'] eq '' ">
+                                    <span>{:date('m-d H:i',$dis['time'])} </span>
+                                    <else />
+                                    <span>{:date('m-d H:i',$dis['time'])} 来自[{$dis['school']}]</span>
+                                    </if>	
+                            </div>
+                            <h4>{$dis['content']}</h4>
+                            <if condition="!empty($dis['pic_list'])">
+                            <ul class="z-pic-list clearfix">
+                                    <volist name="dis.pic_list" id="pic">
+                                    <li><img src="{$pic}" alt=""></li>
+                                    </volist>
+                            </ul>
+                            </if>
+                    </a>
+                    <ul class="z-b-type clearfix line-top ">
+                            <li class="z-type-zan" data-zan_status="{$dis['zan_status']}" data-flag="true"><img src="__PUBLIC__/Home/img/{$dis['zan_class']}.png" alt=""><num>{$dis['zan']}</num></li>
+                            <li class="z-type-share"  data-user="{$dis['id']}" data-sure='0'><img src="__PUBLIC__/Home/img/share.png" alt="">转发</li>
+                            <li class="z-type-info"><img src="__PUBLIC__/Home/img/message.png" alt="" >
+                            <a href="/Discuz/detail/?id={$dis['id']}">留言</a></li>
+                    </ul>
+    
+            </div>
+                    </volist> -->
+        </div>
+        <div class="confirm">
+            <div class="confirm-box clearfix">
+                <p>确定要<font class="confirm_type_text">转发</font>吗？</p>
+                <span class='confirm-sure'>确定</span>
+                <span class='confirm-cancel'>取消</span>
+            </div>
+        </div>
+        <nav class="line-top box-shadow-top">
+            <a href="{:U('Index/index')}">
+                <img src="__PUBLIC__/Home/img/index.png" alt="">
+                超级店
+            </a>
+            <a href="{:U('Discuz/index')}" class="nav-on">
+                <img src="__PUBLIC__/Home/img/bubble-on.png" alt="">
+                气泡
+            </a>
+            <a href="{:U('Shop/index')}">
+                <img src="__PUBLIC__/Home/img/open.png" alt="">
+                开店
+            </a>
+            <a href="{:U('User/index')}">
+                <img src="__PUBLIC__/Home/img/mine.png" alt="">
+                我
+            </a>
+        </nav>
+    </body>
+    <script>
+            var userid  =   "{$userid}";
+//            alert(userid);
+            window.onload = function() {
+                var url = "{:U('Discuz/Index')}";
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: {'page': 0},
+                    success: function(res) {
+                        var res = JSON.parse(res);
+                        // console.log(res);
+                        if (res.code == 0) {
+                            var strHtml = '';
+                            $.each(res.data.discuz_list, function(i, val) {
+                                var urls = "/Discuz/detail/?id=" + val.id;
+                                strHtml += '<div class="z-b-main" data-id=' + val.id + '>';
+                                //								strHtml += '<a href="/Discuz/detail/?id='+val.id+'">';
+                                strHtml += '<div class="z-maintop">';
+                                strHtml += '<img src="' + val.avatar + '" alt="">';
+                                strHtml += '<name>' + val.nickname + '';
+                                if (val.sex == 1) {
+                                    strHtml += '<em class="boy">';
+                                    strHtml += '</em>';
+                                } else {
+                                    strHtml += '<em class="girl">';
+                                    strHtml += '</em>';
+                                }
+                                strHtml += '</name>';
+                                if (val.school == '') {
+                                    strHtml += '<span>' + val.time + ' </span>';
+                                } else {
+                                    strHtml += '<span>' + val.time + ' 来自[' + val.school + ']</span>';
+                                }
+                                strHtml += '</div>';
+                                strHtml += '<h4>' + val.content + '</h4>';
+                                if (val.pic_list != null) {
+                                    strHtml += '<ul class="z-pic-list clearfix" onclick="location.href=\'' + urls + '\';return false;">';
+                                    $.each(val.pic_list, function(i2, pic) {
+                                        strHtml += '<li><img src="' + pic + '" alt=""></li>';
+                                    });
+                                    strHtml += '</ul>';
+                                }
+                                strHtml += '</a>';
+                                strHtml += '<ul class="z-b-type clearfix line-top ">';
+                                strHtml += '<li class="z-type-zan" data-zan_status="' + val.zan_status + '"><img src="__PUBLIC__/Home/img/' + val.zan_class + '.png" alt="">';
+                                strHtml += '<num>' + val.zan + '</num></li>';
+                                strHtml += '<li class="z-type-share"  data-user="' + val.id + '" data-sure=""><img src="__PUBLIC__/Home/img/share.png" alt="">转发</li>';
+                                strHtml += '<li class="z-type-info">';
+                                strHtml += '<a href="/Discuz/detail/?id=' + val.id + '"><img src="__PUBLIC__/Home/img/message.png" alt="" >留言</a></li>';
+                                strHtml += '</ul>';
+                                if(val.user_id == userid){
+                                    strHtml += '<a href="javascript:;" class="z-bubble-del" data-user="' + val.id + '" data-sure="">删除</a>';
+                                }
+                                strHtml += '</div>';
+                            });
+                            $('#discuz_show').append(strHtml);
+                            // console.log('page:'+page);
+                            // console.log('totalpage:'+totalpage);
+                        }
+                    }
+                });
+            }
+            $(function() {
+
+
+                var flag = true;
+                var reword_flag = true;
+                var confirm_type = 0;
+                $('body').on("tap", '.z-nav-info', function() {
+                    if ($('.z-nav-list').is(':visible')) {
+                        $('.z-nav-list').hide();
+                    } else {
+                        $('.z-nav-list').show();
+                    }
+
+                }); //消息出现下拉框
+                $('body').on('tap', '.z-type-share', function(e) {
+                    $('.confirm').show();
+                    $(this).attr('data-sure', '1');
+                    confirm_type = 1;
+                    $(".confirm_type_text").text("转发");
+                }); //点击转发出现弹窗
+
+                $('body').on('tap', '.z-bubble-del', function(e) {
+                    $('.confirm').show();
+                    $(this).attr('data-sure', '1');
+                    confirm_type = 2;
+                    $(".confirm_type_text").text("删除");
+                }); //点击转发出现弹窗
+
+                $('body').on('tap', '.confirm-sure', function() {
+                    $('.confirm').hide();
+                    if (confirm_type == 1) {
+                        $('.z-type-share').each(function() {
+                            var sure = $(this).data('sure');
+                            if (sure == 1) {
+                                var id = $(this).data('user');
+                                var url = "{:U('Discuz/relay')}"
+                                $.post(url, {'discuz_id': id}, function(res) {
+                                    $('.z-type-share').each(function() {
+                                        $(this).data('sure', 0);
+                                    })
+                                    window.location.href = "{:U('discuz/index')}"
+                                }, 'json')
+                            }
+                        });
+                    } else if (confirm_type == 2) {
+                        $('.z-bubble-del').each(function() {
+                            var sure = $(this).data('sure');
+                            if (sure == 1) {
+                                var id = $(this).data('user');
+                                var url = "{:U('Discuz/del')}"
+                                $.post(url, {'discuz_id': id}, function(res) {
+                                    $('.z-type-del').each(function() {
+                                        $(this).data('sure', 0);
+                                    })
+                                    window.location.href = "{:U('discuz/index')}"
+                                }, 'json')
+                            }
+                        });
+                    }
+                }); //确定按钮
+                $('body').on('touchend', '.confirm-cancel', function() {
+                    event.preventDefault(); //阻止默认事件
+                });
+                $('body').on('touchend', '.confirm-sure', function() {
+                    event.preventDefault(); //阻止默认事件
+                });
+                $('body').on('tap', '.confirm-cancel', function() {
+                    $('.confirm').hide();
+                    $('.z-type-share').each(function() {
+                        $(this).data('sure', 0);
+                    })
+                    $('.z-bubble-del').each(function() {
+                        $(this).data('sure', 0);
+                    })
+                    // $('body,html').css('overflow','initial');
+                }); //取消按钮
+                $('body').on("tap", '.z-type-zan', function() {
+                    var domthis = $(this);
+                    var discuz_id = $(this).parents(".z-b-main").attr("data-id");
+                    var zan_status = $(this).attr("data-zan_status");
+                    if (discuz_id == null) {
+                        alert('参数错误');
+                        return false;
+                    }
+                    if (flag == true) {
+                        flag = false;
+                        var _url = "{:U('like')}";
+                        var _param = new Object();
+                        _param.discuz_id = discuz_id;
+                        $.post(_url, _param, function(res) {
+                            console.log(res);
+                            var datas = res.Data;
+                            var num = datas.discuz_zan_num;
+                            if (zan_status == '1') {
+                                flag = true;
+                                domthis.find('img').attr('src', '__PUBLIC__/Home/img/zan.png');
+                                if (num == 0) {
+                                    domthis.find('num').text('');
+                                } else {
+                                    domthis.find('num').text(num);
+                                }
+                                domthis.attr("data-zan_status", "0");
+                            } else {
+                                flag = true;
+                                domthis.find('img').attr('src', '__PUBLIC__/Home/img/zan2.png');
+                                domthis.find('num').text(num);
+                                domthis.attr("data-zan_status", "1");
+                            }
+                        }, 'json');
+                    } else {
+                        showMessage('正在操作中，请勿重复点击！')
+                    }
+                }); //点赞
+                function showMessage(msg) {
+                    if (!$('.msg').length) {
+                        $('body').append('<div class="msg" style="position: fixed;bottom: 20%;left: 50%;margin-left: -30%;height: 0.8rem;line-height: 0.8rem;width: 60%;background-color: rgba(0,0,0,.75);border-radius: 0.6rem;text-align: center;color: #fff;z-index:9999;display: none;font-size: 1.2em">' + msg + '</div>');
+                        $('.msg').fadeIn(200);
+                        setTimeout(function() {
+                            $('.msg').fadeOut(200, function() {
+                                $(this).remove();
+                            });
+                        }, 1500)
+                    }
+                }
+                var onOff = true;
+                var falg = false;
+                var totalpage = $('#totalpage').val();
+                var page = 0;
+                $(window).scroll(function() {
+                    var totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop()) + 20;
+                    //console.log(totalheight);
+                    //console.log($(document).height());
+                    //console.log(page);
+                    if (totalheight >= $(document).height()) {
+                        if (falg)
+                            return;
+                        falg = true;
+                        page = parseInt(page) + 1;
+                        if (page > (totalpage - 1)) {
+                            page = totalpage;
+                            return false;
+                        }
+                        loadContents(page);
+                    }
+                    var scrollTop = $('body').scrollTop();
+                    var documentHeight = $(document).height();
+                    var windowHeight = $(window).height();
+                    if ((scrollTop != 0) && (scrollTop >= (documentHeight - windowHeight))) {
+                        $('.z-contain').append('<p class="showtext" style="font-size:1.2em; text-align:center; color:#999999;height:0.5rem; line-height:0.2rem">拼命加载中...</p>')
+                        setTimeout(function() {
+                            $('.showtext').remove();
+                        }, 1000);
+                    }
+                });
+                function loadContents(page) {
+                    var url = "{:U('Discuz/Index')}";
+                    $.ajax({
+                    type: "POST",
+                            url: url,
+                            data: {'page':page},
+                            success: function(res) {
+                                var res = JSON.parse(res);
+                                // console.log(res);
+                                if (res.code == 0){
+                                var strHtml = '';
+                                        $.each(res.data.discuz_list, function(i, val) {
+                                            strHtml += '<div class="z-b-main" data-id=' + val.id + '>';
+                                            strHtml += '<a href="/Discuz/detail/?id=' + val.id + '">';
+                                            strHtml += '<div class="z-maintop">';
+                                            strHtml += '<img src="' + val.avatar + '" alt="">';
+                                            strHtml += '<name >' + val.nickname + '';
+                                            strHtml += '<if condition="' + val.sex + ' eq 1">';
+                                            if (val.sex == 1) {
+                                                strHtml += '<em class="boy">';
+                                                strHtml += '</em>';
+                                            } else {
+                                                strHtml += '<em class="girl">';
+                                                strHtml += '</em>';
+                                            }
+                                            strHtml += '</name>';
+                                            if (val.school == ''){
+                                            strHtml += '<span>{:date('m - d H:i',' + val.time + ')} </span>';
+                                        } else{
+                                        strHtml += '<span>{:date('
+                                        m - d
+                                                H:i',' + val.time + ')} 来自[' + val.school + ']</span>';
+                                        }
+                                        strHtml += '</div>';
+                                        strHtml += '<h4>' + val.content + '</h4>';
+                                        if (val.pic_list != null) {
+                                            strHtml += '<ul class="z-pic-list clearfix">';
+                                            $.each(val.pic_list, function(i2, pic) {
+                                                strHtml += '<li><img src="' + pic + '" alt=""></li>';
+                                            });
+                                            strHtml += '</ul>';
+                                        }
+                                        strHtml += '</a>';
+                                        strHtml += '<ul class="z-b-type clearfix line-top ">';
+                                        strHtml += '<li class="z-type-zan" data-zan_status="' + val.zan_status + '"><img src="__PUBLIC__/Home/img/' + val.zan_class + '.png" alt="">';
+                                        strHtml += '<num>' + val.zan + '</num></li>';
+                                        strHtml += '<li class="z-type-share"  data-user="' + val.id + '" data-sure=""><img src="__PUBLIC__/Home/img/share.png" alt="">转发</li>';
+                                        strHtml += '<li class="z-type-info">';
+                                        strHtml += '<a href="/Discuz/detail/?id=' + val.id + '"><img src="__PUBLIC__/Home/img/message.png" alt="" >1留言</a></li>';
+                                        strHtml += '</ul>';
+                                        if(val.user_id == userid){
+                                            strHtml += '<a href="javascript:;" class="z-bubble-del" data-user="' + val.id + '" data-sure="">删除</a>';
+                                        }
+                                        strHtml += '</div>';
+                                    });
+                                    $('#discuz_show').append(strHtml);
+                            // console.log('page:'+page);
+                            // console.log('totalpage:'+totalpage);
+                            if (page == totalpage) {
+                                $("#loading").html('<span style="color:#999">没有更多的数据了！</span>');
+                            }
+                            falg = false;
+                            }
+                            }
+                }
+                );
+            }
+            });
+                    /*$(window).scroll(function(){
+                     var scrollTop = $('body').scrollTop();
+                     var documentHeight = $(document).height();
+                     var windowHeight = $(window).height();
+                     if((scrollTop != 0) && (scrollTop >= (documentHeight - windowHeight))){
+                     $('.z-contain').append('<p class="showtext" style="font-size:1.2em; text-align:center; color:#999999;height:0.5rem; line-height:0.2rem">拼命加载中...</p>')
+                     setTimeout(function(){
+                     $('.showtext').remove();
+                     },1000);
+                     }
+                     });//上拉加载*/
+                            function initGallery($obj) {
+                                $('.swiper-wrapper').empty()
+                                //console.log($obj)
+                                $obj.each(function() {
+                                    $('.swiper-wrapper').append('<div class="swiper-slide"><img src="' + $(this).find('img').attr('src') + '"></div>');
+                                });
+                            }
+
+                    var mySwiper = new Swiper('.swiper-container', {
+                        loop: false,
+                        freeMode: false,
+                        observer: true,
+                        prevButton: '.swiper-button-prev',
+                        nextButton: '.swiper-button-next',
+                        onClick: function() {
+                            $('.gallery-mask').hide();
+                        }
+                    });
+                    $('.gallery-mask').hide();
+                    $('.z-pic-list li').on('tap', function() {
+                        initGallery($(this).parents('ul').find('li'));
+                        $('.gallery-mask').show();
+                        mySwiper.slideTo($(this).index(), 0, false);
+                    });
+    </script>
+</html>

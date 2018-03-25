@@ -1,0 +1,53 @@
+<ul class="headermenu">
+<!--	<li class="<if condition="in_array(CONTROLLER_NAME, array('Index'))">current</if>">
+		<a href="{:U('Index/statistics')}">
+			<span class="icon icon-chart"></span>
+			<span class="tet">控制台</span>
+		</a>
+		<em></em>
+	</li>-->
+
+	<li class="<if condition="in_array(CONTROLLER_NAME, array('Agent'))">current</if>">
+		<a href="{:U('Agent/agentInfo')}">
+			<!--<span class="icon icon-chart"></span>-->
+			<span class="tet">代理首页</span>
+		</a>
+		<em></em>
+	</li>
+	<li class="<if condition="in_array(CONTROLLER_NAME, array('Player'))">current</if>">
+		<a href="{:U('Player/players')}">
+			<!-- <span class="icon icon-chart"></span> -->
+			<span class="tet">玩家管理</span>
+		</a>
+		<em></em>
+	</li>
+	<!-- <li class="<if condition="in_array(CONTROLLER_NAME, array('Recharge'))">current</if>">
+		<a href="{:U('Recharge/myRechargeRecored')}">
+			<span class="icon icon-chart"></span>
+			<span class="tet">房卡统计</span>
+		</a>
+		<em></em>
+	</li> -->
+	<!-- <li class="<if condition="in_array(CONTROLLER_NAME, array('Goods'))">current</if>">
+		<a href="{:U('Goods/index')}">
+			<span class="icon icon-chart"></span>
+			<span class="tet">商品套餐</span>
+		</a>
+		<em></em>
+	</li> -->
+	<!-- <li class="<if condition="in_array(CONTROLLER_NAME, array('Order', 'GiftOrder'))">current</if>">
+		<a href="{:U('Order/orderList')}">
+			<span class="icon icon-flatscreen"></span>
+			<span class="tet">购卡订单</span>
+		</a>
+		<em></em>
+	</li> -->
+
+	<li>
+		<a href="{:U('Login/logout')}">
+			<!--<span class="icon icon-exit"></span>-->
+			<span class="tet">退出登录</span>
+		</a>
+		<em></em>
+	</li>
+</ul>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+<script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+<title>待发货详情</title>
+<link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+<link rel="stylesheet" href="__PUBLIC__/Home/css/xiaotian.css">
+<script type="text/javascript" src="__PUBLIC__/Home/js/zepto.full.js"></script>
+</head>
+
+<body class="gray p">
+<div class="order-detail-header">
+	<p class="order-status order-status-deliver">待发货</p>
+	<p>订单编号：2016061345109687</p>
+	<p>2016-06-13 18:04:05</p>
+</div>
+
+<div class="order-cells order-detail-cells">
+	<div class="order-cell">
+		<div class="order-address-hd">收货信息</div>
+	</div>
+	<div class="order-cell">
+		<div class="order-address-bd">
+			<p>刘XX 18932569460</p>
+			<p>浙江省杭州市江干区下沙第二号大街111号</p>
+		</div>
+	</div>
+</div>
+<div class="order-cells order-detail-cells">
+	<div class="order-cell">
+		<div class="order-cell-bd">商品信息</div>
+	</div>
+	<div class="order-cell">
+		<ul class="order-detail-product">
+			<li class="order-detail-product-item">
+				<img src="__PUBLIC__/Home/img/product.jpg" class="order-detail-product-cover">
+				<div class="order-detail-product-description">
+					<div class="order-detail-product-description-item">
+						<span class="order-detail-product-name">氧气种子 气质民族钩花镂空流苏腰带长衬衫连衣裙 长褂2015夏装女</span>
+					</div>
+					<div class="order-detail-product-description-item">
+						<span class="order-detail-product-num">×1</span>
+						<span class="order-detail-product-price" data-num="1">¥279.00</span>
+					</div>
+				</div>
+			</li>
+			<li class="order-detail-product-item">
+				<img src="__PUBLIC__/Home/img/product.jpg" class="order-detail-product-cover">
+				<div class="order-detail-product-description">
+					<div class="order-detail-product-description-item">
+						<span class="order-detail-product-name">氧气种子 气质民族钩花镂空流苏腰带长衬衫连衣裙 长褂2015夏装女</span>
+					</div>
+					<div class="order-detail-product-description-item">
+						<span class="order-detail-product-num">×1</span>
+						<span class="order-detail-product-price" data-num="1">¥279.00</span>
+					</div>
+				</div>
+			</li>
+			<li class="order-detail-product-item">
+				<img src="__PUBLIC__/Home/img/product.jpg" class="order-detail-product-cover">
+				<div class="order-detail-product-description">
+					<div class="order-detail-product-description-item">
+						<span class="order-detail-product-name">氧气种子 气质民族钩花镂空流苏腰带长衬衫连衣裙 长褂2015夏装女</span>
+					</div>
+					<div class="order-detail-product-description-item">
+						<span class="order-detail-product-num">×1</span>
+						<span class="order-detail-product-price" data-num="1">¥279.00</span>
+					</div>
+				</div>
+			</li>
+		</ul>
+		<button class="order-btn order-refund"><a href="{:U('User/orderrefund')}">申请退款</a></button>
+	</div>
+</div>
+
+<div class="order-cells order-detail-cells">
+	<div class="order-cell">
+		<div class="order-cell-bd">发货方式</div>
+		<div class="order-cell-ft">快递：5元</div>
+	</div>
+	<div class="order-cell">
+		<div class="order-cell-bd">积分抵现</div>
+		<div class="order-cell-ft">100积分</div>
+	</div>
+	<div class="order-cell">
+		<div class="order-cell-bd">订单总计</div>
+		<div class="order-cell-ft">¥279.00</div>
+	</div>
+	<div class="order-cell order-express-cell">
+		<div class="order-cell-bd">物流信息</div>
+		<div class="order-cell-ft"></div>
+		<div class="order-express-info">
+			<p>2016-11-03 周四22:58:48您的订单开始处理</p>
+			<p>2016-11-04 周五08:15:24您的订单待配货</p>
+			<p>2016-11-04 周五13:42:19 您的包裹已出库</p>
+			<p>2016-11-04 周五13:42:56 包裹正在等待揽收</p>
+			<p>2016-11-04 周五17:36:02 [杭州市]邮政快递包裹 杭州市余杭区邮政局两包业务局收件员 已揽件</p>
+			<p>2016-11-04 周五19:02:00 [杭州市]杭州市余杭区邮政局两包业务局 已发出</p>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$('.order-express-cell').on('tap', function(e){
+		var _this = $(this);
+		var info = _this.find('.order-express-info');
+		var height = 0;
+		info.css({'overflow': 'hidden'});
+		if (info.is(':visible')) {
+			height = info.height();
+			info.css({'height': height});
+			info.animate({'height': '0px'},300,function(){
+				info.hide();
+			});
+		} else {
+			info.removeAttr('style');
+			info.show();
+			height = info.height();
+			info.css({'height': '0'});
+			setTimeout(function(){
+				info.animate({'height': height + 'px'},300);
+			},0);
+		}
+	});
+	$('.order-express-info').on('tap', function(){
+		return false;
+	})
+</script>
+</body>
+</html>

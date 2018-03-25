@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+<script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+<title>留言</title>
+<link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+<link rel="stylesheet" href="__PUBLIC__/Home/css/xiaotian.css">
+<script type="text/javascript" src="__PUBLIC__/Home/js/zepto.full.js"></script>
+<style type="text/css">
+	.message-content {
+		box-sizing: border-box;
+		width: 100%;
+		height: 3.4rem;
+		padding: 0.3rem;
+		border-bottom: 1px solid #d5dee2;
+		resize: none;
+	}
+	.submit {
+		float: right;
+	    height: 0.6rem;
+	    padding: 0 0.2rem;
+	    margin-top: 0.2rem;
+	    margin-right: 0.3rem;
+	    font: inherit;
+	    font-size: 1.4em;
+	    border-radius: 0.08rem;
+	    background-color: #f87096;
+	    border: 1px solid #f87096;
+	    color: #fff;
+	}
+</style>
+</head>
+
+<body class="gray p">
+<textarea class="message-content" placeholder="请输入留言内容..."></textarea>
+<button  class="submit"  type="button" id="submit" >提交</button>
+	
+</body>
+	<script>
+	$(function(){
+		$('#submit').on("tap",function(){
+			var newtext=$.trim($('.message-content').val());
+			if(newtext == ""){
+				showMessage('请输入内容');
+			}else{
+				$.ajax({
+					type:"post",
+					url:"{:U('User/Service')}",
+					data:{'msg':newtext},
+					dataType:'json',
+					success:function(result){
+						if (result.Code == "0") {
+							showMessage('留言成功！感谢你的宝贵意见··');
+							setTimeout(function(){
+						    	window.location.href="{:U('User/index')}";
+							},1000);
+						}else{
+							showMessage('留言失败!');
+						}
+					}
+				});
+			};
+		});
+
+		 function showMessage(msg) {
+			if (! $('.msg').length) {
+				$('body').append('<div class="msg" style="position: fixed;bottom: 20%;left: 50%;margin-left: -30%;height: 0.8rem;line-height: 0.8rem;width: 60%;background-color: rgba(0,0,0,.75);border-radius: 0.6rem;text-align: center;color: #fff; z-index:999;display: none;font-size: 1.2em">' + msg + '</div>');
+				$('.msg').fadeIn(200);
+				setTimeout(function(){
+					$('.msg').fadeOut(200,function(){
+						$(this).remove();
+					});
+				},1500)
+			}
+		}
+	});
+
+
+	</script>
+</html>

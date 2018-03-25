@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+    <title>购买</title>
+    <link rel="stylesheet" href="__PUBLIC__/Home/Agent/css/taizhou.css">
+</head>
+<body style="background: #fff;">
+<div id="app">
+    <div class="package_box">
+        <div class="package_item clearfix">
+                <div class="package_full">{$info['goods_name']|default="未填写"}</div>
+            <div class="left">
+                <div class="package_small">套餐数量：{$info['goods_nums']|default="0"}（颗）</div>
+                <div class="package_small">赠送数量：{$info['give_goods_nums']|default="0"}（颗）</div>
+                <div class="package_small">合计数量：{$info['total_nums']|default="0"}（颗）</div>
+                <div class="package_small">套餐金额：{$info['total_money']|default="0"}（元）</div>
+            </div>
+            <div class="right">
+                <if condition="empty($info['goods_image'])">
+                <img src="__PUBLIC__/Home/Agent/img/package.png"/>
+                <else />
+                <img src="{$info['goods_image']}"/>
+                </if>
+            </div>
+        </div>
+    </div>
+    <div class="payment_btn">
+        <button id="pay_confirm">微信支付{$info['total_money']|default="0"}</button>
+        <input type="hidden" name="goods_id" id="goods_id" value="{$info['id']}" />
+    </div>
+</div>
+</body>
+<!-- <script src="__PUBLIC__/Home/Agent/js/jquery.min.js"></script> -->
+<script type="text/javascript" src="__PUBLIC__/Home/Agent/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Home/Agent/js/public.js"></script>
+<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
+<script type="text/javascript">
+    $(function(){
+        var btn_pay_status = false;
+        $("#pay_confirm").click(function() {
+            if (btn_pay_status) {
+                return false;
+            };
+            // alert('请联系商家购买');return;
+            var goods_id    =   $("#goods_id").val();
+            if(goods_id == '0'){
+                alert('缺少参数！');
+                return false;
+            }
+
+            btn_pay_status = true;
+//                window.open("/Agent/Goods/confirmPay/goods_id/"+goods_id);
+            // window.location.href = "/Agent/Goods/confirmPay/goods_id/"+goods_id;
+            var _param = new Object();
+            _param.goods_id = goods_id;
+            $.post('{:U("payConfirm")}', _param, function(ret) {
+                if (ret.code == '1') {
+                    //调起微信支付
+                    // alert(api_json);
+                    var api_json = eval("("+ret.PayInfo+")");
+                    WeixinJSBridge.invoke(
+                         'getBrandWCPayRequest',api_json,function(res){
+                            // alert(res.err_msg);
+                             WeixinJSBridge.log(res.err_msg);
+                             switch(res.err_msg) {
+                                 case 'get_brand_wcpay_request:cancel':
+                                     //alert('支付取消');
+                                     btn_pay_status = false;
+                                     webTip('支付未完成！',function(){
+//                                             window.location.href = "{:U('Order/orderlist')}";
+                                         window.location.href = window.location.href;
+                                     });
+                                     break;
+                                 case 'get_brand_wcpay_request:fail':
+                                     btn_pay_status = false;
+                                     webTip('支付失败！',function(){
+                                         window.location.href = window.location.href;
+                                     });
+                                     break;
+                                 case 'get_brand_wcpay_request:ok':
+                                     webTip('支付成功',function(){
+                                            window.location.href = "{:U('Order/orderlist')}";
+                                         // window.location.href = window.location.href;
+                                     });
+                                     break;
+                                 default:
+                                     alert(JSON.stringify(res));
+                                     break;
+                             }
+                         }
+                     );
+                    return;
+                } else {
+                    btn_pay_status = false;
+                    alert(ret.message);
+                    return false;
+                }
+            }, 'json');
+        });
+    });
+</script>
+<include file="Index:public_wxshare" />
+</html>

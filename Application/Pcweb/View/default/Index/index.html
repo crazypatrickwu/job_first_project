@@ -1,0 +1,105 @@
+<include file="public_header" />
+<div class="main">
+	<div class="contain">
+		<div class="banner">
+			<img src="__PUBLIC__/Pcweb/img/banner.png" alt="">
+		</div>
+		<div class="index">
+			<div class="game-recommend">
+				<div class="game-recommend-title">
+					<a href="{:U('games')}">更多</a>
+					<img src="__PUBLIC__/Pcweb/img/y-die1.png" alt="">游戏介绍
+				</div>
+				<ul class="game-list">
+                                    <volist name="pcweb_games_list" id="vo">
+					<li>
+						<a href="{:U('gamesDetail',array('id'=>$vo['id']))}" title="{$vo.title}">
+							<img src="{$vo.thumb}" alt="">
+							<h3>{$vo.title}</h3>
+						</a>
+					</li>
+                                    </volist>
+				</ul>
+			</div>
+			<div class="index-login">
+				<h3>用户登录</h3>
+				<if condition="($Think.session.pcwebUserId)">
+				<form action="" class="index-login-form">
+					<div class="login-input-box">
+						<div class="label">
+							<img src="__PUBLIC__/Pcweb/img/user-die.png" alt="">
+							<input type="text" name="user" placeholder="用户名">
+						</div>
+						<div class="label">
+							<img src="__PUBLIC__/Pcweb/img/pw-die.png" alt="">
+							<input type="password" name="pw" placeholder="密码">
+						</div>
+					</div>				
+				<p>
+					<a href="#">忘记密码?</a>
+					永久登陆
+					<span><input type="checkbox"><i></i></span>
+				</p>
+				<button type="button" class="index-login-btn">登 陆</button>
+				</form>
+			<else />
+				<p>
+					您好，{$Think.session.pcwebAccount}
+				</p>
+			</if>
+			</div>
+		</div>
+	</div>
+</div>
+<include file="public_footer" />
+<script src="__PUBLIC__/Pcweb/js/jquery.min.js"></script>
+<script src="__PUBLIC__/Pcweb/js/common.js"></script>
+<script>
+;(function(){
+	var sub_btn_status = false;
+	$(".index-login-btn").on("click",function(){
+		var user = $("input[name='user']").val();
+		var pw = $("input[name='pw']").val();
+		if(user == ''){
+			webTip('请输入用户名',function(){
+				$("input[name='user']").focus();
+			});
+			return false;
+		}
+		if(pw == ''){
+			webTip('请输入密码',function(){
+				$("input[name='pw']").focus();
+			});
+			return false;
+		}
+		// webTip("登陆成功",function(){
+		// 	$(".index-login-form").submit();
+		// })		
+		webTip('账号有误',function(){
+            window.location.href    =   "{:U('Index/index')}";
+        });
+        return;
+
+	    var _url = "{:U('Login/index')}";
+	    var _param = new Object();
+	        _param.account  =   user;
+	        _param.password =   pw;
+	    sub_btn_status  =   true;
+	    $.post(_url,_param,function(res){
+
+	        if (res.code == 1) {
+	            webTip(res.msg,function(){
+	                window.location.href    =   "{:U('Index/index')}";
+	            });
+	        }else{
+	            webTip(res.msg,function(){
+	            	sub_btn_status  =   false;
+	            });
+	            return false;
+	        }
+	    },'json');
+	})
+})();
+</script>
+</body>
+</html>

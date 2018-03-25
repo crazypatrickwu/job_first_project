@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+<script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+<script>
+	var u = navigator.userAgent, app = navigator.appVersion;
+	var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //android终端或者uc浏览器
+	var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+	if(isiOS){
+		document.write('<link rel="stylesheet" href="__PUBLIC__/Home/css/ios.css">');
+	}
+</script>
+<title>添加银行卡</title>
+<link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+<link rel="stylesheet" href="__PUBLIC__/Home/css/ckf.css">
+<link rel="stylesheet" href="__PUBLIC__/Home/css/xiaotian.css">
+<script src="__PUBLIC__/Home/js/zepto.full.js" type="text/javascript"></script>
+</head>
+<body class="c-gray ">
+<form action="" class="c-blank-add-form">
+		<label for="" class="line-bottom">
+		<em>卡号</em>
+		<p>
+			<input type="tel" placeholder="请输入银行卡号" name="blank_num" onPaste="return false;">
+		</p>
+		<span class="clear-value"><img src="__PUBLIC__/Home/img/cha.svg" alt=""></span>
+	</label>
+	<label for="" class="line-bottom">
+		<em>发卡银行</em><i class="c-blank-chose-reuslt">请选择</i>
+		<span class="chose-blanks-btn"><img src="__PUBLIC__/Home/img/arrow-r.png" alt=""></span>
+	</label>
+	<h3>填写银行预留信息</h3>
+	<label for="" class="a line-bottom">
+		<em>持卡人</em>
+		<p>
+			<input type="text" placeholder="请填写" name="blank_user" maxlength="8" onPaste="return false;">
+		</p>
+	</label>
+	<label for="" class="a line-bottom">
+		<em>身份证</em>
+		<p>
+			<input type="text" placeholder="请输入身份证号" name="blank_uid" maxlength="18" onPaste="return false;">
+		</p>
+	</label>
+<a  class="btn-blue-b btn-blue c-blank-add-btn">下一步</a>
+</form>
+<div class="c-pop-bg"></div>
+<div class="c-blank-chose">
+	<div class="c-blank-chose-header line-bottom">
+		<span><img src="__PUBLIC__/Home/img/arrow-l.png" alt="" class="c-back"></span>
+		选择发卡银行
+	</div>
+	<ul>
+                
+                <li class="line-bottom">国家开发银行</li>
+                <li class="line-bottom">中国进出口银行</li>
+                <li class="line-bottom">中国农业发展银行</li>
+                <li class="line-bottom">中国工商银行</li>
+                <li class="line-bottom">中国农业银行</li>
+                <li class="line-bottom">中国银行</li>
+                <li class="line-bottom">中国建设银行</li>
+                <li class="line-bottom">交通银行</li>
+                <li class="line-bottom">中信银行</li>
+                <li class="line-bottom">中国光大银行</li>
+                <li class="line-bottom">华夏银行</li>
+                <li class="line-bottom">中国民生银行</li>
+                <li class="line-bottom">招商银行兴业银行</li>
+                <li class="line-bottom">广发银行</li>
+                <li class="line-bottom">平安银行</li>
+                <li class="line-bottom">上海浦东发展银行</li>
+                <li class="line-bottom">恒丰银行</li>
+                <li class="line-bottom">浙商银行</li>
+                <li class="line-bottom">渤海银行</li>
+                <li class="line-bottom">中国邮政储蓄银行</li>
+	</ul>
+</div>
+<script>
+	// 选择发卡银行
+	$(".chose-blanks-btn").click(function(){
+		setTimeout(function(){
+			$(".c-pop-bg").fadeIn(100);
+			$(".c-blank-chose").show().removeClass("c-left-out").addClass("c-left-in");
+		},200)
+	});
+	// 关闭选择界面
+	$(".c-blank-chose-header span").click(function(){
+		setTimeout(function(){
+			$(".c-blank-chose").removeClass("c-left-in").addClass("c-left-out");
+		},100);
+		setTimeout(function(){
+			$(".c-pop-bg").fadeOut(100);
+			$(".c-blank-chose").hide()
+		},400)
+	})
+	$(".c-blank-chose").find("li").click(function(){
+		var value=$(this).text();
+		setTimeout(function(){
+			$(".c-blank-chose").removeClass("c-left-in").addClass("c-left-out");
+			$(".c-blank-chose-reuslt").text(value);
+		},100);
+		setTimeout(function(){
+			$(".c-pop-bg").fadeOut(100);
+			$(".c-blank-chose").hide()
+		},400)
+	})
+
+	$(".clear-value").click(function(){
+		var input=$(this).prev().find("input");
+		if(input.val()==""){
+			return false;
+		}
+		input.val("");
+		input.focus();
+	})
+	//验证
+	var bankReg = /^(\d{16}|\d{19})$/;
+	var isIDCard1=/^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$/;
+	var isIDCard2=/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X|x)$/;
+	var nameReg = /^[\u2E80-\u9FFF]+$/;
+	$(".c-blank-add-btn").click(function(){
+		var num=$("input[name='blank_num']");
+		var name=$(".c-blank-chose-reuslt");
+		var user=$("input[name='blank_user']");
+		var uid=$("input[name='blank_uid']");
+		if(num.val()==""){
+			showMessage("请输入银行卡号");
+			// alert("请输入银行卡号");
+			num.focus();
+			return false;
+		}
+		if(!bankReg.test(num.val())){
+			showMessage("银行卡号不正确");
+			// alert("银行卡号不正确");
+			num.focus();
+			return false;
+		}
+		if(name.text()=="请选择"){
+			showMessage("请选择发卡银行");
+			// alert("请选择发卡银行");
+			return false;
+		}
+		if(user.val()==""){
+			showMessage("请输入持卡人姓名");
+			// alert("请输入持卡人姓名");
+			user.focus();
+			return false;
+		}
+		if(!nameReg.test(user.val())){
+			showMessage('姓名格式错误');
+			return false;
+		}
+		if(uid.val()==""){
+			showMessage("请输入身份证号码");
+			// alert("请输入身份证号码");
+			uid.focus();
+			return false;
+		}
+		if(!isIDCard1.test(uid.val())&&!isIDCard2.test(uid.val())){
+			showMessage("身份证号码不正确");
+			// alert("身份证号码不正确");
+			uid.focus();
+			return false;
+		}
+		var url="{:U('Shop/blankadd')}"
+	   $.post(url,{'card':num.val(),'name':name.text(),'user':user.val(),'idcard':uid.val()},function(res){
+	   	if(res.Code==0){
+	   		  window.location.href="/Home/Shop/blank_msg/id/"+res.add_id
+	   	}else{
+	   		showMessage(res.Msg);
+	   	}
+	   },'json')
+		
+	});
+
+	function showMessage(msg) {
+		if (! $('.msg').length) {
+			$('body').append('<div class="msg" style="position: fixed;bottom: 20%;left: 50%;margin-left: -30%;height: 0.8rem;line-height: 0.8rem;width: 60%;background-color: rgba(0,0,0,.75);border-radius: 0.6rem;text-align: center;color: #fff;display: none;font-size: 1.2em;z-index:999;">' + msg + '</div>');
+			$('.msg').fadeIn(200);
+			setTimeout(function(){
+				$('.msg').fadeOut(200,function(){
+					$(this).remove();
+				});
+			},1500)
+		}
+	}
+</script>
+</body>
+</html>

@@ -1,0 +1,474 @@
+[ 2018-03-24T17:48:34+08:00 ] 127.0.0.1 /Pcweb
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+
+[ 2018-03-24T17:48:41+08:00 ] 127.0.0.1 /Pcweb/Login/login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `jianjiao_public_account` [ RunTime:0.0060s ]
+SQL: SELECT `app_id`,`app_secret`,`wx_pay_key`,`wx_pay_mchid`,`wx_pay_sslcert_path`,`wx_pay_sslkey_path`,`apiurl` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0000s ]
+SQL: SHOW COLUMNS FROM `jianjiao_msg` [ RunTime:0.0080s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[[\"WeixinController $this->Rid\",8],\"2018-03-24 17:48:41\"]','2018-03-24 17:48:41') [ RunTime:0.0000s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[[\"GetAccessToken 1001\"],\"2018-03-24 17:48:41\"]','2018-03-24 17:48:41') [ RunTime:0.0010s ]
+SQL: SELECT `app_id`,`app_secret`,`access_token`,`expires_in`,`auth_token`,`expires_in_auth`,`expires_in_js`,`ticket` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0000s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[{\"0\":\"GetAccessToken 1002\",\"public_account\":{\"app_id\":\"wx43a30efca8d69180\",\"app_secret\":\"2db9b75e18587787df4cb3dda6741e51\",\"access_token\":null,\"expires_in\":\"1521884799\",\"auth_token\":\"\",\"expires_in_auth\":\"0\",\"expires_in_js\":\"1521887256\",\"ticket\":\"\"}},\"2018-03-24 17:48:41\"]','2018-03-24 17:48:41') [ RunTime:0.0000s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[{\"0\":\"GetAccessToken 1003\",\"GetToken\":\"40164:invalid ip 125.122.241.226, not in whitelist hint: [6.U5PA0038sha2]\"},\"2018-03-24 17:48:41\"]','2018-03-24 17:48:41') [ RunTime:0.0010s ]
+NOTIC: [8] Trying to get property of non-object D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 348 行.
+NOTIC: [8] Trying to get property of non-object D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 348 行.
+SQL: UPDATE `jianjiao_public_account` SET `expires_in`='1521884921',`access_token`=NULL WHERE `redid` = 8 [ RunTime:0.0000s ]
+SQL: SELECT `ticket`,`expires_in_js` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0000s ]
+NOTIC: [8] Undefined property: stdClass::$ticket D:\MyJob\project\majiang\ThinkPHP\Library\Vendor\WeiXin\WeixinHelper.php 第 34 行.
+NOTIC: [8] Undefined property: stdClass::$ticket D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 96 行.
+SQL: UPDATE `jianjiao_public_account` SET `expires_in_js`='1521891921',`ticket`=NULL WHERE `redid` = 8 [ RunTime:0.0020s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Undefined variable: info D:\MyJob\project\majiang\Application\Runtime\Cache\Pcweb\aab4bf8c06420993bbfba74def787112.php 第 127 行.
+NOTIC: [8] Undefined variable: info D:\MyJob\project\majiang\Application\Runtime\Cache\Pcweb\aab4bf8c06420993bbfba74def787112.php 第 154 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.007000s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.007000s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2018-03-24T17:49:47+08:00 ] 127.0.0.1 /Pcweb/Login/login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `jianjiao_public_account` [ RunTime:0.0060s ]
+SQL: SELECT `app_id`,`app_secret`,`wx_pay_key`,`wx_pay_mchid`,`wx_pay_sslcert_path`,`wx_pay_sslkey_path`,`apiurl` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0000s ]
+SQL: SHOW COLUMNS FROM `jianjiao_msg` [ RunTime:0.0070s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[[\"WeixinController $this->Rid\",8],\"2018-03-24 17:49:47\"]','2018-03-24 17:49:47') [ RunTime:0.0000s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[[\"GetAccessToken 1001\"],\"2018-03-24 17:49:47\"]','2018-03-24 17:49:47') [ RunTime:0.0010s ]
+SQL: SELECT `app_id`,`app_secret`,`access_token`,`expires_in`,`auth_token`,`expires_in_auth`,`expires_in_js`,`ticket` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0010s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[{\"0\":\"GetAccessToken 1002\",\"public_account\":{\"app_id\":\"wx43a30efca8d69180\",\"app_secret\":\"2db9b75e18587787df4cb3dda6741e51\",\"access_token\":null,\"expires_in\":\"1521884921\",\"auth_token\":\"\",\"expires_in_auth\":\"0\",\"expires_in_js\":\"1521891921\",\"ticket\":\"\"}},\"2018-03-24 17:49:47\"]','2018-03-24 17:49:47') [ RunTime:0.0000s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[{\"0\":\"GetAccessToken 1003\",\"GetToken\":\"40164:invalid ip 125.122.241.226, not in whitelist hint: [_GHE6a01041501]\"},\"2018-03-24 17:49:47\"]','2018-03-24 17:49:47') [ RunTime:0.0000s ]
+NOTIC: [8] Trying to get property of non-object D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 348 行.
+NOTIC: [8] Trying to get property of non-object D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 348 行.
+SQL: UPDATE `jianjiao_public_account` SET `expires_in`='1521884987',`access_token`=NULL WHERE `redid` = 8 [ RunTime:0.0000s ]
+SQL: SELECT `ticket`,`expires_in_js` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0000s ]
+NOTIC: [8] Undefined property: stdClass::$ticket D:\MyJob\project\majiang\ThinkPHP\Library\Vendor\WeiXin\WeixinHelper.php 第 34 行.
+NOTIC: [8] Undefined property: stdClass::$ticket D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 96 行.
+SQL: UPDATE `jianjiao_public_account` SET `expires_in_js`='1521891987',`ticket`=NULL WHERE `redid` = 8 [ RunTime:0.0000s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.001000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: info D:\MyJob\project\majiang\Application\Runtime\Cache\Pcweb\aab4bf8c06420993bbfba74def787112.php 第 127 行.
+NOTIC: [8] Undefined variable: info D:\MyJob\project\majiang\Application\Runtime\Cache\Pcweb\aab4bf8c06420993bbfba74def787112.php 第 154 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.006000s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.006000s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2018-03-24T17:50:47+08:00 ] 127.0.0.1 /Pcweb/Login/login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `jianjiao_public_account` [ RunTime:0.0080s ]
+SQL: SELECT `app_id`,`app_secret`,`wx_pay_key`,`wx_pay_mchid`,`wx_pay_sslcert_path`,`wx_pay_sslkey_path`,`apiurl` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0010s ]
+SQL: SHOW COLUMNS FROM `jianjiao_msg` [ RunTime:0.0050s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[[\"WeixinController $this->Rid\",8],\"2018-03-24 17:50:47\"]','2018-03-24 17:50:47') [ RunTime:0.0010s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[[\"GetAccessToken 1001\"],\"2018-03-24 17:50:47\"]','2018-03-24 17:50:47') [ RunTime:0.0000s ]
+SQL: SELECT `app_id`,`app_secret`,`access_token`,`expires_in`,`auth_token`,`expires_in_auth`,`expires_in_js`,`ticket` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0020s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[{\"0\":\"GetAccessToken 1002\",\"public_account\":{\"app_id\":\"wx43a30efca8d69180\",\"app_secret\":\"2db9b75e18587787df4cb3dda6741e51\",\"access_token\":null,\"expires_in\":\"1521884987\",\"auth_token\":\"\",\"expires_in_auth\":\"0\",\"expires_in_js\":\"1521891987\",\"ticket\":\"\"}},\"2018-03-24 17:50:47\"]','2018-03-24 17:50:47') [ RunTime:0.0010s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[{\"0\":\"GetAccessToken 1003\",\"GetToken\":\"40164:invalid ip 125.122.241.226, not in whitelist hint: [U09.qa01642790]\"},\"2018-03-24 17:50:47\"]','2018-03-24 17:50:47') [ RunTime:0.0000s ]
+NOTIC: [8] Trying to get property of non-object D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 348 行.
+NOTIC: [8] Trying to get property of non-object D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 348 行.
+SQL: UPDATE `jianjiao_public_account` SET `expires_in`='1521885047',`access_token`=NULL WHERE `redid` = 8 [ RunTime:0.0000s ]
+SQL: SELECT `ticket`,`expires_in_js` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0000s ]
+NOTIC: [8] Undefined property: stdClass::$ticket D:\MyJob\project\majiang\ThinkPHP\Library\Vendor\WeiXin\WeixinHelper.php 第 34 行.
+NOTIC: [8] Undefined property: stdClass::$ticket D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 96 行.
+SQL: UPDATE `jianjiao_public_account` SET `expires_in_js`='1521892047',`ticket`=NULL WHERE `redid` = 8 [ RunTime:0.0010s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Undefined variable: info D:\MyJob\project\majiang\Application\Runtime\Cache\Pcweb\aab4bf8c06420993bbfba74def787112.php 第 127 行.
+NOTIC: [8] Undefined variable: info D:\MyJob\project\majiang\Application\Runtime\Cache\Pcweb\aab4bf8c06420993bbfba74def787112.php 第 154 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.006000s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.006000s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2018-03-24T17:50:50+08:00 ] 127.0.0.1 /Pcweb/Login/login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `jianjiao_public_account` [ RunTime:0.0060s ]
+SQL: SELECT `app_id`,`app_secret`,`wx_pay_key`,`wx_pay_mchid`,`wx_pay_sslcert_path`,`wx_pay_sslkey_path`,`apiurl` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0010s ]
+SQL: SHOW COLUMNS FROM `jianjiao_msg` [ RunTime:0.0080s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[[\"WeixinController $this->Rid\",8],\"2018-03-24 17:50:50\"]','2018-03-24 17:50:50') [ RunTime:0.0000s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[[\"GetAccessToken 1001\"],\"2018-03-24 17:50:50\"]','2018-03-24 17:50:50') [ RunTime:0.0010s ]
+SQL: SELECT `app_id`,`app_secret`,`access_token`,`expires_in`,`auth_token`,`expires_in_auth`,`expires_in_js`,`ticket` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0000s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[{\"0\":\"GetAccessToken 1002\",\"public_account\":{\"app_id\":\"wx43a30efca8d69180\",\"app_secret\":\"2db9b75e18587787df4cb3dda6741e51\",\"access_token\":null,\"expires_in\":\"1521885047\",\"auth_token\":\"\",\"expires_in_auth\":\"0\",\"expires_in_js\":\"1521892047\",\"ticket\":\"\"}},\"2018-03-24 17:50:50\"]','2018-03-24 17:50:50') [ RunTime:0.0000s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[{\"0\":\"GetAccessToken 1003\",\"GetToken\":\"40164:invalid ip 125.122.241.226, not in whitelist hint: [enob901673054]\"},\"2018-03-24 17:50:50\"]','2018-03-24 17:50:50') [ RunTime:0.0010s ]
+NOTIC: [8] Trying to get property of non-object D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 348 行.
+NOTIC: [8] Trying to get property of non-object D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 348 行.
+SQL: UPDATE `jianjiao_public_account` SET `expires_in`='1521885050',`access_token`=NULL WHERE `redid` = 8 [ RunTime:0.0010s ]
+SQL: SELECT `ticket`,`expires_in_js` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0010s ]
+NOTIC: [8] Undefined property: stdClass::$ticket D:\MyJob\project\majiang\ThinkPHP\Library\Vendor\WeiXin\WeixinHelper.php 第 34 行.
+NOTIC: [8] Undefined property: stdClass::$ticket D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 96 行.
+SQL: UPDATE `jianjiao_public_account` SET `expires_in_js`='1521892050',`ticket`=NULL WHERE `redid` = 8 [ RunTime:0.0000s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Undefined variable: info D:\MyJob\project\majiang\Application\Runtime\Cache\Pcweb\aab4bf8c06420993bbfba74def787112.php 第 127 行.
+NOTIC: [8] Undefined variable: info D:\MyJob\project\majiang\Application\Runtime\Cache\Pcweb\aab4bf8c06420993bbfba74def787112.php 第 154 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.006000s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.006000s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2018-03-24T17:52:11+08:00 ] 127.0.0.1 /Pcweb/Login/login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `jianjiao_public_account` [ RunTime:0.0060s ]
+SQL: SELECT `app_id`,`app_secret`,`wx_pay_key`,`wx_pay_mchid`,`wx_pay_sslcert_path`,`wx_pay_sslkey_path`,`apiurl` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0030s ]
+SQL: SHOW COLUMNS FROM `jianjiao_msg` [ RunTime:0.0070s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[[\"WeixinController $this->Rid\",8],\"2018-03-24 17:52:11\"]','2018-03-24 17:52:11') [ RunTime:0.0010s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[[\"GetAccessToken 1001\"],\"2018-03-24 17:52:11\"]','2018-03-24 17:52:11') [ RunTime:0.0000s ]
+SQL: SELECT `app_id`,`app_secret`,`access_token`,`expires_in`,`auth_token`,`expires_in_auth`,`expires_in_js`,`ticket` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0010s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[{\"0\":\"GetAccessToken 1002\",\"public_account\":{\"app_id\":\"wx43a30efca8d69180\",\"app_secret\":\"2db9b75e18587787df4cb3dda6741e51\",\"access_token\":null,\"expires_in\":\"1521885050\",\"auth_token\":\"\",\"expires_in_auth\":\"0\",\"expires_in_js\":\"1521892050\",\"ticket\":\"\"}},\"2018-03-24 17:52:11\"]','2018-03-24 17:52:11') [ RunTime:0.0000s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[{\"0\":\"GetAccessToken 1003\",\"GetToken\":\"40164:invalid ip 125.122.241.226, not in whitelist hint: [uFPbwa02483612]\"},\"2018-03-24 17:52:11\"]','2018-03-24 17:52:11') [ RunTime:0.0000s ]
+NOTIC: [8] Trying to get property of non-object D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 348 行.
+NOTIC: [8] Trying to get property of non-object D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 348 行.
+SQL: UPDATE `jianjiao_public_account` SET `expires_in`='1521885131',`access_token`=NULL WHERE `redid` = 8 [ RunTime:0.0000s ]
+SQL: SELECT `ticket`,`expires_in_js` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0000s ]
+NOTIC: [8] Undefined property: stdClass::$ticket D:\MyJob\project\majiang\ThinkPHP\Library\Vendor\WeiXin\WeixinHelper.php 第 34 行.
+NOTIC: [8] Undefined property: stdClass::$ticket D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 96 行.
+SQL: UPDATE `jianjiao_public_account` SET `expires_in_js`='1521892131',`ticket`=NULL WHERE `redid` = 8 [ RunTime:0.0010s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+
+[ 2018-03-24T17:52:32+08:00 ] 127.0.0.1 /Pcweb/Login/login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `jianjiao_public_account` [ RunTime:0.0080s ]
+SQL: SELECT `app_id`,`app_secret`,`wx_pay_key`,`wx_pay_mchid`,`wx_pay_sslcert_path`,`wx_pay_sslkey_path`,`apiurl` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0000s ]
+SQL: SHOW COLUMNS FROM `jianjiao_msg` [ RunTime:0.0050s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[[\"WeixinController $this->Rid\",8],\"2018-03-24 17:52:32\"]','2018-03-24 17:52:32') [ RunTime:0.0040s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[[\"GetAccessToken 1001\"],\"2018-03-24 17:52:32\"]','2018-03-24 17:52:32') [ RunTime:0.0010s ]
+SQL: SELECT `app_id`,`app_secret`,`access_token`,`expires_in`,`auth_token`,`expires_in_auth`,`expires_in_js`,`ticket` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0000s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[{\"0\":\"GetAccessToken 1002\",\"public_account\":{\"app_id\":\"wx43a30efca8d69180\",\"app_secret\":\"2db9b75e18587787df4cb3dda6741e51\",\"access_token\":null,\"expires_in\":\"1521885131\",\"auth_token\":\"\",\"expires_in_auth\":\"0\",\"expires_in_js\":\"1521892131\",\"ticket\":\"\"}},\"2018-03-24 17:52:32\"]','2018-03-24 17:52:32') [ RunTime:0.0010s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[{\"0\":\"GetAccessToken 1003\",\"GetToken\":\"40164:invalid ip 125.122.241.226, not in whitelist hint: [yXWvMa02683064]\"},\"2018-03-24 17:52:32\"]','2018-03-24 17:52:32') [ RunTime:0.0000s ]
+NOTIC: [8] Trying to get property of non-object D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 348 行.
+NOTIC: [8] Trying to get property of non-object D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 348 行.
+SQL: UPDATE `jianjiao_public_account` SET `expires_in`='1521885152',`access_token`=NULL WHERE `redid` = 8 [ RunTime:0.0010s ]
+SQL: SELECT `ticket`,`expires_in_js` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0020s ]
+NOTIC: [8] Undefined property: stdClass::$ticket D:\MyJob\project\majiang\ThinkPHP\Library\Vendor\WeiXin\WeixinHelper.php 第 34 行.
+NOTIC: [8] Undefined property: stdClass::$ticket D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 96 行.
+SQL: UPDATE `jianjiao_public_account` SET `expires_in_js`='1521892152',`ticket`=NULL WHERE `redid` = 8 [ RunTime:0.0000s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Undefined variable: info D:\MyJob\project\majiang\Application\Runtime\Cache\Pcweb\aab4bf8c06420993bbfba74def787112.php 第 127 行.
+NOTIC: [8] Undefined variable: info D:\MyJob\project\majiang\Application\Runtime\Cache\Pcweb\aab4bf8c06420993bbfba74def787112.php 第 154 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.005000s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.005000s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2018-03-24T17:52:51+08:00 ] 127.0.0.1 /Pcweb/Login/index.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `jianjiao_public_account` [ RunTime:0.0050s ]
+SQL: SELECT `app_id`,`app_secret`,`wx_pay_key`,`wx_pay_mchid`,`wx_pay_sslcert_path`,`wx_pay_sslkey_path`,`apiurl` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0000s ]
+SQL: SHOW COLUMNS FROM `jianjiao_msg` [ RunTime:0.0070s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[[\"WeixinController $this->Rid\",8],\"2018-03-24 17:52:50\"]','2018-03-24 17:52:50') [ RunTime:0.0000s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[[\"GetAccessToken 1001\"],\"2018-03-24 17:52:50\"]','2018-03-24 17:52:50') [ RunTime:0.0000s ]
+SQL: SELECT `app_id`,`app_secret`,`access_token`,`expires_in`,`auth_token`,`expires_in_auth`,`expires_in_js`,`ticket` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0010s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[{\"0\":\"GetAccessToken 1002\",\"public_account\":{\"app_id\":\"wx43a30efca8d69180\",\"app_secret\":\"2db9b75e18587787df4cb3dda6741e51\",\"access_token\":null,\"expires_in\":\"1521885152\",\"auth_token\":\"\",\"expires_in_auth\":\"0\",\"expires_in_js\":\"1521892152\",\"ticket\":\"\"}},\"2018-03-24 17:52:50\"]','2018-03-24 17:52:50') [ RunTime:0.0000s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[{\"0\":\"GetAccessToken 1003\",\"GetToken\":\"40164:invalid ip 125.122.241.226, not in whitelist hint: [zQEApa02872974]\"},\"2018-03-24 17:52:50\"]','2018-03-24 17:52:50') [ RunTime:0.0010s ]
+NOTIC: [8] Trying to get property of non-object D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 348 行.
+NOTIC: [8] Trying to get property of non-object D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 348 行.
+SQL: UPDATE `jianjiao_public_account` SET `expires_in`='1521885170',`access_token`=NULL WHERE `redid` = 8 [ RunTime:0.0000s ]
+SQL: SELECT `ticket`,`expires_in_js` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0010s ]
+NOTIC: [8] Undefined property: stdClass::$ticket D:\MyJob\project\majiang\ThinkPHP\Library\Vendor\WeiXin\WeixinHelper.php 第 34 行.
+NOTIC: [8] Undefined property: stdClass::$ticket D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 96 行.
+SQL: UPDATE `jianjiao_public_account` SET `expires_in_js`='1521892170',`ticket`=NULL WHERE `redid` = 8 [ RunTime:0.0000s ]
+SQL: SHOW COLUMNS FROM `jianjiao_pcweb_user` [ RunTime:0.0110s ]
+SQL: SELECT `id`,`username`,`nickname`,`dateline`,`sort`,`password`,`question`,`answer`,`email`,`truename`,`idcard` FROM `jianjiao_pcweb_user` WHERE `username` = '15738815310' LIMIT 1   [ RunTime:0.0010s ]
+
+[ 2018-03-24T17:54:29+08:00 ] 127.0.0.1 /Pcweb/Login/index.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `jianjiao_public_account` [ RunTime:0.0070s ]
+SQL: SELECT `app_id`,`app_secret`,`wx_pay_key`,`wx_pay_mchid`,`wx_pay_sslcert_path`,`wx_pay_sslkey_path`,`apiurl` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0000s ]
+SQL: SHOW COLUMNS FROM `jianjiao_msg` [ RunTime:0.0060s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[[\"WeixinController $this->Rid\",8],\"2018-03-24 17:54:28\"]','2018-03-24 17:54:28') [ RunTime:0.0010s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[[\"GetAccessToken 1001\"],\"2018-03-24 17:54:28\"]','2018-03-24 17:54:28') [ RunTime:0.0000s ]
+SQL: SELECT `app_id`,`app_secret`,`access_token`,`expires_in`,`auth_token`,`expires_in_auth`,`expires_in_js`,`ticket` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0010s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[{\"0\":\"GetAccessToken 1002\",\"public_account\":{\"app_id\":\"wx43a30efca8d69180\",\"app_secret\":\"2db9b75e18587787df4cb3dda6741e51\",\"access_token\":null,\"expires_in\":\"1521885170\",\"auth_token\":\"\",\"expires_in_auth\":\"0\",\"expires_in_js\":\"1521892170\",\"ticket\":\"\"}},\"2018-03-24 17:54:28\"]','2018-03-24 17:54:28') [ RunTime:0.0000s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[{\"0\":\"GetAccessToken 1003\",\"GetToken\":\"40164:invalid ip 125.122.241.226, not in whitelist hint: [Wd08Fa03863054]\"},\"2018-03-24 17:54:28\"]','2018-03-24 17:54:28') [ RunTime:0.0010s ]
+NOTIC: [8] Trying to get property of non-object D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 348 行.
+NOTIC: [8] Trying to get property of non-object D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 348 行.
+SQL: UPDATE `jianjiao_public_account` SET `expires_in`='1521885268',`access_token`=NULL WHERE `redid` = 8 [ RunTime:0.0000s ]
+SQL: SELECT `ticket`,`expires_in_js` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0010s ]
+NOTIC: [8] Undefined property: stdClass::$ticket D:\MyJob\project\majiang\ThinkPHP\Library\Vendor\WeiXin\WeixinHelper.php 第 34 行.
+NOTIC: [8] Undefined property: stdClass::$ticket D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 96 行.
+SQL: UPDATE `jianjiao_public_account` SET `expires_in_js`='1521892268',`ticket`=NULL WHERE `redid` = 8 [ RunTime:0.0000s ]
+SQL: SHOW COLUMNS FROM `jianjiao_pcweb_user` [ RunTime:0.0070s ]
+SQL: SELECT `id`,`username`,`nickname`,`dateline`,`sort`,`password`,`question`,`answer`,`email`,`truename`,`idcard` FROM `jianjiao_pcweb_user` WHERE `username` = '15738815310' LIMIT 1   [ RunTime:0.0010s ]
+
+[ 2018-03-24T17:55:21+08:00 ] 127.0.0.1 /Pcweb/Login/index.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `jianjiao_public_account` [ RunTime:0.0070s ]
+SQL: SELECT `app_id`,`app_secret`,`wx_pay_key`,`wx_pay_mchid`,`wx_pay_sslcert_path`,`wx_pay_sslkey_path`,`apiurl` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `jianjiao_msg` [ RunTime:0.0060s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[[\"WeixinController $this->Rid\",8],\"2018-03-24 17:55:21\"]','2018-03-24 17:55:21') [ RunTime:0.0010s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[[\"GetAccessToken 1001\"],\"2018-03-24 17:55:21\"]','2018-03-24 17:55:21') [ RunTime:0.0010s ]
+SQL: SELECT `app_id`,`app_secret`,`access_token`,`expires_in`,`auth_token`,`expires_in_auth`,`expires_in_js`,`ticket` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0020s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[{\"0\":\"GetAccessToken 1002\",\"public_account\":{\"app_id\":\"wx43a30efca8d69180\",\"app_secret\":\"2db9b75e18587787df4cb3dda6741e51\",\"access_token\":null,\"expires_in\":\"1521885268\",\"auth_token\":\"\",\"expires_in_auth\":\"0\",\"expires_in_js\":\"1521892268\",\"ticket\":\"\"}},\"2018-03-24 17:55:21\"]','2018-03-24 17:55:21') [ RunTime:0.0000s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[{\"0\":\"GetAccessToken 1003\",\"GetToken\":\"40164:invalid ip 125.122.241.226, not in whitelist hint: [PktqGa04371501]\"},\"2018-03-24 17:55:21\"]','2018-03-24 17:55:21') [ RunTime:0.0010s ]
+NOTIC: [8] Trying to get property of non-object D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 348 行.
+NOTIC: [8] Trying to get property of non-object D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 348 行.
+SQL: UPDATE `jianjiao_public_account` SET `expires_in`='1521885321',`access_token`=NULL WHERE `redid` = 8 [ RunTime:0.0020s ]
+SQL: SELECT `ticket`,`expires_in_js` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0000s ]
+NOTIC: [8] Undefined property: stdClass::$ticket D:\MyJob\project\majiang\ThinkPHP\Library\Vendor\WeiXin\WeixinHelper.php 第 34 行.
+NOTIC: [8] Undefined property: stdClass::$ticket D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 96 行.
+SQL: UPDATE `jianjiao_public_account` SET `expires_in_js`='1521892321',`ticket`=NULL WHERE `redid` = 8 [ RunTime:0.0010s ]
+SQL: SHOW COLUMNS FROM `jianjiao_pcweb_user` [ RunTime:0.0060s ]
+SQL: SELECT `id`,`username`,`nickname`,`dateline`,`sort`,`password`,`question`,`answer`,`email`,`truename`,`idcard` FROM `jianjiao_pcweb_user` WHERE `username` = 'hello' LIMIT 1   [ RunTime:0.0000s ]
+
+[ 2018-03-24T17:55:36+08:00 ] 127.0.0.1 /Pcweb/Login/index.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `jianjiao_public_account` [ RunTime:0.0070s ]
+SQL: SELECT `app_id`,`app_secret`,`wx_pay_key`,`wx_pay_mchid`,`wx_pay_sslcert_path`,`wx_pay_sslkey_path`,`apiurl` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0000s ]
+SQL: SHOW COLUMNS FROM `jianjiao_msg` [ RunTime:0.0060s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[[\"WeixinController $this->Rid\",8],\"2018-03-24 17:55:35\"]','2018-03-24 17:55:35') [ RunTime:0.0010s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[[\"GetAccessToken 1001\"],\"2018-03-24 17:55:35\"]','2018-03-24 17:55:35') [ RunTime:0.0000s ]
+SQL: SELECT `app_id`,`app_secret`,`access_token`,`expires_in`,`auth_token`,`expires_in_auth`,`expires_in_js`,`ticket` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0000s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[{\"0\":\"GetAccessToken 1002\",\"public_account\":{\"app_id\":\"wx43a30efca8d69180\",\"app_secret\":\"2db9b75e18587787df4cb3dda6741e51\",\"access_token\":null,\"expires_in\":\"1521885321\",\"auth_token\":\"\",\"expires_in_auth\":\"0\",\"expires_in_js\":\"1521892321\",\"ticket\":\"\"}},\"2018-03-24 17:55:35\"]','2018-03-24 17:55:35') [ RunTime:0.0010s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[{\"0\":\"GetAccessToken 1003\",\"GetToken\":\"40164:invalid ip 125.122.241.226, not in whitelist hint: [hmnp904531512]\"},\"2018-03-24 17:55:35\"]','2018-03-24 17:55:35') [ RunTime:0.0010s ]
+NOTIC: [8] Trying to get property of non-object D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 348 行.
+NOTIC: [8] Trying to get property of non-object D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 348 行.
+SQL: UPDATE `jianjiao_public_account` SET `expires_in`='1521885335',`access_token`=NULL WHERE `redid` = 8 [ RunTime:0.0000s ]
+SQL: SELECT `ticket`,`expires_in_js` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0000s ]
+NOTIC: [8] Undefined property: stdClass::$ticket D:\MyJob\project\majiang\ThinkPHP\Library\Vendor\WeiXin\WeixinHelper.php 第 34 行.
+NOTIC: [8] Undefined property: stdClass::$ticket D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 96 行.
+SQL: UPDATE `jianjiao_public_account` SET `expires_in_js`='1521892335',`ticket`=NULL WHERE `redid` = 8 [ RunTime:0.0000s ]
+SQL: SHOW COLUMNS FROM `jianjiao_pcweb_user` [ RunTime:0.0050s ]
+SQL: SELECT `id`,`username`,`nickname`,`dateline`,`sort`,`password`,`question`,`answer`,`email`,`truename`,`idcard` FROM `jianjiao_pcweb_user` WHERE `username` = 'hello' LIMIT 1   [ RunTime:0.0000s ]
+
+[ 2018-03-24T17:57:24+08:00 ] 127.0.0.1 /Pcweb/Login/index.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `jianjiao_public_account` [ RunTime:0.0080s ]
+SQL: SELECT `app_id`,`app_secret`,`wx_pay_key`,`wx_pay_mchid`,`wx_pay_sslcert_path`,`wx_pay_sslkey_path`,`apiurl` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0000s ]
+SQL: SHOW COLUMNS FROM `jianjiao_msg` [ RunTime:0.0060s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[[\"WeixinController $this->Rid\",8],\"2018-03-24 17:57:24\"]','2018-03-24 17:57:24') [ RunTime:0.0010s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[[\"GetAccessToken 1001\"],\"2018-03-24 17:57:24\"]','2018-03-24 17:57:24') [ RunTime:0.0010s ]
+SQL: SELECT `app_id`,`app_secret`,`access_token`,`expires_in`,`auth_token`,`expires_in_auth`,`expires_in_js`,`ticket` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0010s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[{\"0\":\"GetAccessToken 1002\",\"public_account\":{\"app_id\":\"wx43a30efca8d69180\",\"app_secret\":\"2db9b75e18587787df4cb3dda6741e51\",\"access_token\":null,\"expires_in\":\"1521885335\",\"auth_token\":\"\",\"expires_in_auth\":\"0\",\"expires_in_js\":\"1521892335\",\"ticket\":\"\"}},\"2018-03-24 17:57:24\"]','2018-03-24 17:57:24') [ RunTime:0.0000s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[{\"0\":\"GetAccessToken 1003\",\"GetToken\":\"40164:invalid ip 125.122.241.226, not in whitelist hint: [0dEPEa05612790]\"},\"2018-03-24 17:57:24\"]','2018-03-24 17:57:24') [ RunTime:0.0010s ]
+NOTIC: [8] Trying to get property of non-object D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 348 行.
+NOTIC: [8] Trying to get property of non-object D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 348 行.
+SQL: UPDATE `jianjiao_public_account` SET `expires_in`='1521885444',`access_token`=NULL WHERE `redid` = 8 [ RunTime:0.0000s ]
+SQL: SELECT `ticket`,`expires_in_js` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0000s ]
+NOTIC: [8] Undefined property: stdClass::$ticket D:\MyJob\project\majiang\ThinkPHP\Library\Vendor\WeiXin\WeixinHelper.php 第 34 行.
+NOTIC: [8] Undefined property: stdClass::$ticket D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 96 行.
+SQL: UPDATE `jianjiao_public_account` SET `expires_in_js`='1521892444',`ticket`=NULL WHERE `redid` = 8 [ RunTime:0.0010s ]
+SQL: SHOW COLUMNS FROM `jianjiao_pcweb_user` [ RunTime:0.0060s ]
+SQL: SELECT `id`,`username`,`nickname`,`dateline`,`sort`,`password`,`question`,`answer`,`email`,`truename`,`idcard` FROM `jianjiao_pcweb_user` WHERE `username` = 'hello' LIMIT 1   [ RunTime:0.0010s ]
+
+[ 2018-03-24T18:06:32+08:00 ] 127.0.0.1 /Pcweb/ndex/statistics.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+ERR: 无法加载控制器:Ndex
+
+[ 2018-03-24T18:06:36+08:00 ] 127.0.0.1 /Pcweb/Index/statistics.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+
+[ 2018-03-24T18:06:45+08:00 ] 127.0.0.1 /Pcweb/Login/login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `jianjiao_public_account` [ RunTime:0.0060s ]
+SQL: SELECT `app_id`,`app_secret`,`wx_pay_key`,`wx_pay_mchid`,`wx_pay_sslcert_path`,`wx_pay_sslkey_path`,`apiurl` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0000s ]
+SQL: SHOW COLUMNS FROM `jianjiao_msg` [ RunTime:0.0050s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[[\"WeixinController $this->Rid\",8],\"2018-03-24 18:06:44\"]','2018-03-24 18:06:44') [ RunTime:0.0000s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[[\"GetAccessToken 1001\"],\"2018-03-24 18:06:44\"]','2018-03-24 18:06:44') [ RunTime:0.0000s ]
+SQL: SELECT `app_id`,`app_secret`,`access_token`,`expires_in`,`auth_token`,`expires_in_auth`,`expires_in_js`,`ticket` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0010s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[{\"0\":\"GetAccessToken 1002\",\"public_account\":{\"app_id\":\"wx43a30efca8d69180\",\"app_secret\":\"2db9b75e18587787df4cb3dda6741e51\",\"access_token\":null,\"expires_in\":\"1521885444\",\"auth_token\":\"\",\"expires_in_auth\":\"0\",\"expires_in_js\":\"1521892444\",\"ticket\":\"\"}},\"2018-03-24 18:06:44\"]','2018-03-24 18:06:44') [ RunTime:0.0010s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[{\"0\":\"GetAccessToken 1003\",\"GetToken\":\"40164:invalid ip 125.122.241.226, not in whitelist hint: [1me6ia01212994]\"},\"2018-03-24 18:06:44\"]','2018-03-24 18:06:44') [ RunTime:0.0000s ]
+NOTIC: [8] Trying to get property of non-object D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 348 行.
+NOTIC: [8] Trying to get property of non-object D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 348 行.
+SQL: UPDATE `jianjiao_public_account` SET `expires_in`='1521886004',`access_token`=NULL WHERE `redid` = 8 [ RunTime:0.0000s ]
+SQL: SELECT `ticket`,`expires_in_js` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0010s ]
+NOTIC: [8] Undefined property: stdClass::$ticket D:\MyJob\project\majiang\ThinkPHP\Library\Vendor\WeiXin\WeixinHelper.php 第 34 行.
+NOTIC: [8] Undefined property: stdClass::$ticket D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 96 行.
+SQL: UPDATE `jianjiao_public_account` SET `expires_in_js`='1521893004',`ticket`=NULL WHERE `redid` = 8 [ RunTime:0.0000s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Undefined variable: info D:\MyJob\project\majiang\Application\Runtime\Cache\Pcweb\aab4bf8c06420993bbfba74def787112.php 第 127 行.
+NOTIC: [8] Undefined variable: info D:\MyJob\project\majiang\Application\Runtime\Cache\Pcweb\aab4bf8c06420993bbfba74def787112.php 第 154 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.007000s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.007000s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2018-03-24T18:06:52+08:00 ] 127.0.0.1 /Pcweb/Login/index.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002000s ]
+SQL: SHOW COLUMNS FROM `jianjiao_public_account` [ RunTime:0.0060s ]
+SQL: SELECT `app_id`,`app_secret`,`wx_pay_key`,`wx_pay_mchid`,`wx_pay_sslcert_path`,`wx_pay_sslkey_path`,`apiurl` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0000s ]
+SQL: SHOW COLUMNS FROM `jianjiao_msg` [ RunTime:0.0080s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[[\"WeixinController $this->Rid\",8],\"2018-03-24 18:06:52\"]','2018-03-24 18:06:52') [ RunTime:0.0000s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[[\"GetAccessToken 1001\"],\"2018-03-24 18:06:52\"]','2018-03-24 18:06:52') [ RunTime:0.0000s ]
+SQL: SELECT `app_id`,`app_secret`,`access_token`,`expires_in`,`auth_token`,`expires_in_auth`,`expires_in_js`,`ticket` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0000s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[{\"0\":\"GetAccessToken 1002\",\"public_account\":{\"app_id\":\"wx43a30efca8d69180\",\"app_secret\":\"2db9b75e18587787df4cb3dda6741e51\",\"access_token\":null,\"expires_in\":\"1521886004\",\"auth_token\":\"\",\"expires_in_auth\":\"0\",\"expires_in_js\":\"1521893004\",\"ticket\":\"\"}},\"2018-03-24 18:06:52\"]','2018-03-24 18:06:52') [ RunTime:0.0000s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[{\"0\":\"GetAccessToken 1003\",\"GetToken\":\"40164:invalid ip 125.122.241.226, not in whitelist hint: [Vl88aa01281466]\"},\"2018-03-24 18:06:52\"]','2018-03-24 18:06:52') [ RunTime:0.0000s ]
+NOTIC: [8] Trying to get property of non-object D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 348 行.
+NOTIC: [8] Trying to get property of non-object D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 348 行.
+SQL: UPDATE `jianjiao_public_account` SET `expires_in`='1521886012',`access_token`=NULL WHERE `redid` = 8 [ RunTime:0.0000s ]
+SQL: SELECT `ticket`,`expires_in_js` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0010s ]
+NOTIC: [8] Undefined property: stdClass::$ticket D:\MyJob\project\majiang\ThinkPHP\Library\Vendor\WeiXin\WeixinHelper.php 第 34 行.
+NOTIC: [8] Undefined property: stdClass::$ticket D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 96 行.
+SQL: UPDATE `jianjiao_public_account` SET `expires_in_js`='1521893012',`ticket`=NULL WHERE `redid` = 8 [ RunTime:0.0010s ]
+SQL: SHOW COLUMNS FROM `jianjiao_pcweb_user` [ RunTime:0.0060s ]
+SQL: SELECT `id`,`username`,`nickname`,`dateline`,`sort`,`password`,`question`,`answer`,`email`,`truename`,`idcard` FROM `jianjiao_pcweb_user` WHERE `username` = 'hello' LIMIT 1   [ RunTime:0.0000s ]
+
+[ 2018-03-24T18:07:04+08:00 ] 127.0.0.1 /Pcweb/Login/index.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `jianjiao_public_account` [ RunTime:0.0060s ]
+SQL: SELECT `app_id`,`app_secret`,`wx_pay_key`,`wx_pay_mchid`,`wx_pay_sslcert_path`,`wx_pay_sslkey_path`,`apiurl` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0010s ]
+SQL: SHOW COLUMNS FROM `jianjiao_msg` [ RunTime:0.0110s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[[\"WeixinController $this->Rid\",8],\"2018-03-24 18:07:04\"]','2018-03-24 18:07:04') [ RunTime:0.0000s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[[\"GetAccessToken 1001\"],\"2018-03-24 18:07:04\"]','2018-03-24 18:07:04') [ RunTime:0.0000s ]
+SQL: SELECT `app_id`,`app_secret`,`access_token`,`expires_in`,`auth_token`,`expires_in_auth`,`expires_in_js`,`ticket` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0000s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[{\"0\":\"GetAccessToken 1002\",\"public_account\":{\"app_id\":\"wx43a30efca8d69180\",\"app_secret\":\"2db9b75e18587787df4cb3dda6741e51\",\"access_token\":null,\"expires_in\":\"1521886012\",\"auth_token\":\"\",\"expires_in_auth\":\"0\",\"expires_in_js\":\"1521893012\",\"ticket\":\"\"}},\"2018-03-24 18:07:04\"]','2018-03-24 18:07:04') [ RunTime:0.0000s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[{\"0\":\"GetAccessToken 1003\",\"GetToken\":\"40164:invalid ip 125.122.241.226, not in whitelist hint: [dRHUdA01411512]\"},\"2018-03-24 18:07:04\"]','2018-03-24 18:07:04') [ RunTime:0.0000s ]
+NOTIC: [8] Trying to get property of non-object D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 348 行.
+NOTIC: [8] Trying to get property of non-object D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 348 行.
+SQL: UPDATE `jianjiao_public_account` SET `expires_in`='1521886024',`access_token`=NULL WHERE `redid` = 8 [ RunTime:0.0000s ]
+SQL: SELECT `ticket`,`expires_in_js` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0000s ]
+NOTIC: [8] Undefined property: stdClass::$ticket D:\MyJob\project\majiang\ThinkPHP\Library\Vendor\WeiXin\WeixinHelper.php 第 34 行.
+NOTIC: [8] Undefined property: stdClass::$ticket D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 96 行.
+SQL: UPDATE `jianjiao_public_account` SET `expires_in_js`='1521893024',`ticket`=NULL WHERE `redid` = 8 [ RunTime:0.0000s ]
+SQL: SHOW COLUMNS FROM `jianjiao_pcweb_user` [ RunTime:0.0060s ]
+SQL: SELECT `id`,`username`,`nickname`,`dateline`,`sort`,`password`,`question`,`answer`,`email`,`truename`,`idcard` FROM `jianjiao_pcweb_user` WHERE `username` = '15738815310' LIMIT 1   [ RunTime:0.0000s ]
+
+[ 2018-03-24T18:07:17+08:00 ] 127.0.0.1 /Pcweb/Login/index.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `jianjiao_public_account` [ RunTime:0.0060s ]
+SQL: SELECT `app_id`,`app_secret`,`wx_pay_key`,`wx_pay_mchid`,`wx_pay_sslcert_path`,`wx_pay_sslkey_path`,`apiurl` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0000s ]
+SQL: SHOW COLUMNS FROM `jianjiao_msg` [ RunTime:0.0090s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[[\"WeixinController $this->Rid\",8],\"2018-03-24 18:07:17\"]','2018-03-24 18:07:17') [ RunTime:0.0030s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[[\"GetAccessToken 1001\"],\"2018-03-24 18:07:17\"]','2018-03-24 18:07:17') [ RunTime:0.0000s ]
+SQL: SELECT `app_id`,`app_secret`,`access_token`,`expires_in`,`auth_token`,`expires_in_auth`,`expires_in_js`,`ticket` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0010s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[{\"0\":\"GetAccessToken 1002\",\"public_account\":{\"app_id\":\"wx43a30efca8d69180\",\"app_secret\":\"2db9b75e18587787df4cb3dda6741e51\",\"access_token\":null,\"expires_in\":\"1521886024\",\"auth_token\":\"\",\"expires_in_auth\":\"0\",\"expires_in_js\":\"1521893024\",\"ticket\":\"\"}},\"2018-03-24 18:07:17\"]','2018-03-24 18:07:17') [ RunTime:0.0010s ]
+SQL: INSERT INTO `jianjiao_msg` (`msg`,`date`) VALUES ('[{\"0\":\"GetAccessToken 1003\",\"GetToken\":\"40164:invalid ip 125.122.241.226, not in whitelist hint: [YyiX_01542974]\"},\"2018-03-24 18:07:17\"]','2018-03-24 18:07:17') [ RunTime:0.0010s ]
+NOTIC: [8] Trying to get property of non-object D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 348 行.
+NOTIC: [8] Trying to get property of non-object D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 348 行.
+SQL: UPDATE `jianjiao_public_account` SET `expires_in`='1521886037',`access_token`=NULL WHERE `redid` = 8 [ RunTime:0.0010s ]
+SQL: SELECT `ticket`,`expires_in_js` FROM `jianjiao_public_account` WHERE `redid` = 8 LIMIT 1   [ RunTime:0.0000s ]
+NOTIC: [8] Undefined property: stdClass::$ticket D:\MyJob\project\majiang\ThinkPHP\Library\Vendor\WeiXin\WeixinHelper.php 第 34 行.
+NOTIC: [8] Undefined property: stdClass::$ticket D:\MyJob\project\majiang\Application\Home\Controller\WeixinController.class.php 第 96 行.
+SQL: UPDATE `jianjiao_public_account` SET `expires_in_js`='1521893037',`ticket`=NULL WHERE `redid` = 8 [ RunTime:0.0000s ]
+SQL: SHOW COLUMNS FROM `jianjiao_pcweb_user` [ RunTime:0.0050s ]
+SQL: SELECT `id`,`username`,`nickname`,`dateline`,`sort`,`password`,`question`,`answer`,`email`,`truename`,`idcard` FROM `jianjiao_pcweb_user` WHERE `username` = '15738815310' LIMIT 1   [ RunTime:0.0000s ]
+

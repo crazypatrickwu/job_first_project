@@ -1,0 +1,178 @@
+<extend name="Common:base" />
+
+<block name="title">所有订单列表</block>
+
+<block name="menu">
+	<include file="Order:menu" />
+</block>
+
+<block name="main">
+	 <div class="pageheader">
+	    <h1 class="pagetitle">所有订单列表</h1>
+	    <span class="pagedesc"></span>
+	</div>
+	<div id="contentwrapper" class="contentwrapper">
+		<div>
+			<form action="" metod="get">
+				<input type="hidden" name="p" id="p" value="1" />
+				订单号码&nbsp;:&nbsp;<input type="text" name="order_sn" id="order_sn" value="{:remove_xss(I('get.order_sn'))}">
+				&nbsp;
+				快递公司&nbsp;:&nbsp;<input type="text" name="express" id="express" value="{:remove_xss(I('get.express'))}">
+				&nbsp;
+				快递单号&nbsp;:&nbsp;<input type="text" name="express_sn" id="express_sn" value="{:remove_xss(I('get.express_sn'))}">
+				&nbsp;是否同步&nbsp;:&nbsp;
+				<select name="post_qimen">
+					<option value="">--请选择--</option>
+					<option value="0"<if condition="I('get.post_qimen') HEQ '0'">{:chr(32)}selected="selected"</if>>未同步</option>
+					<option value="1"<if condition="I('get.post_qimen') EQ 1">{:chr(32)}selected="selected"</if>>已同步</option>
+				</select>
+				&nbsp;订单状态&nbsp;:&nbsp;
+				<select name="status">
+					<option value="">--请选择--</option>
+					<option value="0"<if condition="I('get.status') NEQ '' AND I('get.status') EQ 0">{:chr(32)}selected="selected"</if>>未发货</option>
+					<option value="1"<if condition="I('get.status') EQ 1">{:chr(32)}selected="selected"</if>>已发货</option>
+					<option value="2"<if condition="I('get.status') EQ 2">{:chr(32)}selected="selected"</if>>已完成订单</option>
+				</select>
+				&nbsp;
+				<p></p>
+				收 货 人 &nbsp;:&nbsp;<input type="text" name="consignee" id="consignee" value="{:remove_xss(urldecode(I('get.consignee')))}">
+				&nbsp;
+				电话号码&nbsp;:&nbsp;<input type="text" name="telephone" id="telephone" value="{:remove_xss(urldecode(I('get.telephone')))}">
+				&nbsp;
+				收货省份&nbsp;:&nbsp;<input type="text" name="province" id="province" value="{:remove_xss(urldecode(I('get.province')))}">
+				&nbsp;
+				收货城市&nbsp;:&nbsp;<input type="text" name="city" id="city" value="{:remove_xss(urldecode(I('get.city')))}">
+				&nbsp;
+				收货地区&nbsp;:&nbsp;<input type="text" name="county" id="county" value="{:remove_xss(urldecode(I('get.county')))}">
+				&nbsp;
+				收货地址&nbsp;:&nbsp;<input type="text" name="address" id="address" value="{:remove_xss(urldecode(I('get.address')))}">
+				<p></p>
+				下单时间&nbsp;:&nbsp;<input type="text" name="start_time" id="start_time" value="{:remove_xss(search_time_format(I('get.start_time')))}" class="sang_Calender">-<input type="text" name="end_time" id="end_time" value="{:remove_xss(search_time_format(I('get.end_time')))}" class="sang_Calender">
+				<input type="submit" value="查询" class="stdbtn">
+			</form>
+		</div>
+		<p></p>
+		<table cellpadding="0" cellspacing="0" border="0" class="stdtable stdtablequick">
+			<tr>
+				<th>展开</th>
+				<th>ID</th>
+				<th>订单号</th>
+				<th>收货人</th>
+				<th>联系电话</th>
+				<th width="150px">地址</th>
+				<th>订单总额</th>
+				<th>下单时间</th>
+				<th>订单状态</th>
+				<th>是否同步</th>
+				<th>快递公司</th>
+				<th>快递单号</th>
+				<th>发货时间</th>
+				<th>支付时间</th>
+				<th>操作</th>
+			</tr>
+
+			<if condition="empty($orderList)">
+				<tr>
+					<td colspan="15">没有订单列表~！</td>
+				</tr>
+			<else />
+				<volist name="orderList" id="list">
+				<tr class="order_{$list['order_sn']}">
+					<td>
+						<span class="open" data-id="{$list['order_sn']}">›</span>
+					</td>
+					<td>{$list['id']}</td>
+					<td>{$list['order_sn']}</td>
+					<td>{$list['consignee']}</td>
+					<td>{$list['telephone']}</td>
+					<td>
+						{$list['province']} {$list['city']} {$list['county']} {$list['address']}
+					</td>
+					<td>￥{$list['total']}</td>
+					<td>{$list['add_time']|time_format=###}</td>
+					<td>
+						<switch name="list['status']">
+							<case value="0">未发货</case>
+							<case value="1">已发货</case>
+							<case value="2">已完成订单</case>
+							<case value="3">已完成订单</case>
+							<case value="4">已取消订单</case>
+							<case value="5">已取消订单</case>
+						</switch>
+					</td>
+					<td>
+						<if condition="$list['post_qimen'] GT 0">
+							已同步
+						<else />
+							未同步
+						</if>
+					</td>
+					<td>{$list['express']|default="未填写"}</td>
+					<td>{$list['express_sn']|default="未填写"}</td>
+					<td>
+						<if condition="$list['express_time'] GT 0">
+							{$list['express_time']|time_format=###}
+						<else />
+							未填写
+						</if>
+					</td>
+					<td>
+						<if condition="$list['pay_time'] GT 0">
+							{$list['pay_time']|time_format=###}
+						<else />
+							未填写
+						</if>
+					</td>
+					<td>
+						<if condition="$list['post_qimen'] == 0 AND $list['is_pay'] eq 1">
+							<a class="stdbtn btn_lime" href="{:U('Qimen/deliverGoods', array('order_sn'=>$list['order_sn']))}">同步快递</a>&nbsp;&nbsp;
+						</if>
+
+						<a class="stdbtn btn_lime" href="{:U('Order/orderDetail', array('id'=>$list['id']))}">查看详情</a>&nbsp;&nbsp;
+					</td>
+				</tr>
+				</volist>
+				<tr>
+					<td colspan="15">
+						<div class="page-box">{$show}</div>
+					</td>
+				</tr>
+			</if>
+		</table>
+	</div>
+</block>
+
+<block name="script">
+	<script type="text/javascript" src="__PUBLIC__/Agent/js/datetime.js"></script>
+	<script type="text/javascript">
+		$(".open").click(function() {
+			var _that   = $(this);
+			var orderSn = _that.attr('data-id');
+
+			if ( $(".p_" + orderSn).length <= 0 ) {
+				$.ajax({
+					url: '{:U('order/orderGoodsList')}',
+					type: 'POST',
+					dataType: 'json',
+					data: {order_sn: orderSn}
+				}).done(function(data) {
+					var string = [];
+
+					string.push('<tr class="p_' + data[0].order_sn + '"><td colspan="15"><table class="sub"><tr><th>商品ID</th><th>商品条形码</th><th>商品名称</th><th>商品价格</th><th>商品数量</th></tr><tr>');
+					for (var i = 0; i < data.length; i++) {
+						string.push('<td>' + data[i].goods_id + '</td>');
+						string.push('<td>' + data[i].bar_code + '</td>');
+						string.push('<td>' + data[i].goods_name + '</td>');
+						string.push('<td>￥' + data[i].goods_price + '</td>');
+						string.push('<td>' + data[i].goods_number + '</td>');
+						string.push('</tr>');
+					}
+					string.push('</table></td></tr>');
+					_that.parent().parent().after(string.join(''));
+				});
+			}
+
+			$(".p_" + orderSn).toggle();
+		});
+	</script>
+</block>

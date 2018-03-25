@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+    <title>申请代理</title>
+    <link rel="stylesheet" href="__PUBLIC__/Home/Agent/css/taizhou.css">
+</head>
+<body style="">
+<div id="app">
+    <div class="invitation_code">
+        <div class="input_code">
+            <div class="new_code">姓名</div>
+            <div class="input_in"><input type="text" id="nickname" placeholder="请输入姓名" /></div>
+        </div>
+    </div>
+    <div class="invitation_code">
+        <div class="input_code">
+            <div class="new_code">手机号</div>
+            <div class="input_in"><input type="tel" id="phone" placeholder="请输入手机号" /></div>
+        </div>
+    </div>
+    <div class="invitation_code">
+        <div class="input_code">
+            <div class="new_code">所属地区</div>
+            <div class="input_in"><input type="text" id="address" placeholder="请输入所属地区" /></div>
+        </div>
+    </div>
+    <div class="invitation_code">
+        <div class="input_code">
+            <div class="new_code">邀请码</div>
+            <div class="input_in"><input type="text" id="invitation_code" placeholder="请输入6位邀请码" /></div>
+        </div>
+        <div class="notes">注：如无邀请码，可以不填写。</div>
+    </div>
+    <div class="invitation_code">
+        <div class="input_code">
+            <div class="new_code">简单描述你将如何推广</div>
+            <div class="input_in"><input type="text" id="desc" placeholder="请输入描述" /></div>
+        </div>
+    </div>
+    <div class="payment_btn">
+        <button>确定</button>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="__PUBLIC__/Home/Agent/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Home/Agent/js/public.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $(".payment_btn").on("click","button",function(){
+            var nickname        = $("#nickname").val();
+            var invitation_code = $("#invitation_code").val();
+            var phone        = $("#phone").val();
+            var mobile        = $("#mobile").val();
+            var address        = $("#address").val();
+            var desc        = $("#desc").val();
+            if (nickname == '') {
+                webTip("请输入您的姓名");
+            };
+            if (phone == '') {
+                webTip("请输入手机号码");
+            };
+            if (invitation_code == '') {
+                // webTip("请输入代理邀请码");
+            };
+            var invitation_code = $("#invitation_code").val();
+            var _url    = "{:U('agentReg')}";
+            var _param  = new Object();
+                _param.nickname         = nickname;
+                _param.invitation_code  = invitation_code;
+                _param.phone            = phone;
+                _param.mobile           = mobile;
+                _param.address          =address;
+                _param.desc             =desc;
+                console.log(_url);
+                console.log(_param);
+            $.post(_url,_param,function(res){
+                if (res.code == 1) {
+                    webTip(res.msg,function(){
+                        window.location.href = window.location.href;
+                    },3000);
+                }else{
+                    webTip(res.msg,function(){
+                        window.location.href = window.location.href;
+                    },3000);
+                }
+            },'json');
+        });
+    })
+</script>
+</html>

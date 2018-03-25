@@ -1,0 +1,22 @@
+@charset "UTF-8";
+/**
+ * 
+ * @authors xuxinjiang (565657400@qq.com)
+ * @date    2015-03-24 12:39:44
+ * @version $baiwei$
+ */
+/*CSS Reset*/
+body,div,ul,ol,li,dl,dt,dd,p,h1,h2,h3,h4,h5,h6,form,table,tr,td,th,button,input,select,textarea{margin:0;padding:0;}
+img{border:none;vertical-align:top;}
+ol,ul{list-style:none;}
+button,input,select,textarea{font-size:100%;outline:none;resize:none; font-family: "Microsoft Yahei"}
+em,i,strong,b{font-style:normal;font-weight:normal;}
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block;}
+table{border-collapse:collapse;border-spacing:0;}
+table td{ border:1px solid #ddd;}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}
+
+/*User-Defined*/
+body{font:12px/1.5 'Microsoft Yahei',Arial;color:#666;background:#fff;-webkit-text-size-adjust:none;max-width: 640px; margin:0 auto; position: relative;}
+a{color:#666;text-decoration:none;outline:none;}
+a:visited{ color: none;}

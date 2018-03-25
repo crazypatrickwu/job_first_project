@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+<script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+<title>消息</title>
+<link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+<link rel="stylesheet" href="__PUBLIC__/Home/css/xiaotian.css">
+<script type="text/javascript" src="__PUBLIC__/Home/js/zepto.full.js"></script>
+</head>
+
+<body class="gray">
+<div class="z-contain z-n-contain">
+	<div class="z-news-list line-bottom">
+		<a href="{:U('User/sysnews')}">
+			<i class="z-sys-news"><img src="__PUBLIC__/Home/img/laba.png" alt=""></i>
+			<span>系统消息</span>
+			<p>{$system['description']}</p>
+			<time>{:date('m-d H:i',$system['update_time'])}</time>
+		</a>
+	</div>
+	<div class="z-news-list line-bottom">
+		<a href="{:U('User/ordernews')}">
+			<i class="z-case-news"><img src="__PUBLIC__/Home/img/case-new.png" alt=""></i>
+			<span>订单消息</span>
+			<p>{$order['msg']}</p>
+			<time>{:date('m-d H:i',$order['dateline'])}</time>
+		</a>
+	</div>
+</div>
+</body>
+</html>

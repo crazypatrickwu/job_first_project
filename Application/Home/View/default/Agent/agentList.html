@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+    <title>代理列表</title>
+    <script src="__PUBLIC__/Home/Agent/js/jquery.min.js"></script>
+    <script src="__PUBLIC__/Home/Agent/js/mobiscroll.custom-2.6.2.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/Agent/css/mobiscroll.custom-2.6.2.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/Home/Agent/css/taizhou.css">
+</head>
+<body style="background: #fff;">
+    <div>
+            <div class="bg_top">
+                <div class="search_box search_box2"><input type="text" name="keyword" id="keyword" placeholder="输入代理ID、手机号码"/><i><img src="__PUBLIC__/Home/Agent/img/clear.png"/></i><span id="search_btn">搜索</span></div>
+                <div class="search_time">
+                    <span>加入时间</span><input type="text" name="start_time" id="start_time" value=""/>至 <input type="text" name="end_time" id="end_time" value=""/>
+                </div>
+            </div>
+        <div class="list_box">
+            <!-- <if condition="$agent_info['level'] eq 1">
+                <div class="add_btn"><a href="{:U('Agent/addAgent')}">+添加代理</a></div>
+            </if> -->
+            <if condition="empty($agentList)">
+                <div colspan="4" align="center" style="text-align: center !important;line-height:80px;">没有代理数据~！</div>
+            <else />
+                <div class="list_main_result">
+                <volist name="agentList" id="agent">
+                <div class="item_box">
+                    <div class="clearfix item_title">
+                        <div class="left">{$agent['nickname']}</div><div class="right">ID:{$agent['id']}</div>
+                    </div>
+                    <div class="ash">微信号：{$agent['wechat_id']}</div>
+                    <div class="ash">手机号：{$agent['phone']}</div>
+                    <div class="clearfix">
+                        <div class="left ash">房卡数：{$agent['room_card']}颗</div><div class="right time">{$agent['dateline']|date="Y/m/d H:i:s",###}</div>
+                    </div>
+                    <!-- <a href="/Home/Recharge/addInsureScore/user_id/551.html"><div class="bg_bottom">充卡</div></a> -->
+                </div>
+                <a href="{:U('Agent/addInsureScore',array('agent_id'=>$agent['id']))}"><div class="bg_bottom">充钻</div></a>
+                </volist>
+                </div>
+            </if>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            var opt = {
+                theme: "android-ics light",
+                display: 'modal', //显示方式
+                lang: "zh",
+                setText: '确定', //确认按钮名称
+                cancelText: "取消",
+                dateFormat: 'yyyy-mm-dd', //返回结果格式化为年月格式
+                dateOrder: 'yyyymmdd', //面板中日期排列格式
+                onBeforeShow: function (inst) {
+                    //	console.info( inst.settings.wheels);
+                },
+                headerText: function (valueText) { //自定义弹出框头部格式
+                    //	console.info(valueText);
+                    array = valueText.split('-');
+                    return array[0] + "年" + array[1] + "月" + array[2] + "日";
+                }
+            };
+            $("#start_time").mobiscroll().date(opt);
+            $("#end_time").mobiscroll().date(opt);
+        });
+    </script>
+
+    <input type="hidden" value="1" id="page">
+    <input type="hidden" id="totalpage" value="<?php echo $totalpage; ?>" />
+    <div id="loading" style="margin:auto;text-align:center;margin:10px;margin-bottom:50px;"></div>
+    <script>
+    var _url ="{:U('Home/Agent/agentList')}";
+    var totalpage = parseInt($('#totalpage').val());
+    var falg = false;
+    $(function(){
+        var page = 1;
+        var loading  = '<span style="text-align:center;font-family: yahei;font-size: 14px;margin-left:5px;line-height:15px;color:#666;">加载中...</span>';
+        //下拉分页
+        $(window).scroll(function(){
+            var totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop()) + 20;
+            if(totalheight >= $(document).height()){
+                if(falg) return;
+                falg = true;
+                page = parseInt(page)+1;
+                if(page > totalpage){
+                    page = totalpage;
+                    return false;
+                }
+                $('#loading').html(loading);
+                loadContents(page);
+            }
+        });
+    });
+    function loadContents(page){
+        var keyword = $("#keyword").val();
+        var start_time = $("#start_time").val();
+        var end_time = $("#end_time").val();
+        var _param  =   new Object();
+            _param.page = page;
+            _param.keyword = keyword;
+            _param.start_time = start_time;
+            _param.end_time = end_time;
+            _param.isAjax       =   1;
+        setTimeout(function(){
+            $.get(_url,_param,function(res){
+                if (res.code == '1') {
+                    timer=0;
+                    $('#loading').html('');
+                    var new_html = '';
+                    $.each(res.info,function(i,list) {
+                        new_html +='<div class="item_box">';
+                        new_html +='<div class="clearfix item_title">';
+                        new_html +='<div class="left">'+list.nickname+'</div><div class="right">ID:'+list.id+'</div>';
+                        new_html +='</div>';
+                        new_html +='<div class="ash">微信号：'+list.wechat_id+'</div>';
+                        new_html +='<div class="ash">手机号：'+list.phone+'</div>';
+                        new_html +='<div class="clearfix">';
+                        new_html +='<div class="left ash">房卡数：'+list.room_card+'颗</div><div class="right time">'+list.dateline+'</div>';
+                        new_html +='</div>';
+                        new_html +='</div>';
+                        new_html +='<a href="'+list.add_card_url+'"><div class="bg_bottom">充卡</div></a>';
+
+                    });
+                    $(".list_main_result").append(new_html);
+                    // $("#totalpage").val(data.list.last_page);
+
+                    if(page == totalpage){
+                        timer = 1;
+                        $("#loading").html('<span style="color:#999">没有更多的数据了！</span>');
+                    }
+                    falg = false;
+                };
+            },'json');
+        },1500);
+    };
+
+    /*点击搜索*/
+    $("#search_btn").on('click',function(){
+        $(".list_main_result").html("");
+        loadContents(1);
+    });
+
+
+    /*删除搜索文字*/
+    $(".search_box").find("i").on("click",function(){
+        $("#start_time").val("");
+        $("#end_time").val("");
+        $("#keyword").val("").focus();
+    });
+</script>
+<include file="Index:public_wxshare" />
+</body>
+</html>

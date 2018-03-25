@@ -1,0 +1,22 @@
+<ul>
+	<li<if condition="in_array(CONTROLLER_NAME, array('Order'))">{:chr(32)}class="current"</if>>
+		<a class="date-tit sys-tj" href="{:U('Order/orderList')}" class="addons">购卡管理</a>
+		<ul class="Jcon-ctr">
+			<li class="<if condition="in_array(ACTION_NAME, array('orderList', 'orderDetail'))">on</if>">
+				<a href="{:U('Order/orderList')}">订单列表</a>
+			</li>
+		</ul>
+	</li>
+
+
+	<if condition="$Think.session.agentId EQ 1">
+	<li<if condition="in_array(CONTROLLER_NAME, array('GiftOrder'))">{:chr(32)}class="current"</if>>
+		<a class="date-tit sys-tj" href="{:U('GiftOrder/giftOrderList')}" class="addons">礼包订单管理</a>
+		<ul class="Jcon-ctr">
+			<li class="<if condition="in_array(ACTION_NAME, array('giftOrderList'))">on</if>">
+				<a href="{:U('GiftOrder/giftOrderList')}">礼包订单</a>
+			</li>
+		</ul>
+	</li>
+	</if>
+</ul>

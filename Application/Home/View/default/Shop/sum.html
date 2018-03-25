@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+<script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+<title>我的余额</title>
+<link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+<link rel="stylesheet" href="__PUBLIC__/Home/css/ckf.css">
+</head>
+<body class="gray ">
+<!-- <header class="line-bottom">
+</header> -->
+<div class="c-sum-box">
+	<p>
+		<a href="{:U('Shop/billlist')}">账单<img src="__PUBLIC__/Home/img/mk-white.png" alt=""></a>
+		账户余额
+	</p>
+	<money>{$info.account_balance}</money>
+</div>
+<div class="c-sum-cum">
+	<h4>累计收入</h4>
+	<total>{$info.accumulated_money}</total>
+</div>
+<div class="c-sum-menu">
+	<a href="#" class="line-right">
+		<num>{$info.wait_sure}</num>
+		<state>待确认</state>
+	</a>
+	<a href="#" class="line-right">
+		<num>{$info.apply_cash_now}</num>
+		<state>提现中</state>
+	</a>
+	<a href="#">
+		<num>{$info.already_crash}</num>
+		<state>已提现</state>
+	</a>
+</div>
+<a href="{:U('crash',array('stil'=>$info['account_balance']))}" class="c-sum-btn">我要提现</a>
+</body>
+</html>

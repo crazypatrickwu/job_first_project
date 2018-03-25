@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+        <script>!function(n) {
+                var e = n.document, t = e.documentElement, i = 750, d = i / 100, o = "orientationchange"in n ? "orientationchange" : "resize", a = function() {
+                    var n = t.clientWidth || 320;
+                    n > 750 && (n = 750), t.style.fontSize = n / d + "px"
+                };
+                e.addEventListener && (n.addEventListener(o, a, !1), e.addEventListener("DOMContentLoaded", a, !1))
+            }(window);</script>
+        <title>气泡-个人</title>
+        <link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+        <link rel="stylesheet" href="__PUBLIC__/Home/css/xiaotian.css">
+        <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/swiper3.min.css">
+        <script type="text/javascript" src="__PUBLIC__/Home/js/zepto.full.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/Home/js/swiper3.min.js"></script>
+    </head>
+
+    <body class="gray p">
+        <div class="gallery-mask">
+            <div class="gallery-content">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper"></div>
+                    <div class="swiper-button-prev swiper-button-white"></div>
+                    <div class="swiper-button-next swiper-button-white"></div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" value="{$info['discuz']['id']}" id="discuz_id"> 
+        <input type="hidden" value="{$info['discuz']['user_id']}" id="to_persion_id"> 
+        <input type="hidden" value="{$user_id}" id="user_id"> 
+        <div class="z-b-nav line-bottom">
+            <span><a href="{:U('Discuz/issue',array('id' =>$info['user_id']))}">发布</a></span>
+            <span class="z-nav-info">消息</span>
+            <ul class="z-nav-list">
+                <li><a href="{:U('Discuz/mytitle')}">
+                        <if condition="$noticeCount gt 0">
+                            <num>{$noticeCount}</num>
+                        </if>
+                        消息提醒</a></li>
+                <li><a href="{:U('Discuz/mynews')}">
+                        <!--<num>2</num>-->
+                        我的主题</a>
+                </li>
+                <li><a href="{:U('Discuz/myreply')}">
+                        <!--<num>3</num>-->
+                        我的回复</a>
+                </li>
+            </ul>
+        </div>
+        <div class="z-contain z-contain2">
+            <div class="z-b-main z-p-main" data-id="{$info['discuz']['id']}">
+                <div class="z-maintop">
+                    <img src="{$info['discuz']['avatar']}" alt="">
+                    <name >{$info['discuz']['nickname']}
+                        <if condition="$info['discuz']['sex'] eq 1">
+                            <em class="boy">
+                            </em>
+                            <elseif condition="$info['discuz']['sex'] eq 2"/>
+                            <em class="girl">
+                            </em>
+                        </if>
+                    </name>
+                    <if condition="$info['discuz']['school'] eq '' ">
+                        <span>{$info['discuz']['time']} </span>
+                        <else />
+                        <span>{$info['discuz']['time']} 来自[{$info['discuz']['school']}]</span>
+                    </if>
+                </div>
+                <h4>{$info['discuz']['content']}</h4>
+                <if condition="!empty($info['discuz']['pic_list'])">
+                    <ul class="z-pic-list clearfix">
+                        <volist name="info.discuz.pic_list" id="pic">
+                            <li><img src="{$pic}" alt=""></li>
+                        </volist>
+                    </ul>
+                </if>
+
+                <ul class="z-b-type2 clearfix">
+                    <li>
+                        <span class="z-type2-zan" data-zan_status="{$info['discuz']['zan_status']}" data-flag="true">
+                            <img src="__PUBLIC__/Home/img/{$info['discuz']['zan_class']}.png" alt="">
+                            <num>{$info['discuz']['zan']}</num>
+                        </span>
+                    </li>
+
+                    <li><span class="z-type2-share" data-user="{$info['discuz']['id']}" data-sure='0'><img src="__PUBLIC__/Home/img/share.png" alt="">转发</span></li>
+                    <li><span class="z-type2-money"><img src="__PUBLIC__/Home/img/money.png" alt="">打赏</span></li>
+                    <li>
+                        <span class="z-type2-jubao">
+                            <img src="__PUBLIC__/Home/img/message.png" alt="">留言</span>
+                    </li>
+                </ul>
+                <div class="z-message clearfix">
+                    <textarea></textarea>
+                    <em class="z-m-cancel">取消</em>
+                    <em class="z-m-sure">提交</em>
+                </div>
+                <if condition="$userid eq $info['discuz']['user_id']">
+                    <a href="javascript:;" class="z-bubble-del" data-user="{$info['discuz']['id']}" data-sure="">删除</a>
+                </if>
+            </div>
+            <h4 class="z-comtitle">评论{$info.discuz_mes_count}条</h4>
+            <div id='msg_content'>
+                <volist name="data_top" id="mes" key="key">
+                    <!--  <if condition="$mes.pid eq 0" > -->
+                    <div class="z-maintop z-comment  line-half">
+                        <!--  <if condition="$mes['pid'] eq 0" > -->
+                        <img src="{$mes['avatar']}" alt="">
+                        <name >{$mes['nickname']}<em class="z-floor">&nbsp{$key}楼</em></name>
+                        <span>{:date('m-d H:i',$mes['time'])} 来自 [{$mes['school']}]</span>
+                        <p class="z-com">{$mes['content']|base64_decode}</p>
+                        <div class="reply">
+                            <volist name="data_in" id="v">
+                                <if condition="$v['pid'] eq $mes['id']">
+                                    <p class="z-reply">{$v['nickname']}回复:<text>{$v['content']|base64_decode}</text></p>
+                                </if>
+                            </volist>
+                        </div>
+                        <i></i>
+
+                        <div class="z-text" data-id="{$mes['id']} ">
+                            <textarea class="clearfix" id='reply_data'></textarea>
+                            <em class="z-cancel">取消</em>
+                            <em class="z-submit">提交</em>
+                        </div>
+                        <!-- </if> -->
+                    </div>
+                    <!-- </if> -->
+                </volist>
+            </div>
+        </div>
+        <!-- 弹出转发层 -->
+        <div class="confirm">
+            <div class="confirm-box clearfix">
+                <p>确定要<font class="confirm_type_text">转发</font>吗？</p>
+                <span class='confirm-sure'>确定</span>
+                <span class='confirm-cancel'>取消</span>
+            </div>
+        </div>
+
+        <!-- 打赏弹出层 -->
+        <div class="z-popup">
+            <div class="z-bg"></div>
+            <div class="z-popupcon">
+                <img src="__PUBLIC__/Home/img/close.png" alt="" class="z-close"/>
+                <img src="{$info['discuz']['avatar']}" alt="" class="z-title-pic" />
+                <span class="z-pay">¥<input type="number" id='pay_money' name="pset_wx"></span>
+                <span class="z-pbtn">赏</span>
+                <p class="z-wechat">使用微信支付</p>
+            </div>
+        </div>
+    </body>
+    <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script>
+            $(function() {
+                var userid = "{$userid}";
+                var flag = true;
+                var reword_flag = true;
+                var confirm_type = 0;
+                $('.z-nav-info').on("tap", function() {
+                    if ($('.z-nav-list').is(':visible')) {
+                        $('.z-nav-list').hide();
+                    } else {
+                        $('.z-nav-list').show();
+                    }
+                });//消息出现下拉框
+
+                $('.z-type2-share').on("tap", function() {
+                    $(this).attr('data-sure', '1')
+                    confirm_type = 1;
+                    $(".confirm_type_text").text("转发");
+                    $('.confirm').show();
+                    $('body,html').css('overflow', 'hidden');
+                });//点击转发出现弹窗、
+
+                $('.z-bubble-del').on("tap", function() {
+                    $(this).attr('data-sure', '1')
+                    confirm_type = 2;
+                    $(".confirm_type_text").text("删除");
+                    $('.confirm').show();
+                    $('body,html').css('overflow', 'hidden');
+                });//点击转发出现弹窗、
+
+                $('.confirm-sure').on('tap', function() {
+                    $('.confirm').hide();
+                    if (confirm_type == 1) {
+                        $('.z-type2-share').each(function() {
+                            var sure = $(this).data('sure');
+                            if (sure == 1) {
+                                var id = $(this).data('user');
+                                var url = "{:U('Discuz/relay')}"
+                                $.post(url, {'discuz_id': id}, function(res) {
+                                    $('.z-type2-share').each(function() {
+                                        $(this).data('sure', 0);
+                                    })
+                                    window.location.href = "{:U('discuz/index')}"
+                                }, 'json')
+                            }
+                        });
+                    } else if (confirm_type == 2) {
+                        $('.z-bubble-del').each(function() {
+                            var sure = $(this).data('sure');
+                            if (sure == 1) {
+                                var id = $(this).data('user');
+                                var url = "{:U('Discuz/del')}"
+                                $.post(url, {'discuz_id': id}, function(res) {
+                                    $('.z-bubble-del').each(function() {
+                                        $(this).data('sure', 0);
+                                    })
+                                    //                                           console.log('hh');return;
+                                    window.location.href = "{:U('discuz/index')}"
+                                }, 'json')
+                            }
+                        });
+                    }
+                });//确定按钮
+                $('.confirm-cancel').on("tap", function() {
+                    $('.z-type2-share').each(function() {
+                        $(this).data('sure', 0);
+                    })
+                    $('.z-bubble-del').each(function() {
+                        $(this).data('sure', 0);
+                    })
+                    $('.confirm').hide();
+                    $('body,html').css('overflow', 'initial');
+                });//取消按钮
+
+                $('.z-type2-money').on("tap", function() {
+                    $('.z-popup').show();
+                    $('body,html').css('overflow', 'hidden');
+                })//点击打赏出现弹窗
+
+                $('.z-close').on("tap", function() {
+                    $('.z-popup').hide();
+                    $('body,html').css('overflow', 'initial');
+                    $('#pay_money').val('');
+                });//点击打赏弹窗的×弹窗消失
+
+                $('.z-bg').on("tap", function() {
+                    $('.z-popup').hide();
+                    $('body,html').css('overflow', 'initial');
+                });//点击打赏背景打赏消失
+
+                $('body').on("tap", ".z-comment i", function() {
+
+                    $(this).next('.z-text').show().parents('.z-maintop').siblings().find('.z-text').hide();
+                    $('.z-message').hide();
+                });//点击出现评论框
+
+                $('body').on("tap", ".z-submit", function() {
+                    var newtext = $.trim($(this).parent().find('textarea'));
+                    var reply = $(this).parents('.z-comment').find('.reply');
+                    var val = $.trim($(this).parent().find('textarea').val());
+                    if (val == "" && length == 0) {
+                        showMessage('请输入内容');
+                        return false;
+                    } else {
+                        var pid = $(this).parent().attr('data-id');//留言ID
+                        var msg_user_id = $(this).parent().attr('data-user_id');//留言者user_id
+
+                        var discuz_id = $(".z-b-main").attr('data-id');//当前主题ID
+                        var url = "/Discuz/msg";
+                        $.ajax({
+                            type: "post",
+                            url: url,
+                            data: {
+                                'msg': val,
+                                'discuz_id': discuz_id,
+                                'pid': pid
+                            },
+                            success: function(res) {
+                                var res = JSON.parse(res);
+                                console.log(res);
+                                if (res.Code == '0') {
+                                    var data = res.info;
+                                    var str = '';
+                                    /*$('.z-comtitle').html();*/
+                                    str += '<p class="z-reply">' + data['0'].nickname + '回复:<text>' + data['0'].content + '</text></p>';
+                                    reply.append(str);
+                                    // newtext.val('');
+                                }
+                            }
+                        })
+                        $('.z-text').hide();
+                        // $('.z-comtitle').after(newCon);
+                    }
+
+                });//点击提交
+
+                $('.z-cancel').on("tap", function() {
+                    $(this).parent().hide();
+                });//点击取消
+
+                $('.z-type2-jubao').on("tap", function() {
+                    $('.z-message').show();
+                    $('.z-text').hide();
+
+                });//点击留言出现留言页
+
+                $('.z-m-sure').on("tap", function() {
+                    // var newCon = '<div class="z-maintop z-comment line-half"><img src="__PUBLIC__/Home/img/pic1.png" alt=""><name >vivi<em class="z-floor">（10楼）</em></name><span>4小时前  来自[上海大学]</span><p class="z-com">谢谢打赏</p><i></i><div class="z-text"><textarea class="clearfix"></textarea><em class="z-cancel">取消</em><em class="z-submit">提交</em></div></div>';
+                    var textarea = $.trim($(this).parent().find('textarea'));
+                    var newtext = $.trim($(this).parent().find('textarea').val());
+                    // alert('111');
+                    if (newtext == "") {
+                        showMessage('请输入内容');
+                        return false;
+                    } else {
+
+                        var discuz_id = $('#discuz_id').val();
+                        var length_con = $('#msg_content').find('.z-comment').length + 1;
+                        var url = "{:U('Discuz/msg')}";
+                        var to_persion_id = $('#to_persion_id').val();
+                        $.ajax({
+                            type: "POST",
+                            url: "/Home/Discuz/msg",
+                            data: {'msg': newtext, 'discuz_id': discuz_id, 'to_persion_id': to_persion_id},
+                            success: function(res) {
+                                // alert(JSON.stringify(res))
+                                var ret = JSON.parse(res);
+                                if (ret.Code == '0') {
+                                    var data = ret.info;
+                                    $('.z-comtitle').html('评论' + data['0'].count + '条');
+                                    var str = '';
+                                    str += '<div class="z-maintop z-comment line-half">';
+                                    str += '<img src=' + data['0'].avatar + ' alt="">';
+                                    str += '<name >' + data['0'].nickname + '<em class="z-floor">&nbsp' + length_con + '楼</em></name>';
+                                    str += '<span>' + data['0'].time + ' 来自 [' + data['0'].school + ']</span>';
+                                    str += '<p class="z-com">' + data['0'].content + '</p>';
+                                    str += ' <div class="reply"></div>';
+                                    str += '<i></i>';
+                                    str += '<div class="z-text" data-id="' + data['0'].id + '" data-user_id="' + data['0'].user_id + '">';
+                                    str += '<textarea class="clearfix"></textarea>';
+                                    str += '<em class="z-cancel">取消</em>';
+                                    str += '<em class="z-submit">提交</em>';
+                                    str += '</div>';
+                                    str += '</div>';
+                                    $('#msg_content').append(str);
+                                    // textarea.val('')
+                                }
+                            }
+                        })
+
+
+                        // window.location.reload();
+                        $('.z-message').hide();
+                        // $('.z-comtitle').after(newCon);
+                    }
+
+
+                });//大的留言页确定
+
+                $('.z-m-cancel').on("tap", function() {
+                    $('.z-message').hide();
+                });//大的留言页取消
+
+                $('.z-type2-zan').on("tap", function() {
+                    var domthis = $(this);
+                    var discuz_id = $(this).parents(".z-b-main").attr("data-id");
+                    var zan_status = $(this).attr("data-zan_status");
+                    if (discuz_id == null) {
+                        alert('参数错误');
+                        return false;
+                    }
+                    if (flag == true) {
+                        flag = false;
+                        var _url = "{:U('like')}";
+                        var _param = new Object();
+                        _param.discuz_id = discuz_id;
+                        $.post(_url, _param, function(res) {
+                            console.log(res);
+                            var datas = res.Data;
+                            var num = datas.discuz_zan_num;
+                            if (zan_status == '1') {
+                                flag = true;
+                                domthis.find('img').attr('src', '__PUBLIC__/Home/img/zan.png');
+                                if (num == 0) {
+                                    domthis.find('num').text('');
+                                } else {
+                                    domthis.find('num').text(num);
+                                }
+                                domthis.attr("data-zan_status", "0");
+                            } else {
+                                flag = true;
+                                domthis.find('img').attr('src', '__PUBLIC__/Home/img/zan2.png');
+                                domthis.find('num').text(num);
+                                domthis.attr("data-zan_status", "1");
+                            }
+                        }, 'json');
+                    } else {
+                        showMessage('正在操作中，请勿重复点击！')
+                    }
+
+                });//点赞
+                function showMessage(msg) {
+                    if (!$('.msg').length) {
+                        $('body').append('<div class="msg" style="position: fixed;bottom: 20%;left: 50%;margin-left: -30%;height: 0.8rem;line-height: 0.8rem;width: 60%;background-color: rgba(0,0,0,.75);border-radius: 0.6rem;text-align: center;color: #fff;z-index:9999;display: none;font-size: 1.2em">' + msg + '</div>');
+                        $('.msg').fadeIn(200);
+                        setTimeout(function() {
+                            $('.msg').fadeOut(200, function() {
+                                $(this).remove();
+                            });
+                        }, 1500)
+                    }
+                }
+                function isWeiXin() {
+                    var ua = window.navigator.userAgent.toLowerCase();
+                    if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+
+                if (isWeiXin()) {
+                    var AppId = "{$DiscuzInfo['appid']}";
+                    var timestamp = "{$DiscuzInfo['timestamp']}";
+                    var noncestr = "{$DiscuzInfo['noncestr']}";
+                    var signature = "{$DiscuzInfo['signature']}";
+
+                    wx.config({
+                        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                        appId: AppId, // 必填，公众号的唯一标识
+                        timestamp: timestamp, // 必填，生成签名的时间戳
+                        nonceStr: noncestr, // 必填，生成签名的随机串
+                        signature: signature, // 必填，签名，见附录1
+                        jsApiList: ['chooseWXPay '] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                    });
+
+                    wx.ready(function() {
+                        wx.checkJsApi({
+                            jsApiList: [
+                                'chooseWXPay',
+                            ], // 需要检测的JS接口列表
+                            success: function(res) {
+                                // alert(JSON.stringify(res));    /*用于检测请求的接口是否是正确的*/
+                            }
+                        })
+                    });
+
+                    $('.z-pbtn').on('tap', function() {
+                        var money = $('#pay_money').val();
+                        var to_persion_id = $('#to_persion_id').val();
+                        var discuz_id = $('#discuz_id').val();
+                        var user_id = $('#user_id').val();
+                        if (money == '') {
+                            showMessage('请输入赏金');
+                            return false;
+                        }
+                        if (money < 0.01) {
+                            showMessage('请输入赏金');
+                            return false;
+                        }
+                        if (user_id == to_persion_id) {
+                            showMessage('不能给自己打赏！');
+                            return false;
+                        }
+                        if (reword_flag == true) {
+                            reword_flag = false
+                            var url = "{:U('Discuz/detail')}";
+                            $.post(url, {"money": money, 'persion': to_persion_id, 'discuz_id': discuz_id}, function(res) {
+                                // alert(JSON.stringify(res)); 
+                                if (res.code == 0) {
+                                    var payinfo = JSON.parse(res.payinfo);
+                                    // alert(typeof payinfo);
+                                    // alert(payinfo.package)
+                                    wx.chooseWXPay({
+                                        timestamp: payinfo.timeStamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+                                        nonceStr: payinfo.nonceStr, // 支付签名随机串，不长于 32 位
+                                        package: payinfo.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
+                                        signType: payinfo.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+                                        paySign: payinfo.paySign, // 支付签名
+                                        success: function(res) {
+                                            reword_flag = true;
+                                            if (res.errMsg == 'chooseWXPay:ok') {
+                                                $('.z-popup').hide();
+                                                $('body,html').css('overflow', 'initial');
+                                                $('#pay_money').val('');
+                                            }
+                                        }
+                                    });
+                                }
+                            }, 'json')
+                        } else {
+                            showMessage('正在打赏中，请勿重复操作');
+                            reword_flag = true;
+                        }
+                    })
+                }
+
+                $("input[name='pset_wx']").on("input onpropertychange", function() {
+                    var val = $(this).val();
+                    if (!/^\d{0,7}(\.\d{0,2})?$/g.test(val)) {
+                        var num = val.slice(0, -1);
+                        $("input[name='pset_wx']").val(num);
+                        return false;
+                    }
+                });
+                function initGallery($obj) {
+                    $('.swiper-wrapper').empty()
+                    //		console.log($obj)
+                    $obj.each(function() {
+                        $('.swiper-wrapper').append('<div class="swiper-slide"><img src="' + $(this).find('img').attr('src') + '"></div>');
+                    });
+                }
+
+                var mySwiper = new Swiper('.swiper-container', {
+                    loop: false,
+                    freeMode: false,
+                    observer: true,
+                    prevButton: '.swiper-button-prev',
+                    nextButton: '.swiper-button-next',
+                    onClick: function() {
+                        $('.gallery-mask').hide();
+                    }
+                });
+                $('.gallery-mask').hide();
+
+                $('.z-pic-list li').on('tap', function() {
+                    initGallery($(this).parents('ul').find('li'));
+                    $('.gallery-mask').show();
+                    mySwiper.slideTo($(this).index(), 0, false);
+                });
+            });
+    </script>
+</html>

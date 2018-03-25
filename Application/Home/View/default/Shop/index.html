@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+<script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+<title>开店</title>
+<link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+<link rel="stylesheet" href="__PUBLIC__/Home/css/xiaotian.css">
+<script type="text/javascript" src="__PUBLIC__/Home/js/zepto.full.js"></script>
+</head>
+
+<body class="gray p">
+<div class="z-contain">
+	<a href="{:U('Shop/myshop',array('shop_id'=>$info['id']))}">
+		<header class="z-o-head">
+			<div class="z-o-wrap">
+				<img src="{$info.photo}" alt="" class="z-o-pic">
+				<span>{$info.nickname}</span>
+				<i></i>
+			</div>
+		</header>
+	</a>
+	<div class="z-o-money line-bottom">
+		<a href="{:U('Shop/sum')}">
+			<span>累计收入（元）</span>
+			<p>{$info.accumulated_money}</p>
+			<i class="z-o-link"></i>
+		</a>
+	</div>
+	<ul class="z-o-list clearfix">
+		<li><a href=""><num>{$info.account_balance}</num>账户余额</a></li>
+		<if condition="$money eq '' ">
+        <li><a href=""><num>0.00</num>本月收入</a></li>
+		<else />
+		<li><a href=""><num>{$money}</num>本月收入</a></li>
+		</if>
+		<li><a href=""><num>{$info.count}</num>今日访问</a></li>
+	</ul>
+	<div class="z-o-main line-bottom">
+		<!-- <h4 class="line-bottom"><a href="{:U('Shop/goodadd')}"><em></em>添加商品</a></h4> -->
+		<ul class="z-main-list clearfix">
+			<li><a href="{:U('Shop/manage',array('get_sale_status'=>'1','get_order'=>'1','get_category'=>'999'))}"><img src="__PUBLIC__/Home/img/icon1.png" alt="">商品管理</a></li>
+			<li><a href="{:U('Shop/orderlist')}"><img src="__PUBLIC__/Home/img/icon2.png" alt="">客户订单</a></li>
+			<li><a href="{:U('Shop/shopinfo')}"><img src="__PUBLIC__/Home/img/icon3.png" alt="">店铺管理</a></li>
+			<li><a href="{:U('Shop/customer')}"><img src="__PUBLIC__/Home/img/icon4.png" alt="">客户管理</a></li>
+			<li><a href="{:U('Shop/selldata',array('shop_id'=>$info['id']))}"><img src="__PUBLIC__/Home/img/icon5.png" alt="">销售统计</a></li>
+			<li><a href="{:U('Shop/blanks')}"><img src="__PUBLIC__/Home/img/icon6.png" alt="">银行卡</a></li>
+			<li><a href=""><img src="__PUBLIC__/Home/img/icon7.png" alt="">更多</a></li>
+		</ul>
+	</div>
+</div>
+<nav class="line-top box-shadow-top">
+	<a href="{:U('Index/index')}" >
+		<img src="__PUBLIC__/Home/img/index.png" alt="">
+		超级店
+	</a>
+	<a href="{:U('Discuz/index')}">
+		<img src="__PUBLIC__/Home/img/bubble.png" alt="">
+		气泡
+	</a>
+	<a href="{:U('Shop/index')}" class="nav-on">
+		<img src="__PUBLIC__/Home/img/open-on.png" alt="">
+		开店
+	</a>
+	<a href="{:U('User/index')}">
+		<img src="__PUBLIC__/Home/img/mine.png" alt="">
+		我
+	</a>
+</nav>
+</body>
+</html>

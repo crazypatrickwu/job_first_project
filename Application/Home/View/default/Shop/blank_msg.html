@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+<script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+<title>短信验证</title>
+<link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+<link rel="stylesheet" href="__PUBLIC__/Home/css/xiaotian.css">
+<script src="__PUBLIC__/Home/js/zepto.full.js" type="text/javascript"></script>
+</head>
+<body class="c-gray">
+<input type=hidden value="{$phone}" id='phone'>
+<input type=hidden value="{$id}" id='bank_id'>
+<div class="c-blank-msg-t">
+	本次服务需要短信验证，验证码已发送至手机：{$phone}，请按提示操作
+</div>
+<div class="c-blank-msg-box">
+	<input type="text" placeholder="填写验证码" name="blank_code">
+	<button type="button" class="c-blank-getcode" onclick="settime(this)" id="check">获取验证码</button>
+</div>
+<a class="btn-blue-b btn-blue c-blank-msg-btn">确认</a>
+<script>
+
+// 获取验证码
+var countdown=60; 
+function settime(obj) { 
+    if (countdown == 0) { 
+        obj.removeAttribute("disabled");    
+        obj.innerHTML="获取验证码";
+        countdown = 60; 
+        return;
+    } else { 
+          
+        obj.setAttribute("disabled", true); 
+        obj.innerHTML="重新发送(" + countdown + ")"; 
+        countdown--; 
+    } 
+setTimeout(function() { 
+    settime(obj) }
+    ,1000) 
+}
+ $('#check').click(function(){
+var url="{:U('Shop/blank_msg')}"
+        $.post(url,{'type':1},function(res){
+            if(res.Code=='0'){
+                showMessage('短信发送成功，请及时查看！');
+            }else{
+               showMessage('短信发送太过频繁！');
+            }
+        },'json');
+ })
+$(".c-blank-msg-btn").click(function(){
+	var input=$("input[name='blank_code']");
+    var data=input.val();
+    var bank_id=$('#bank_id').val();
+    var phone=$('#phone').val();
+	if(input.val()==""){
+		showMessage("请输入验证码");
+		input.focus();
+		return false;
+	}
+    var url="{:U('Shop/blank_sure')}"
+        $.post(url,{'data':data,'phone':phone,'bank_id':bank_id},function(res){
+            if(res.Code==0){
+                showMessage('添加成功！');
+                setTimeout(function(){
+                     window.location.href="{:U('Shop/blanks')}"
+                },1000)
+              
+              
+            }else{
+                showMessage(res.Msg);
+            }
+        },'json')
+})
+
+function showMessage(msg) {
+        if (! $('.msg').length) {
+            $('body').append('<div class="msg" style="position: fixed;bottom: 20%;left: 50%;margin-left: -30%;height: 0.8rem;line-height: 0.8rem;width: 60%;background-color: rgba(0,0,0,.75);border-radius: 0.6rem;text-align: center;color: #fff;display: none;font-size: 1.2em">' + msg + '</div>');
+            $('.msg').fadeIn(200);
+            setTimeout(function(){
+                $('.msg').fadeOut(200,function(){
+                    $(this).remove();
+                });
+            },1500)
+        }
+    }
+</script>
+</body>
+</html>

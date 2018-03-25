@@ -1,0 +1,29 @@
+<a href="#person-menu" class="nav-header" data-toggle="collapse"><i class="icon-user"></i>个人资料</a>
+<ul id="person-menu" class="nav nav-list collapse in">
+    <li><a href="{:U('Agent/agentInfo')}">基本信息</a></li>
+    <li><a href="{:U('Agent/editPwd')}">修改密码</a></li>
+    <li><a href="{:U('Agent/agentWithdrawalsAccount')}">银行信息</a></li>
+</ul>
+<a href="#dashboard-menu" class="nav-header" data-toggle="collapse"><i class="icon-dashboard"></i>代理管理</a>
+<ul id="dashboard-menu" class="nav nav-list collapse">
+    <li><a href="{:U('Agent/agentList')}">我的代理</a></li>
+    <li ><a href="{:U('Agent/addAgent')}">添加代理</a></li>
+    <li ><a href="{:U('Agent/agentRebate',array('type'=>2))}">可提现记录</a></li>
+</ul>
+<a href="#ck-menu" class="nav-header" data-toggle="collapse"><i class="icon-briefcase"></i>玩家管理</a>
+<ul id="ck-menu" class="nav nav-list collapse">
+    <li><a href="{:U('Player/players')}">玩家列表</a></li>
+    <li><a href="{:U('Player/playersBuyInsurescore')}">购买旗力币</a></li>
+    <li><a href="{:U('Player/playersBuyScore')}">购买房卡</a></li>
+</ul>
+<script type="text/javascript">
+   $(".nav-header").click(function(){
+       var thisHref = $(this).attr("href");
+       var thisObj	= $(thisHref);
+       $("a[data-toggle='collapse']").each(function(){
+           if(thisHref != $(this).attr("href")){
+      			$($(this).attr("href")).removeClass("in").css("height","0px");
+          	}
+       });
+   });
+</script>

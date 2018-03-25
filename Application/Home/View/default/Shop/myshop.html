@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+        <script>!function(n) {
+        var e = n.document, t = e.documentElement, i = 750, d = i / 100, o = "orientationchange"in n ? "orientationchange" : "resize", a = function() {
+            var n = t.clientWidth || 320;
+            n > 750 && (n = 750), t.style.fontSize = n / d + "px"
+        };
+        e.addEventListener && (n.addEventListener(o, a, !1), e.addEventListener("DOMContentLoaded", a, !1))
+    }(window);</script>
+        <title>我的店铺</title>
+        <link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+        <link rel="stylesheet" href="__PUBLIC__/Home/css/xiaotian.css">
+        <script type="text/javascript" src="__PUBLIC__/Home/js/zepto.full.js"></script>
+    </head>
+    <body class="c-gray">
+        <input type='hidden' value='{$num}' id='page'>
+        <input type='hidden' value='{$shop_id}' id='shop_id'>
+        <input type='hidden' value='{$is_shop}' id='is_shop'>
+        <input type='hidden' value='{$collect}' id='collect'>
+        
+        <input type='hidden' value='{$seller_user_id}' id='seller_user_id'>
+        <input type='hidden' value='{$buyer_user_id}' id='buyer_user_id'>
+        
+        <div class="c-myshop-head">
+            <img src="{$info.background}" alt="">
+            <div class="c-myshop-head-con">
+                <div class="z-myshop-head-top"><img src="__PUBLIC__/Home/img/kefu.png" alt=""><a href="tel:{$info.phone}">客服</a></div>
+                <div class="c-myshop-head-bottom">
+                    <img src="{$info.photo}" alt="" class="c-shop-logo">
+                    <div class="c-myshop-head-c">
+                        <num id='collect_people'>{$info.collect}人</num>收藏
+                        <div class="c-myshop-head-collect">
+                            <img src="__PUBLIC__/Home/img/empty-xin.png" alt="">
+                        </div>
+                    </div>
+                    <h4>{$info.nickname}</h4>
+                    <p>{$info.grade}</p>
+                </div>
+            </div>
+        </div>
+        <ul class="c-myshop-menu line-bottom">
+            <li class="active">
+                <a href="javascript:;">
+                    <img src="__PUBLIC__/Home/img/shop-menu1.png" alt="">
+                    店铺首页
+                </a>
+                <i></i>		
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <img src="__PUBLIC__/Home/img/shop-menu2.png" alt="">
+                    全部产品
+                </a>
+                <i></i>	
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <img src="__PUBLIC__/Home/img/shop-menu3.png" alt="">
+                    新品上架
+                </a>
+                <i></i>		
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <img src="__PUBLIC__/Home/img/shop-menu4.png" alt="">
+                    店铺简介
+                </a>
+                <i></i>		
+            </li>
+        </ul>
+        <div class="z-myshop-list">
+            <h2 class="c-shop-title">热卖产品</h2>
+            <ul class="c-shop-list">
+                <volist name="goods" id='vo'>
+                    <li>
+                        <a href="{:U('Goods/proDetail',array('id'=>$vo['id']))}">
+                            <img src="{$vo.goods_image}" alt="">
+                            <h4>{:mySubstr($vo['goods_name'],8,'...')}</h4>
+                            <p>{:mySubstr($vo['introduction'],8,'...')}</p>
+                            <em>￥{$vo.goods_price}</em>
+                        </a>	
+                    </li>
+                </volist>
+            </ul>
+        </div>
+        <div class="z-myshop-list" style="display: none;">
+            <h2 class="c-shop-title">全部产品</h2>
+            <ul class="c-shop-list" id='goods_show'>
+                <volist name='all_goods' id='vo'>
+                    <li>
+                        <a href="{:U('Goods/proDetail',array('id'=>$vo['id']))}">
+                            <img src="{$vo.goods_image}" alt="">
+                            <h4>{:mySubstr($vo['goods_name'],8,'...')}</h4>
+                            <p>{:mySubstr($vo['introduction'],8,'...')}</p>
+                            <em>￥{$vo.goods_price}</em>
+                        </a>	
+                    </li>
+                </volist>
+            </ul>
+        </div>
+
+        <div class="z-myshop-list" style="display: none;">
+            <h2 class="c-shop-title">新品上架</h2>
+            <ul class="c-shop-list">
+                <volist name='goods_new' id='vo'>
+                    <li>
+                        <a href="{:U('Goods/proDetail',array('id'=>$vo['id']))}">
+                            <img src="{$vo.goods_image}" alt="">
+                            <h4>{:mySubstr($vo['goods_name'],8,'...')}</h4>
+                            <p>{:mySubstr($vo['introduction'],8,'...')}</p>
+                            <em>￥{$vo.goods_price}</em>
+                        </a>	
+                    </li>
+                </volist>
+            </ul>
+        </div>
+
+        <div class="z-myshop-list z-intro-detail">
+            <div class="order-cells">
+                <div class="order-cell">
+                    <div class="order-cell-bd">所在地</div>
+                    <span class="shop-info-addon">{$info.province} {$info.city} {$info.county}</span>
+                </div>
+                <div class="order-cell">
+                    <div class="order-cell-bd">开业时间</div>
+                    <span class="shop-info-addon">{:date('Y-m-d',$info['create_time'])}</span>
+                </div>
+            </div>
+            <div class="order-cells">
+                <div class="order-cell">
+                    <div class="order-cell-bd">综合评分</div>
+                    <span class="shop-info-addon">{$info.grade}分</span>
+                </div>
+                <a href="tel://{$info.mobile}" class="order-cell order-cell-access" style="display: block;">
+                    <div class="order-cell-bd">客服电话</div>
+                    <span class="shop-info-addon">{$info.mobile}</span>
+                    <div class="order-cell-ft">客服电话</div>
+                </a>
+            </div>
+            <div class="order-cells">
+                <div class="order-cell">
+                    <div class="order-cell-bd">认证</div>
+                </div>
+            </div>
+        </div>
+        <div class="z-popup">
+            <div class="z-bg"></div>
+            <img src="{$shop_config.customer_code}" alt="" class="z-code-img">
+        </div>
+    </div>
+</body>
+<script>
+    $(function() {
+        var onOff = true;
+        var totalpage = $('#page').val();
+        var shop_id = $('#shop_id').val();
+        var is_shop = $('#is_shop').val();
+        var collect = $('#collect').val();
+        
+        var seller_user_id = $('#seller_user_id').val();
+        var buyer_user_id = $('#buyer_user_id').val();
+        // var falg=false;
+        var page = 1;
+        $('.c-myshop-menu li').on("tap", function() {
+            var index = $(this).index();
+            if (index == 1) {
+                $(document).scroll(function() {
+                    var totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop()) + 20;
+                    var order = '';
+                    // console.log(totalheight);
+                    // console.log($(document).height());
+                    // console.log(page);
+                    if (totalheight >= $(document).height()) {
+                        // if(falg) return;
+                        // falg = true;
+                        page = parseInt(page) + 1;
+                        if (page > totalpage) {
+                            page = totalpage;
+                            return false;
+                        }
+                        loadContents(page);
+                    }
+                });
+            }
+            $('.z-myshop-list').eq(index).show().siblings('.z-myshop-list').hide();
+            $(this).find('i').show().parent().siblings().find('i').hide();
+        });
+
+        $(".z-myshop-head-top").on("tap", function() {
+            $('.z-popup').show();
+            $('body,html').css('overflow', 'hidden');
+        });
+
+        $('.z-bg').on('tap', function() {
+            $('.z-popup').hide();
+            $('body,html').css('overflow', 'initial');
+        });
+        console.log('seller_user_id:'+seller_user_id);
+        console.log('buyer_user_id:'+buyer_user_id);
+        if (seller_user_id != buyer_user_id) { //判断进入的是店主本人还是买家
+            if (collect == 0) { //初始化判断是否收藏
+                onOff = true;
+                $('.c-myshop-head-collect').find('img').attr('src', '/Public/Home/img/empty-xin.png');
+            } else {
+                onOff = false;
+                $('.c-myshop-head-collect').find('img').attr('src', '/Public/Home/img/heart.png');
+            }
+            $('.c-myshop-head-collect').on("tap", function() {
+                var url = "{:U('Shop/Collect')}";
+                if (onOff) {
+                    $.post(url, {'shop_id': shop_id, 'status': 1, 'type': 1}, function(res) {
+                        if (res.Code == 0) {
+                            $('#collect_people').text(res.num + '人');
+                            $('.c-myshop-head-collect').find('img').attr('src', '/Public/Home/img/heart.png');
+                            onOff = false;
+                        }
+                    }, 'json')//添加收藏
+
+                } else {
+                    $.post(url, {'shop_id': shop_id, 'status': 2, 'type': 1}, function(res) {
+                        if (res.Code == 0) {
+                            $('#collect_people').text(res.num + '人');
+                            $('.c-myshop-head-collect').find('img').attr('src', '/Public/Home/img/empty-xin.png');
+                            onOff = true;
+                        }
+                    }, 'json')//取消收藏
+
+                }
+            });
+        }
+        function loadContents(page, order) {
+            var url = "{:U('Shop/Myshop')}";
+            var shop_id = $('#shop_id').val();
+            // setTimeout(function(){
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {'page': page, 'shop_id': shop_id},
+                success: function(res) {
+                    var res = JSON.parse(res);
+                    console.log(res);
+                    if (res.Code == 0) {
+                        var str = '';
+                        $.each(res.info, function(i, val) {
+                            str += '<li>';
+                            str += '<a href=' + val.url + '>';
+                            str += '<img src=' + val.goods_image + ' alt="">';
+                            str += '<h4>' + val.goods_name.substr(0, 10) + '</h4>';
+                            str += '<p>' + val.introduction.substr(0, 10) + '</p>';
+                            str += '<em>￥' + val.goods_price + '</em>';
+                            str += '</a>';
+                            str += '</li>';
+                        });
+                        $('#goods_show').append(str);
+                    }
+                }
+            });
+            // },2000);
+        }
+    });
+</script>
+</html>

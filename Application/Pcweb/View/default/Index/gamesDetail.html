@@ -1,0 +1,37 @@
+<include file="public_header" />
+<div class="main">
+	<div class="contain">
+		<div class="banner">
+			<img src="__PUBLIC__/Pcweb/img/banner.png" alt="">
+		</div>
+		<div class="intro">
+			<div class="title">
+				<img src="__PUBLIC__/Pcweb/img/y-die1.png" alt="">游戏介绍<i></i>{$pcweb_games_detail['title']}
+				<div class="title-line"></div>
+			</div>
+			<div class="intro-content">
+				<p>{$pcweb_games_detail['content']|htmlspecialchars_decode}</p>
+			</div>
+		</div>
+	</div>
+</div>
+<include file="public_footer" />
+<script src="__PUBLIC__/Pcweb/js/jquery.min.js"></script>
+<script src="__PUBLIC__/Pcweb/js/common.js"></script>
+<script>
+;(function(){
+	var span = $(".dload-left span");
+	var ul = $(".dload-right ul");
+	span.on("click",function(){
+		var index = $(this).index();
+		if($(this).hasClass("active")){
+			return false;
+		}
+		$(this).addClass('active').siblings().removeClass('active');
+		ul.eq(index).show().siblings().hide();
+
+	})
+})();
+</script>
+</body>
+</html>

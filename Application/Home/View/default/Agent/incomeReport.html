@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+    <title>收入报表</title>
+    <link rel="stylesheet" href="__PUBLIC__/Home/Agent/css/taizhou.css">
+</head>
+<body style="background: #fff;">
+<div id="app">
+    <div class="form_box form_box2">
+        <div class="form_item form_my_item">
+            <div class="item my_item address"><label>可用金额</label><input type="text" id="available_balance" value="{$agent_info['available_balance']}" readonly/></div>
+            <div class="item my_item address"><label>累计收益</label><input type="text" value="{$agent_info['accumulated_income']}" readonly/></div>
+            <div class="item my_item address"><label>转账金额</label><input type="number" id="money" class="wei_input"/><button class="wei_btn">微信取款</button></div>
+            <!-- <div class="item my_item address"></div> -->
+            <div class="notes">&nbsp;&nbsp;温馨提示：提现每天早上9:00-16:00（星期六日不提现）。</div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="__PUBLIC__/Home/Agent/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Home/Agent/js/public.js"></script>
+<script type="text/javascript">
+    $(function(){
+
+        var wei_btn_status = false;
+        $(".wei_btn").on('click',function(){
+            if (wei_btn_status) {
+                return;
+            };
+            var available_balance   =   Number($("#available_balance").val());
+            console.log(available_balance);
+            if (available_balance < 1) {
+                webTip('余额不足');
+                return false;
+            };
+
+            var money = Number($("#money").val());
+            if (money < 1) {
+                webTip('提现金额不得少于1元');
+                return false;
+            };
+            if (available_balance < money) {
+                webTip('余额不足');
+                return false;
+            };
+            if ((money%100) != 0) {
+                webTip('提现金额为100的倍数');
+                return false;
+            };
+            // webTip('功能调试中');
+            // return;
+            var _url = "{:U('incomeReport')}";
+            var _param = new Object();
+                _param.money     =   money;
+            wei_btn_status = true;
+            $.post(_url,_param,function(res){
+                if (res.code == '1') {
+                    webTip(res.msg,function(){
+                            window.location.href = "{:U('Index/index')}";
+                    },10000);
+                }else{
+                    wei_btn_status = false;
+                    webTip(res.msg,function(){
+                            window.location.href = window.location.href;
+                    },5000);
+                    return false;
+                }
+            },'json');
+        });
+    });
+</script>
+</html>

@@ -1,0 +1,32 @@
+<include file="public_header" />
+<div class="main">
+	<div class="contain">
+		<div class="banner">
+			<img src="__PUBLIC__/Pcweb/img/banner.png" alt="">
+		</div>
+		<div class="games">
+			<h3 class="title">
+				<img src="__PUBLIC__/Pcweb/img/intro-die.png" alt="">
+				游戏介绍
+			</h3>
+			<ul class="game-list games-list">
+                            <volist name="pcweb_games_list" id="vo">
+				<li>
+					<a href="{:U('gamesDetail',array('id'=>$vo['id']))}" title="{$vo.title}">
+						<img src="{$vo.thumb}" alt="">
+						<h3>{$vo.title}</h3>
+					</a>
+				</li>
+                            </volist>
+			</ul>
+		</div>
+	</div>
+</div>
+<include file="public_footer" />
+<script src="__PUBLIC__/Pcweb/js/jquery.min.js"></script>
+<script src="__PUBLIC__/Pcweb/js/common.js"></script>
+<script>
+
+</script>
+</body>
+</html>

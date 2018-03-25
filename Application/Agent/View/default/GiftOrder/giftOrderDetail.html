@@ -1,0 +1,267 @@
+<extend name="Common:base" />
+
+<block name="title">礼包订单详情</block>
+<block name="menu">
+	<include file="Order:menu" />
+</block>
+
+<block name="main">
+	 <div class="pageheader">
+	    <h1 class="pagetitle">礼包订单详情</h1>
+	    <span class="pagedesc"></span>
+	</div>
+	<div id="contentwrapper" class="contentwrapper">
+		<form class="stdform stdform2">
+			<div class="line-dete">
+				<label>订单编号</label>
+                <span class="field">
+					{$orderInfo['order_sn']}
+                </span>
+            </div>
+
+			<div class="line-dete">
+				<label>所属代理</label>
+                <span class="field">
+                	<a href="{:U('Agent/agentDetail', array('id'=>$orderInfo['user_id']))}">
+						<img src="{$orderInfo['agentheadimgurl']|default="http://placehold.it/100x100"}"  width="100px" height="100px" />
+						<br />
+						{$orderInfo['truename']}
+                	</a>
+                </span>
+            </div>
+
+			<div class="line-dete">
+				<label>所属用户</label>
+                <span class="field">
+                	<a href="{:U('User/userDetail', array('id'=>$orderInfo['user_id']))}">
+						<img src="{$orderInfo['headimgurl']|default="http://placehold.it/100x100"}"  width="100px" height="100px" />
+						<br />
+						{$orderInfo['nickname']}
+                	</a>
+                </span>
+            </div>
+
+			<div class="line-dete">
+				<label>收货人</label>
+                <span class="field">
+					{$orderInfo['consignee']}
+                </span>
+            </div>
+
+			<div class="line-dete">
+				<label>收货电话</label>
+                <span class="field">
+					{$orderInfo['telephone']}
+                </span>
+            </div>
+
+
+			<div class="line-dete">
+				<label>收货地址</label>
+                <span class="field">
+					{$orderInfo['province']}-{$orderInfo['city']}-{$orderInfo['county']}-{$orderInfo['address']}
+                </span>
+            </div>
+
+			<div class="line-dete">
+				<label>是否已同步到快递</label>
+                <span class="field">
+                	<if condition="$orderInfo['post_qimen'] eq 1">
+                	是
+                	<else />
+                	否
+					</if>
+                </span>
+            </div>
+
+
+			<div class="line-dete">
+				<label>是否已支付</label>
+                <span class="field">
+                	<if condition="$orderInfo['is_pay'] eq 1">
+                	是
+                	<else />
+                	否
+					</if>
+                </span>
+            </div>
+
+
+
+			<div class="line-dete">
+				<label>支付时间</label>
+                <span class="field">
+                	<if condition="$orderInfo['pay_time'] GT 0">
+						{$orderInfo['pay_time']|time_format=###}
+                	<else />
+						未填写
+					</if>
+                </span>
+            </div>
+
+
+			<div class="line-dete">
+				<label>订单状态</label>
+                <span class="field">
+					<switch name="orderInfo['status']">
+						<case value="0">未发货</case>
+						<case value="1">已发货</case>
+						<case value="2">已收货</case>
+					</switch>
+                </span>
+            </div>
+
+            <if condition="$orderInfo['status'] eq 5">
+				<div class="line-dete">
+					<label>取消操作人</label>
+	                <span class="field">
+						{$orderInfo['cancelInfo']['inputer']}
+	                </span>
+	            </div>
+	            <div class="line-dete">
+					<label>取消理由</label>
+	                <span class="field">
+						{$orderInfo['cancelInfo']['reason']}
+	                </span>
+	            </div>
+	            <div class="line-dete">
+					<label>取消时间</label>
+	                <span class="field">
+						{$orderInfo['cancelInfo']['add_time']|time_format=###}
+	                </span>
+	            </div>
+			</if>
+
+			<div class="line-dete">
+				<label>是否已评论</label>
+                <span class="field">
+                	<if condition="$orderInfo['is_comment'] eq 1">
+                	是
+                	<else />
+                	否
+					</if>
+                </span>
+            </div>
+
+			<div class="line-dete">
+				<label>商品列表</label>
+                <span class="field">
+					<table>
+						<tr>
+							<th>ID</th>
+							<th>SKU</th>
+							<th>条形码</th>
+							<th>商品名称</th>
+							<th>商品价格</th>
+							<th>盟主进货价</th>
+							<th>帮主进货价</th>
+							<th>美人进货价</th>
+							<if condition="$orderInfo['is_comment'] eq 1">
+								<th>评星</th>
+								<th>评论</th>
+							</if>
+						</tr>
+						<volist name="orderInfo['goodsInfo']" id="order">
+						<tr>
+							<td>{$order['goods_id']}</td>
+							<td>{$order['sku']}</td>
+							<td>{$order['bar_code']}</td>
+							<td>
+								<a href="{:U('Goods/editGoods', array('id'=>$order['goods_id']))}">
+									<img src="{$order['goods_image']}" width="50px" height="50px" />
+									{$order['goods_name']}
+								</a>
+							</td>
+							<td>￥{$order['goods_price']}</td>
+							<td>￥{$order['level1_price']}</td>
+							<td>￥{$order['level2_price']}</td>
+							<td>￥{$order['level3_price']}</td>
+							<if condition="$orderInfo['is_comment'] eq 1">
+								<td>{$order['star']}</td>
+								<td>{$order['content']}</td>
+							</if>
+						</tr>
+						</volist>
+					</table>
+                </span>
+            </div>
+
+			<if condition="!empty($orderInfo['finance'])">
+			<div class="line-dete">
+				<label>分佣列表</label>
+                <span class="field">
+					<table>
+						<tr>
+							<th>ID</th>
+							<th>姓名</th>
+							<th>上级姓名</th>
+							<th>商品名称</th>
+							<th>分佣金额</th>
+							<th>分佣时间</th>
+						</tr>
+						<volist name="orderInfo['finance']" id="finance">
+						<tr>
+							<td>{$finance['id']}</td>
+							<td>{$finance['atruename']}{:getAgentLevelName($finance['alevel'])}</td>
+							<td>{$finance['ptruename']}{:getAgentLevelName($finance['plevel'])}</td>
+							<td>
+								<img src="{$finance['goods_image']}" width="50px" height="50px">
+								{$finance['goods_name']}
+							</td>
+							<td>{$finance['change_money']}</td>
+							<td>{$finance['add_time']|time_format=###}</td>
+						</tr>
+						</volist>
+					</table>
+                </span>
+            </div>
+            </if>
+
+
+            <div class="line-dete">
+				<label></label>
+                <span class="field">
+                	<input type="button" onclick="window.history.back(-1);" class="big-btn stdbtn" value="返回">
+                </span>
+            </div>
+		</form>
+	</div>
+</block>
+<block name="script">
+<script type="text/javascript" src="__PUBLIC__/Agent/js/ajaxfileupload.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Agent/js/jquery.datetimepicker.js"></script>
+<script type="text/javascript">
+	$(function() {
+		// 开始时间
+		$('#startTime,#endTime').datetimepicker({step:10});
+		//选择广告位
+		$('#group_name').change(function(){
+		  var wh = $(this).find("option:selected").attr('data-wh');
+			$('#pic-size').html(wh);
+			console.log($(this).val());
+		})
+
+		// 上传图片
+		$(document).on('change', '#up-pic', function() {
+				$.ajaxFileUpload({
+					url: "{:U('Ad/photoSave')}",
+					secureuri: false,
+					fileElementId: 'up-pic',
+					dataType: 'json',
+					success: function (data, status) {
+						if(data.error != '') {
+							alert(data.error);
+						} else {
+							$('.Jpic').attr('src', data.src).show();
+							$('#image').val(data.src);
+						}
+					},error: function (data, status, e) {
+						var html='<div class="title">提示</div><div class="pop-false">' + e + '</div>';
+						popbox(html);
+					}
+				})
+		});
+
+	});
+</script>
+</block>

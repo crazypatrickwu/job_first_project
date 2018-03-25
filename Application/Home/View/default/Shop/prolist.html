@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+<script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+<title>商品列表</title>
+<link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+<link rel="stylesheet" href="__PUBLIC__/Home/css/xiaotian.css">
+<script type="text/javascript" src="__PUBLIC__/Home/js/zepto.full.js"></script>
+</head>
+
+<body class="gray">
+<ul class="z-title-list clearfix">
+	<li><a href="javascript:;" class="z-title-on">最新</a></li>
+	<li class="z-title-price"><a href="javascript:;">价格<img src="__PUBLIC__/Home/img/arrowlist.png" alt=""></a></li>
+	<li class="z-title-amount"><a href="javascript:;">销量<img src="__PUBLIC__/Home/img/arrowlist.png" alt=""></a></li>
+	<li><a href="{:U('Shop/kand')}">分类</a></li>
+</ul>
+
+<ul class="z-pro-list clearfix">
+	<li>
+		<a href="">
+			<img src="__PUBLIC__/Home/img/product.jpg" alt="">
+			<h4>来自新疆的正宗切糕</h4>
+			<p>我是商品简介我是商品简介我是商品简介我是商品简介我是商品简介我是商品简介我是商品简介我是商品简介</p>
+			<price>￥9999</price>
+		</a>
+	</li>
+	<li>
+		<a href="">
+			<img src="__PUBLIC__/Home/img/product.jpg" alt="">
+			<h4>来自新疆的正宗切糕</h4>
+			<p>我是商品简介</p>
+			<price>￥9999</price>
+		</a>
+	</li>	
+	<li>
+		<a href="">
+			<img src="__PUBLIC__/Home/img/product.jpg" alt="">
+			<h4>来自新疆的正宗切糕</h4>
+			<p>我是商品简介</p>
+			<price>￥9999</price>
+		</a>
+	</li>	
+</ul>
+
+<a href="{:U('Shop/cart')}" class="z-pro-car"><img src="__PUBLIC__/Home/img/shopcar-green.png" alt=""></a>
+</div>
+</body>
+<script>
+$(function(){
+	var onprice = true;
+	var onNum = true;
+
+	$('.z-title-list li').on("tap",function(){
+		$(this).find('a').addClass('z-title-on').parent().siblings().find('a').removeClass('z-title-on');
+	});
+
+	$('.z-title-price').on("tap",function(){
+		if(onprice){
+			$(this).find('img').attr('src','__PUBLIC__/Home/img/arrowlist2.png').parents('li').siblings().find('img').attr('src','__PUBLIC__/Home/img/arrowlist.png');
+			onprice = false;
+		}else{
+			$(this).find('img').attr('src','__PUBLIC__/Home/img/arrowlist3.png').parents('li').siblings().find('img').attr('src','__PUBLIC__/Home/img/arrowlist.png');
+			onprice = true;
+		}
+	});
+
+	$('.z-title-amount').on("tap",function(){
+		if(onNum){
+			$(this).find('img').attr('src','__PUBLIC__/Home/img/arrowlist2.png').parents('li').siblings().find('img').attr('src','__PUBLIC__/Home/img/arrowlist.png');
+			onNum = false;
+		}else{
+			$(this).find('img').attr('src','__PUBLIC__/Home/img/arrowlist3.png').parents('li').siblings().find('img').attr('src','__PUBLIC__/Home/img/arrowlist.png');
+			onNum = true;
+		}
+	});
+})
+</script>
+</html>

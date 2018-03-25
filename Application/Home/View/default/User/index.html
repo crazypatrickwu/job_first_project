@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+        <script>!function(n) {
+                var e = n.document, t = e.documentElement, i = 750, d = i / 100, o = "orientationchange"in n ? "orientationchange" : "resize", a = function() {
+                    var n = t.clientWidth || 320;
+                    n > 750 && (n = 750), t.style.fontSize = n / d + "px"
+                };
+                e.addEventListener && (n.addEventListener(o, a, !1), e.addEventListener("DOMContentLoaded", a, !1))
+            }(window);</script>
+        <title>个人中心</title>
+        <link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+        <link rel="stylesheet" href="__PUBLIC__/Home/css/xiaotian.css">
+        <script type="text/javascript" src="__PUBLIC__/Home/js/zepto.full.js"></script>
+    </head>
+    <body class="c-gray p">
+        <div class="c-my-infor">
+
+
+            <a href="javascript:;" class="c-my-infor-sign" ></a>
+
+
+            <a href="news.html" class="c-my-infor-ring">
+                <img src="__PUBLIC__/Home/img/ring.png" alt="">
+
+                <i><t class="find_count"></t></i>
+
+            </a>
+            <a href="{:U('User/person')}" class="c-my-headlink">
+                <img src="__PUBLIC__/Home/img/head01.png" alt="" class="c-my-head">
+            </a>
+            <p class="c-my-infor-name"></p>
+
+            <div class="c-my-infor-label">
+                <!-- <foreach name="info['user_info']['lable']" item="vo" >
+                <if condition="$vo['status'] eq 1">
+              <span style="margin: 0 0.10rem;padding: 0.1rem;font-size: 1.4em;-webkit-transform: scale(1) translate(0,0)">{$vo.name}</span>
+              </if>
+            </foreach> -->
+                <!-- <span>宠物达人</span>
+                <span>电影达人</span>
+                <span>电影达人</span> -->
+
+            </div>
+
+            <div class="c-my-infor-menu">
+                <a href="{:U('User/collect')}">
+                    <t>我的收藏</t>
+                    <num id="user_collection_count"></num>
+                </a>
+                <a href="cart.html">
+                    <t>购物车</t>
+                    <num id="user_cart_count"></num>
+                </a>
+                <a href="{:U('User/looked')}">
+                    <t>浏览记录</t>
+                    <num id="user_browser_history_count"></num>
+                </a>
+            </div>
+        </div>
+        <div class="c-my-menu">
+            <div class="c-text line-bottom">
+                <a href="{:U('Order/orderlist')}">
+                    点击查看全部订单
+                    <img src="__PUBLIC__/Home/img/arrow-next.png" alt="">
+                </a>
+                <img src="__PUBLIC__/Home/img/list-die.png" alt="">
+                全部订单
+            </div>
+            <ul>
+                <li>
+                    <a href="{:U('Order/orderlist',array('status_type'=>'unpay'))}">
+                        <img src="__PUBLIC__/Home/img/wait-pay.png" alt="">
+                        <p>待付款</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="{:U('Order/orderlist',array('status_type'=>'unship'))}">
+                        <img src="__PUBLIC__/Home/img/wait-send.png" alt="">
+                        <p>待发货</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="{:U('Order/orderlist',array('status_type'=>'unreceipt'))}">
+                        <img src="__PUBLIC__/Home/img/wait-get.png" alt="">
+                        <p>待收货</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="{:U('Order/orderlist',array('status_type'=>'uncomment'))}">
+                        <img src="__PUBLIC__/Home/img/wait-ping.png" alt="">
+                        <p>待评价</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="c-my-links">
+            <!--	<div class="c-text line-bottom">
+                            <a href="#">
+                                    <img src="__PUBLIC__/Home/img/arrow-r.png" alt="">
+                            </a>
+                            <img src="__PUBLIC__/Home/img/address-die.png" alt="">
+                            地址管理
+                    </div>-->
+            <div class="c-text line-bottom">
+                <a href="{:U('Shop/sum')}">
+                    <price id="account_balance"></price>
+                    <img src="__PUBLIC__/Home/img/arrow-r.png" alt="" class="account_balance">
+                </a>
+                <img src="__PUBLIC__/Home/img/money-die.png" alt="">
+                账户余额
+            </div>
+            <div class="c-text line-bottom ">
+                <a id="score"></a>
+                <img src="__PUBLIC__/Home/img/point-die.png" alt="">
+                我的积分
+            </div>
+            <div class="c-text line-bottom z-text-kefu">
+                <a href="{:U('User/service')}">
+                    <img src="__PUBLIC__/Home/img/arrow-r.png" alt="">
+                </a>
+                <img src="__PUBLIC__/Home/img/ser-die.png" alt="">
+                留言
+            </div>
+            <div class="c-text line-bottom ">
+                <a id="voucher"></a>
+                <img src="__PUBLIC__/Home/img/point-die.png" alt="">
+                抵用券
+            </div>
+        </div>
+        <nav class="line-top box-shadow-top">
+            <a href="{:U('Index/index')}">
+                <img src="__PUBLIC__/Home/img/index.png" alt="">
+                超级店
+            </a>
+            <a href="{:U('Discuz/index')}">
+                <img src="__PUBLIC__/Home/img/bubble.png" alt="">
+                气泡
+            </a>
+            <a href="{:U('Shop/index')}">
+                <img src="__PUBLIC__/Home/img/open.png" alt="">
+                开店
+            </a>
+            <a href="{:U('User/index')}" class="nav-on">
+                <img src="__PUBLIC__/Home/img/mine-on.png" alt="">
+                我
+            </a>
+        </nav>
+    </nav>
+</body>
+<script>
+            window.onload = function() {
+                var _url = "{:U('User/Index')}";
+                $.post(_url, {}, function(res) {
+                    console.log(res);
+                    //个人信息
+                    var str = '';
+                    $(".c-my-infor-name").text(res.nickname);
+                    $(".c-my-head").attr("src", res.avatar);
+                    if(res.lable != null){
+                        $.each(res.lable, function(key, val) {
+                            if (val.status == 1) {
+                                str += ' <span style="margin: 0 0.10rem;padding: 0.1rem;font-size: 1.4em;-webkit-transform: scale(1) translate(0,0)">' + val.name + '</span>'
+                            }
+                        })
+                        $(".c-my-infor-label").html(str);
+                    }
+                    //签到
+                    if (res.sign == 1) {
+                        $(".c-my-infor-sign").css({'background': "rgb(255, 255, 255)", 'color': "rgb(248, 112, 150)"})
+                        $(".c-my-infor-sign").text('已签到');
+                    } else {
+                        $(".c-my-infor-sign").text('签到');
+                    }
+
+                    //消息
+
+                    if (res.count != 0) {
+                        $(".c-my-infor-ring t ").text(res.count);
+                    } else {
+                        $(".c-my-infor-ring i ").remove();
+                    }
+                    //我的收藏
+                    $("#user_collection_count").text(res.collect);
+                    //购物车
+                    $("#user_cart_count").text(res.cart_count);
+                    //浏览记录
+                    $("#user_browser_history_count").text(res.view_count);
+                    //我的余额
+                    $("#account_balance").text(res.balance);
+                    //我的积分
+                    $("#score").text(res.score);
+                    //我的抵用券
+                    $("#voucher").text(res.voucher);
+
+                }, 'json');
+            }
+            $(function() {
+                var sign_status = false;
+                $('.c-my-infor-sign').on("tap", function() {
+                    var domthis = this;
+
+                    var user_sign_text = $(this).text();
+                    if (user_sign_text == '已签到') {
+                        return;
+                    }
+                    if (sign_status) {
+                        return;
+                    }
+                    var _url = "{:U('sign')}";
+                    sign_status = true;
+                    $.post(_url, {}, function(res) {
+                        //console.log(res);
+                        if (res.Code == '0') {
+                            $(domthis).css('background', '#fff').text("已签到").css('color', '#f87096');
+                        } else {
+                            alert(res.Msg);
+                        }
+                    }, 'json');
+
+                    // $(this)
+                });
+
+            });
+</script>	
+</html>

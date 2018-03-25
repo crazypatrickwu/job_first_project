@@ -1,0 +1,54 @@
+    <!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+<script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+<title>收藏</title>
+<link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+<link rel="stylesheet" href="__PUBLIC__/Home/css/xiaotian.css">
+<script type="text/javascript" src="__PUBLIC__/Home/js/zepto.full.js"></script>
+</head>
+<body class="c-gray">
+<div class="c-collect">
+	<div class="c-collect-menu line-bottom">
+		<span class="active">商品</span>
+		<span>店铺</span>
+	</div>
+	<div class="c-collect-con">
+		<ul class="c-collect-list good">
+		<volist name="info.collection_list" id="col">
+			<li class="line-bottom">
+				<a href="{:U('Goods/proDetail',array('id'=>$col['goods_id']))}">
+					<img src="{$col.goods_image}" alt="">
+					<h4>{:mySubstr($col['goods_name'],15,'...')}</h4>
+					<p>{:mySubstr($col['introduction'],15,'...')}</p>
+					<price>￥{$col.goods_price}</price>
+				</a>
+			</li>
+		</volist>
+		</ul>
+		<ul class="c-collect-list z-collect-hidden">
+		<volist name="info.shop_list" id="sho">
+			<li class="line-bottom">
+				<a href="{:U('Shop/myshop',array('shop_id'=>$sho['red_id']))}">
+					<img src="{$sho.photo}" alt="">
+					<h4>{$sho.nickname}</h4>
+					<p>店铺评分：{$sho.grade}</p>
+				</a>
+			</li>
+		</volist>
+		</ul>
+	</div>
+</div>
+<script>
+	$(".c-collect-menu span").on("tap",function(){
+		if($(this).hasClass("active")){
+			return false;
+		}
+		$(this).addClass("active").siblings().removeClass("active");
+		$(".c-collect-con ul").eq($(this).index()).show().siblings().hide();
+	})
+</script>
+</body>
+</html>

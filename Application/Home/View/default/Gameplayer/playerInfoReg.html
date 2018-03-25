@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+    <title>会员信息绑定</title>
+    <link rel="stylesheet" href="__PUBLIC__/Home/Agent/css/taizhou.css">
+</head>
+<body style="">
+<div id="app">
+    <div class="invitation_code">
+        <div class="input_code">
+            <div class="new_code">玩家游戏ID</div>
+            <div class="input_in"><input type="tel" id="game_user_id" placeholder="请输入玩家游戏ID" value="{$gameuser['game_user_id']}" /></div>
+        </div>
+    </div>
+    <div class="invitation_code">
+        <div class="input_code">
+            <div class="new_code">邀请码</div>
+            <div class="input_in"><input type="tel" id="invitation_code" placeholder="请输入6位邀请码" value="{$gameuser['invitation_code']}" /></div>
+        </div>
+        <div class="notes">注：无代理邀请码可留空，也可咨询相关代理商获得邀请码。</div>
+    </div>
+    <div class="payment_btn">
+        <button id="go_bind">立即绑定</button>
+
+        <button id="go_buy" style="margin-top:20px;">去购买</button>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="__PUBLIC__/Home/Agent/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Home/Agent/js/public.js"></script>
+<script type="text/javascript">
+    $(function(){
+        //立即购买
+        $("#go_buy").on("click",function(){
+            window.location.href = "/Home/Gameplayer/package/?b=player";
+        })
+
+        $("#game_user_id").on("blur",function(){
+            var game_user_id = $(this).val();
+            console.log(game_user_id.length);
+            if (game_user_id == '') {
+                return;
+            };
+            //ajax查找玩家对应的代理邀请码
+            var _url = "{:U('ajaxGetAgentInvitationCodeByGameuserid')}";
+            var _param = new Object();
+                _param.game_user_id = game_user_id;
+            $.post(_url,_param,function(res){
+                if (res.code == 1) {
+                    if (res.invitation_code != '') {
+                        alert('当前玩家ID已绑定过邀请码【'+res.invitation_code+'】');
+                        $("#invitation_code").val(res.invitation_code);
+                    };
+                };
+            },'json');
+        });
+
+        //立即绑定
+        var go_bind_status = false;
+        $("#go_bind").on("click",function(){
+            if (go_bind_status) {
+                return;
+            };
+            var game_user_id        = $("#game_user_id").val();
+            var invitation_code     = $("#invitation_code").val();
+            if (game_user_id == '') {
+                webTip("请输入玩家游戏ID");
+                return false;
+            };
+            // if (invitation_code == '') {
+            //     webTip("请输入代理邀请码");
+            //     return false;
+            // };
+            var invitation_code = $("#invitation_code").val();
+            var _url    = "{:U('playerInfoReg')}";
+            var _param  = new Object();
+                _param.game_user_id     = game_user_id;
+                _param.invitation_code  = invitation_code;
+                console.log(_url);
+                console.log(_param);
+                // return;
+            go_bind_status = true;
+            $.post(_url,_param,function(res){
+                if (res.code == 1) {
+                    webTip(res.msg,function(){
+                            window.location.href = "/Home/Gameplayer/package/?b=player";
+                    },3000);
+                }else{
+                    webTip(res.msg,function(){
+                        window.location.href = window.location.href;
+                    },3000);
+                }
+            },'json');
+        });
+    })
+</script>
+</html>

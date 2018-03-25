@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+<script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+<title>现金提现</title>
+<link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+<link rel="stylesheet" href="__PUBLIC__/Home/css/xiaotian.css">
+<script src="__PUBLIC__/Home/js/zepto.full.js" type="text/javascript"></script>
+<style type="text/css">
+.c-blank-chose ul {
+    width: 6.9rem;
+}
+.c-blank-chose li {
+    padding: 0.3rem 0.25rem 0.3rem 0.35rem;
+    border-radius: 0.1rem;
+    height: 1.55rem;
+    margin-top: 0.3rem;
+    color: #fff;
+    position: relative;
+    font-size: 1em;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+</style>
+</head>
+<body class="gray ">
+
+<div class="c-crash-box">
+   <if condition=" $info['0']['card'] eq '' ">
+    <a href="javascript:void();" class="line-bottom " id="check_bank" data-value='0'>到账银行卡<em class="c-crash-blank" data-id="{$info['0']['id']}"></em></a>
+   <else />
+   <a href="javascript:void();" class="line-bottom chose-blanks-btn" id="check_bank" data-value='1'>到账银行卡<em class="c-crash-blank" data-id="{$info['0']['id']}">{$info['0']['card_type']}(尾号:{$info['0']['card']})</em></a>
+   </if>
+	<div class="c-crash-box-t">
+		提现金额
+		<div class="c-crash-box-c line-bottom">
+			<em>￥</em>
+			<input type="tel" name="crash_num" maxlength="8">
+		</div>
+		<div class="c-crash-box-s">
+			账户余额￥<money id=money>{$crash}</money><total class="c-crash-all">全部提现</total>
+		</div>
+	</div>
+</div>
+<a class="btn-blue-b btn-blue c-crash-btn">提现</a>
+<div class="c-pop-bg"></div>
+<div class="c-blank-chose" >
+<!-- 	<div class="c-blank-chose-header line-bottom">
+		选择到账银行
+	</div> -->
+	<ul class="c-blanks" style="padding-top:0px">
+	    <volist name="info" id='vo'>
+		<li class="blank-abc" data-value="{$vo['card_type']}(尾号:{$vo['card']})" data-id="{$vo['id']}">
+			<h4>{$vo['card_type']}</h4>
+			<span><i>****</i><i>****</i><i>****</i><i>{$vo['card']}</i></span>
+		</li>
+		</volist>
+		 <volist name="data" id='vo'>
+		<li class="blank-icbc" data-value="{$vo['card_type']}(尾号:{$vo['card']})" data-id="{$vo['id']}">
+			<h4>{$vo['card_type']}</h4>
+			<!-- <em>储蓄卡</em> -->
+			<span><i>****</i><i>****</i><i>****</i><i>{$vo['card']}</i></span>
+		</li>
+		</volist>
+	</ul>
+</div>
+<script>
+    var flag=false;//提现按钮状态
+    $('#check_bank').click(function(){
+    	var val= $('#check_bank').data('value');
+    	if(val==0){
+    		
+    		showMessage('您还未添加银行卡！');
+    		setTimeout(function(){
+    			window.location.href="/Home/Shop/blankadd"
+    		},1000)
+    	}
+    })
+
+	// 选择发卡银行
+	$(".chose-blanks-btn").click(function(){
+		setTimeout(function(){
+			$(".c-pop-bg").fadeIn(100);
+			$(".c-blank-chose").show().removeClass("c-left-out").addClass("c-left-in");
+		},200)
+	});
+	// 关闭选择界面
+	$(".c-blank-chose-header span").click(function(){
+		setTimeout(function(){
+			$(".c-blank-chose").removeClass("c-left-in").addClass("c-left-out");
+		},100);
+		setTimeout(function(){
+			$(".c-pop-bg").fadeOut(100);
+			$(".c-blank-chose").hide()
+		},400)
+	})
+	$(".c-blank-chose").find("li").click(function(){
+		var value=$(this).data('value');
+		var id=$(this).data('id');
+		setTimeout(function(){
+			$(".c-blank-chose").removeClass("c-left-in").addClass("c-left-out");
+			$(".c-crash-blank").text(value);
+			$(".c-crash-blank").data('id',id);
+		},100);
+		setTimeout(function(){
+			$(".c-pop-bg").fadeOut(100);
+			$(".c-blank-chose").hide()
+		},400)
+	})
+
+	// 验证
+	$(".c-crash-btn").click(function(){
+		var num=$("input[name='crash_num']");
+		if($(".c-crash-blank").text()==""){
+			showMessage("请选择提现银行卡");
+			return false;
+		}
+		if(num.val()<=0 || num.val()==''){
+			showMessage("请输入提现金额");
+			num.focus();
+			return false;
+		}
+		url="{:U('crash')}";
+		var id=$('.c-crash-blank').data('id');
+		var money=num.val();
+		if(flag==true){
+			showMessage('正在提现中！');
+			return false;
+		}
+		flag=true;
+		$.post(url,{'card_id':id,'money':money},function(res){
+              if(res.Code==0){
+              	var money_change=$('#money').text()-money;
+                 $('#money').text(money_change);
+                 showMessage('已申请提现！');
+                 setTimeout(function(){
+                 	window.location.href="{:U('Shop/index')}";
+                 },1000)
+              }
+		},'json');
+	})
+
+	// 全部提现
+	$(".c-crash-all").click(function(){
+		var num=$("input[name='crash_num']");
+		var all=$(".c-crash-box-s money").text();
+		if(parseFloat(num.val())==parseFloat(all)){
+			return false;
+		}
+		num.val(all);
+	})
+
+	//金额限制
+	$("input[name='crash_num']").on("input propertychange",function(){
+		var num=$("input[name='crash_num']");
+		var all=$(".c-crash-box-s money").text();
+		if(parseFloat(num.val())>parseFloat(all)){
+			showMessage("提现金额不能超过余额");
+			num.val(all);
+			num.focus();
+			return false;
+		}
+	})
+
+	function showMessage(msg) {
+			if (! $('.msg').length) {
+				$('body').append('<div class="msg" style="position: fixed;bottom: 20%;left: 50%;margin-left: -30%;height: 0.8rem;line-height: 0.8rem;width: 60%;background-color: rgba(0,0,0,.75);border-radius: 0.6rem;text-align: center;color: #fff; z-index:999;display: none;font-size: 1.2em">' + msg + '</div>');
+				$('.msg').fadeIn(200);
+				setTimeout(function(){
+					$('.msg').fadeOut(200,function(){
+						$(this).remove();
+					});
+				},1500)
+			}
+		}
+</script>
+</body>
+</html>

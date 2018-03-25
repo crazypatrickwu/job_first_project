@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <include file="Public/header" />
+  </head>
+  <body class=""> 
+  <!--<![endif]-->
+    <div class="navbar">
+        <include file="Public/top" />
+    </div>
+    <div class="sidebar-nav">
+        <ul class="breadcrumb">
+            <li><a href="{:U('Index/index')}">首页</a> <span class="divider">/</span></li>
+            <li class="active">玩家冲卡</li>
+        </ul>
+        <div class="container-fluid">
+            <div class="row-fluid">
+				<form id="FormData" action="{:U('')}" method="post">               
+					<input type="hidden" name="id" value="{$agentInfo['id']}" />
+					<div class="well">
+					    <div id="myTabContent" class="tab-content">
+					      <div class="tab-pane active in" id="home">
+						      <label>您的房卡数量：<font color="#5A6883" style="widt:200px;display:block;">{$agent_info['room_card']}</font></label>
+						      <label>玩家ID：<font color="#5A6883" style="widt:200px;display:block;">{$user_info['userid']}</font></label>
+						      <label>玩家昵称：<font color="#5A6883" style="widt:200px;display:block;">{$user_info['nickname']}</font></label>
+						      <label>玩家房卡：<font color="#5A6883" style="widt:200px;display:block;">{$user_treasure['insurescore']}</font></label>
+						      <label>充值数量：</label>
+						      <input type="text" id="pay_nums" name="pay_nums" class="input-xlarge" placeholder="请输入充值房卡的数量" />
+						      <label>账户密码：</label>
+						      <input type="password" id="agent_password" name="agent_password" class="input-xlarge" placeholder="请输入您的登录密码" />
+					      </div>
+					  	</div>
+					</div>
+					<div class="btn-toolbar">
+                    	<input type="hidden" name="user_id" value="{$user_info['userid']|default='0'}" />
+					    <button class="btn btn-primary" style="margin-left:2px;"><i class="icon-save"></i>确定</button>
+					    <button class="btn btn-primary" style="margin-left:2px;" onclick="javascript:history.back(-1);return false;"><i class="icon-save"></i>返回</button>
+					  	<div class="btn-group"></div>
+					</div>
+				</form>
+            </div>
+        </div>
+    </div>
+<script type="text/javascript">
+CommonJs.FormCheck	= function(FormObj){
+	if(CommonJs.Loading){ return false;}
+	CommonJs.Loading 								= true;
+	CommonJs.SubmitData.pay_nums					= $("input[name='pay_nums']").val();
+	CommonJs.SubmitData.agent_password				= $("input[name='agent_password']").val();
+	CommonJs.SubmitData.user_id						= $("input[name='user_id']").val();
+	if(!CheckJs.required(CommonJs.SubmitData.pay_nums)){
+		_inform('请输入充值数量',function(){CommonJs.Loading = false;});return false;
+	}
+	if(!CheckJs.required(CommonJs.SubmitData.agent_password)){
+		_inform('请输入账户密码',function(){CommonJs.Loading = false;});return false;
+	}
+	CommonJs.Loading = false
+	return true;
+};
+CommonJs.JsSave("#FormData");
+</script>
+    
+  </body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+<script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+<title>待发货详情</title>
+<link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+<link rel="stylesheet" href="__PUBLIC__/Home/css/xiaotian.css">
+<script type="text/javascript" src="__PUBLIC__/Home/js/zepto.full.js"></script>
+</head>
+
+<body class="gray p">
+<div class="order-detail-header">
+	<p class="order-status order-status-deliver">{$order_info['order_status_title']}</p>
+	<p>订单编号：{$order_info['order_sn']}</p>
+	<p>下单时间：{$order_info['create_time']}</p>
+</div>
+
+<div class="order-cells order-detail-cells">
+	<div class="order-cell">
+		<div class="order-address-hd">收货信息</div>
+	</div>
+	<div class="order-cell">
+		<div class="order-address-bd">
+			<p>{$order_info['consignee']} {$order_info['tel']}</p>
+			<p>{$order_info['province']}{$order_info['city']}{$order_info['county']}{$order_info['address']}</p>
+		</div>
+	</div>
+</div>
+<div class="order-cells order-detail-cells">
+	<div class="order-cell">
+		<div class="order-cell-bd">商品信息</div>
+	</div>
+	<div class="order-cell">
+		<ul class="order-detail-product">
+                    <volist name="order_info['OrderDetail']" id="od">
+			<li class="order-detail-product-item" onclick="javascript:location.href='{$od.url}'">
+				<img src="{$od['goods_image']}" class="order-detail-product-cover">
+				<div class="order-detail-product-description">
+					<div class="order-detail-product-description-item">
+						<span class="order-detail-product-name">{$od['goods_name']} {$od.specifications_text}</span>
+					</div>
+					<div class="order-detail-product-description-item">
+						<span class="order-detail-product-num">×{$od.goods_number}</span>
+						<span class="order-detail-product-price" data-num="1">¥{$od.goods_price}</span>
+					</div>
+				</div>
+<!--                                <if condition="($order_info['order_status_code'] eq 'receipted')">
+                                        
+                                        <if condition="$od['status'] eq '1'">
+                                            <button class="order-btn order-refund"><a href="{:U('aftersalesdetail',array('return_id'=>$od['order_return']['id']))}">查看售后</a></button>
+                                        <elseif condition="$od['status'] eq 2"/>
+                                            <button class="order-btn order-refund"><a href="{:U('aftersalesdetail',array('return_id'=>$od['order_return']['id']))}">退款成功</a></button>
+                                        <else />
+                                            <eq name="order_info.can_aftersales" value="1">
+                                                <button class="order-btn order-refund"><a href="javascript:;" class="aftersales_apply" data-order_id="{$order_info['id']}" data-odetail_id="{$od['id']}">申请售后</a></button>
+                                            </eq>
+                                        </if>
+                                </if>-->
+			</li>
+                    </volist>
+		</ul>
+	</div>
+</div>
+<div class="order-cells order-detail-cells sell-order-pay">
+	<div class="order-cell">
+		<div class="order-cell-bd">发货方式</div>
+		<div class="order-cell-ft">快递：+{$order_info.freight}元</div>
+	</div>
+	<div class="order-cell">
+		<div class="order-cell-bd">订单总计</div>
+		<div class="order-cell-ft">¥{$order_info.total_amount}</div>
+	</div>
+	<div class="order-cell">
+		<div class="order-cell-bd">物流公司</div>
+		<div class="order-cell-ft z-list-arrow" data-express_id="{$express_list[0]['id']}">{$express_list[0]['express_name']}</div>
+		<ul class="z-back-list">
+				<volist name="express_list" id="express">
+	                <li data-id="{$express.id}">{$express.express_name}</li>
+	            </volist>
+        </ul>
+	</div>
+	<div class="order-cell">
+		<div class="order-cell-bd">物流单号</div>
+		<div class="order-cell-ft z-shop-code"><input type="text" id="express_no" placeholder="输入快递单号..."></div>
+	</div>
+</div>
+<div class="order-bar">
+<!--	<button class="order-confirm">去发货</button>
+	<button class="order-confirm order-confirm-none">缺货</button>-->
+        <input type="hidden" id="order_id" value="{$order_info['id']}" />
+	<button class="order-confirm" id="confirmShip">确认发货</button>
+</div>
+</body>
+<script>
+$(function(){
+	var order_id = $("#order_id").val();
+	$('.z-list-arrow').on("tap",function(){
+		if(!$(this).next('ul').is(":visible")){
+			$('.z-back-list').show();
+		}else{
+			$('.z-back-list').hide();
+		}
+		
+	});
+
+	$('.z-back-list li').on("tap",function(){
+        var text = $(this).text();
+        var new_express_id = $(this).attr("data-id");
+        $(".z-list-arrow").attr("data-express_id",new_express_id);
+        $(this).parent().hide();
+        $(this).parent().prev().text(text);	
+    });
+        
+    //确认发货
+    var confirmShip_status = false;
+    $('#confirmShip').on('tap',function(){
+    	if (confirmShip_status) {return;};
+    	var express_no = $("#express_no").val();
+    	if (express_no == '') {
+    		confirmShip_status = false;
+    		showMessage('请输入快递单号');
+    		return false;
+    	};
+	    var _url = "{:U('Shop/confirmShip')}";
+	    var _param = new Object();
+	    	_param.order_id = order_id;
+	    	_param.express_id = $(".z-list-arrow").attr("data-express_id");
+	    	_param.express_no = express_no;
+    	confirmShip_status = true;
+	    $.post(_url,_param,function(res){
+	    	if (res.Code == '0') {
+	    		showMessage('已成功发货');
+	    		window.location.href="/Home/Shop/orderdetail/order_id/"+order_id+"";
+	    	}else{
+	    		confirmShip_status = false;
+	    		showMessage('发货失败');
+	    		window.location.href = window.location.href;
+	    	}
+	    },'json');
+    });
+
+    // 消息提示
+	function showMessage(msg) {
+		if (! $('.msg').length) {
+			$('body').append('<div class="msg" style="position: fixed;bottom: 20%;left: 50%;margin-left: -40%;height: 0.8rem;line-height: 0.8rem;width: 80%;background-color: rgba(0,0,0,.75);border-radius: 0.6rem;text-align: center;color: #fff;display: none;font-size: 1.2em">' + msg + '</div>');
+			$('.msg').fadeIn(200);
+			setTimeout(function(){
+				$('.msg').fadeOut(200,function(){
+					$(this).remove();
+				});
+			},1500)
+		}
+	}
+});
+</script>
+</html>

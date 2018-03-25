@@ -1,0 +1,43 @@
+<include file="public_header" />
+<div class="main">
+	<div class="contain">
+		<div class="banner">
+			<img src="__PUBLIC__/Pcweb/img/banner.png" alt="">
+		</div>
+		<div class="about">
+			<h3 class="title"><img src="__PUBLIC__/Pcweb/img/about-die.png" alt="">公司简介</h3>
+			<div class="article">
+				{$pcweb_about['content']|htmlspecialchars_decode}
+			</div>
+		</div>
+	</div>
+</div>
+<include file="public_footer" />
+<script src="__PUBLIC__/Pcweb/js/jquery.min.js"></script>
+<script src="__PUBLIC__/Pcweb/js/common.js"></script>
+<script>
+;(function(){
+	$(".index-login-btn").on("click",function(){
+		var user = $("input[name='user']").val();
+		var pw = $("input[name='pw']").val();
+		console.log(user)
+		if(user == ''){
+			webTip('请输入用户名',function(){
+				$("input[name='user']").focus();
+			});
+			return false;
+		}
+		if(pw == ''){
+			webTip('请输入密码',function(){
+				$("input[name='pw']").focus();
+			});
+			return false;
+		}
+		webTip("登陆成功",function(){
+			$(".index-login-form").submit();
+		})		
+	})
+})();
+</script>
+</body>
+</html>

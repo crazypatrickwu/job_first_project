@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <include file="Public/header" />
+  </head>
+  <body class=""> 
+  <!--<![endif]-->
+    <div class="navbar">
+        <include file="Public/top" />
+    </div>
+    <div class="sidebar-nav">
+       	<ul class="breadcrumb">
+            <li><a href="{:U('Index/index')}">首页</a> <span class="divider">/</span></li>
+            <li class="active">充卡管理</li>
+        </ul>
+
+        <div class="container-fluid">
+            <div class="row-fluid">
+			  	<div class="search-well">
+			      <form class="form-inline" action="" metod="get">
+			          <input class="input-xlarge" id="appendedInputButton" type="text" name="userid" value="{:remove_xss(I('get.userid'))}" placeholder="请输入玩家ID进行检索" style="width:75%;margin-left:2px;">
+			          <button class="btn" type="button" onclick="location.href='{:U()}'+'?userid='+$(this).parent().find('input').val();"><i class="icon-search"></i>搜索</button>
+			      </form>
+			  	</div>
+				<div class="well">
+				    <table class="table">
+				      <thead>
+				        <tr>
+				          <th style="width: 20%;">玩家ID</th>
+				          <th style="width: 30%;">昵称</th>
+				          <th style="width: 30%;">数量</th>
+				          <th style="width: 20px;">操作</th>
+				        </tr>
+				      </thead>
+				      <tbody>
+				      	<if condition="empty($game_user_list)">
+				           <tr>
+				               <td colspan="4" align="center" style="text-align: center !important;">没有玩家列表~！</td>
+				           </tr>
+				        <else />
+				        <volist name="game_user_list" id="game_user">
+				            <tr>
+				                <td class="center" style="width: 20%;">{$game_user['userid']}</td>
+				                <td class="center" style="width: 30%;">{$game_user['nickname']}</td>
+				                <td class="center" style="width: 30%;">{$game_user['THTreasureDB']['insurescore']}(颗)</td>
+				                <td class="center" style="width: 20%;">
+				                    <a class="stdbtn btn_lime" href="{:U('Recharge/addInsureScore', array('user_id'=>$game_user['userid']))}">充卡</a>
+				                </td>
+				            </tr>
+				        </volist>
+				        <tr>
+				            <td colspan="4" style="width: 100%;">
+				                <div class="page-box">{$show}</div>
+				            </td>
+				        </tr>
+				        </if>
+				      </tbody>
+				    </table>
+				</div>   
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        
+    </script>
+  </body>
+</html>

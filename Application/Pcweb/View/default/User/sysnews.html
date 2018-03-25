@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+<script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+<title>系统消息</title>
+<link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+<link rel="stylesheet" href="__PUBLIC__/Home/css/xiaotian.css">
+<script type="text/javascript" src="__PUBLIC__/Home/js/zepto.full.js"></script>
+</head>
+
+<body class="gray">
+<input type="hidden" value="{$count}" id="count">
+<div class="z-contain">
+ <volist name="system" id="vo">
+	<div class="z-sys-main">
+		<span class="z-sys-time">{:date('Y-m-d H:i',$vo['update_time'])}</span>
+		<div class="z-sys-contain">
+			<a href="{:U('User/system_detail',array('id'=>$vo['id']))}">
+				<img src="{$vo.photo}" alt="">
+				<p>{$vo.description}</p>
+				<em>查看详情</em>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="z-sys-main"></div>
+</volist>
+<script type="text/javascript">
+    var totalpage = parseInt($('#count').val());
+	var page = 0;
+    var falg = false;
+     $(document).scroll(function(){
+            var totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop()) + 20;
+            if(totalheight >= $(document).height()){
+                if(falg) return;
+                falg = true;
+                page = parseInt(page)+1;
+                if(page >= totalpage){
+                    page = totalpage;
+                    return false;
+                }
+                console.log(page);
+                 loadContents(page);
+            }
+        });
+    
+     function loadContents(page,order){
+            var url ="{:U('User/sysnews')}";
+            // setTimeout(function(){
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: {'page':page,'type':1},
+                    success: function(res){
+
+	                      var res=JSON.parse(res);
+	                      //  // alert(JSON.stringify(res.info));
+                        if(res.Code==0){
+                        	$.each(res.data, function(i,val){
+								var str='<div class="z-sys-main">';
+								    str+='<span class="z-sys-time">'+val.update_time+'</span>';
+								    str+='<div class="z-sys-contain">';
+								    str+='<a href="">';
+								    str+='<img src="'+val.photo+'" alt="">'
+								    str+='<p>'+val.description+'</p>'
+								    str+='<em>查看详情</em>'
+								    str+='</a>'
+								    str+='</div>'
+								    str+='</div>'
+								    $('.z-contain').append(str);
+                               })
+                        	}
+                             falg = false;
+                        }
+	     
+                });
+          
+        }
+</script>
+</body>
+</html>

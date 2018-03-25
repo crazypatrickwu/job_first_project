@@ -1,0 +1,30 @@
+<ul>
+	<li<if condition="in_array(CONTROLLER_NAME, array('Recharge'))">{:chr(32)}class="current"</if>>
+		<a class="date-tit sys-tj" href="{:U('Recharge/myRechargeRecored')}" class="addons">我的房卡</a>
+		<ul class="Jcon-ctr">
+			<li class="<if condition="in_array(ACTION_NAME, array('myRechargeRecored')) && $Think.get.type eq 0">on</if>">
+                <a href="{:U('Recharge/myRechargeRecored',array('type'=>0))}">购买房卡</a>
+			</li>
+			<li class="<if condition="in_array(ACTION_NAME, array('myRechargeRecored')) && $Think.get.type eq 1">on</if>">
+				<a href="{:U('Recharge/myRechargeRecored',array('type'=>1))}">平台充值</a>
+			</li>
+			<li class="<if condition="in_array(ACTION_NAME, array('agentRebate'))">on</if>">
+				<a href="{:U('Recharge/agentRebate',array('type'=>2))}">可提现记录</a>
+			</li>
+			<!-- <li class="<if condition="in_array(ACTION_NAME, array('agentReward'))">on</if>">
+				<a href="{:U('Recharge/agentReward',array('type'=>2))}">推荐奖励</a>
+			</li> -->
+		</ul>
+	</li>
+	<!-- <li<if condition="in_array(CONTROLLER_NAME, array('Recharge'))">{:chr(32)}class="current"</if>>
+		<a class="date-tit sys-tj" href="{:U('Recharge/players')}" class="addons">玩家充值</a>
+		<ul class="Jcon-ctr">
+			<li class="<if condition="in_array(ACTION_NAME, array('players'))">on</if>">
+				<a href="{:U('Recharge/players')}">玩家列表</a>
+			</li>
+			<li class="<if condition="in_array(ACTION_NAME, array('playersRecored'))">on</if>">
+				<a href="{:U('Recharge/playersRecored',array('type'=>0,'buyer'=>'player'))}">充值记录</a>
+			</li>
+		</ul>
+	</li> -->
+</ul>

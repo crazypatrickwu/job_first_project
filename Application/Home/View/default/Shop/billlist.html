@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+<script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+<title>账单中心</title>
+<link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+<link rel="stylesheet" href="__PUBLIC__/Home/css/ckf.css">
+</head>
+<body class="c-gray">
+<ul class="c-bill-list">
+   <volist name='info' id='vo'>
+
+    <if condition="$vo['type'] eq 2 ">
+		<li class="line-bottom">
+			<a href="">
+				<img src="__PUBLIC__/Home/img/ckf-die1.png" alt="">
+				<h4>{$vo.order_form}</h4>
+				<time>{:date('m-d h:i:s',$vo['create_time'])}</time>
+				<span>
+					<num>+{$vo.money}</num>
+					 <if condition="$vo['status'] eq 2"> 
+				     <em>处理中</em>
+				    <elseif condition="$vo['status'] eq 1"/>
+				       <em>通过</em>
+				    <else /> 
+				       <em>否决</em>
+				    </if>
+				</span>
+			</a>
+		</li>
+	 <else /> 
+		<li class="line-bottom">
+			<a href="">
+				<img src="__PUBLIC__/Home/img/ckf-die2.png" alt="">
+				<h4>{$vo.order_form}</h4>
+				<time>{:date('m-d h:i:s',$vo['create_time'])}</time>
+				<span>
+					<num>-{$vo.money}</num>
+				    <if condition="$vo['status'] eq 2"> 
+				     <em>处理中</em>
+				    <elseif condition="$vo['status'] eq 1"/>
+				       <em>通过</em>
+				    <else /> 
+				       <em>否决</em>
+				    </if>
+				</span>
+			</a>
+		</li>
+	 </if>
+	</volist>
+</ul>
+</body>
+</html>

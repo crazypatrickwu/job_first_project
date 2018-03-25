@@ -1,0 +1,49 @@
+<include file="public_header" />
+<div class="main">
+	<div class="contain">
+		<div class="banner">
+			<img src="__PUBLIC__/Pcweb/img/banner.png" alt="">
+		</div>
+		<div class="dload">
+			<div class="title">
+				<img src="__PUBLIC__/Pcweb/img/dl-die.png" alt="">下载专区
+				<div class="title-line"></div>
+			</div>
+			<div class="dload-content">
+				<div class="dload-left">
+					<span class="active">游戏下载</span>
+				</div>
+				<div class="dload-right">
+					<ul class="">
+						<li>
+							<a href="/Uploads/Package/deqingluosong.apk_1.2.1.apk">
+								<span><img src="__PUBLIC__/Pcweb/img/dl-die2.png" alt=""></span>
+								<p>安卓下载</p>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<include file="public_footer" />
+<script src="__PUBLIC__/Pcweb/js/jquery.min.js"></script>
+<script src="__PUBLIC__/Pcweb/js/common.js"></script>
+<script>
+;(function(){
+	var span = $(".dload-left span");
+	var ul = $(".dload-right ul");
+	span.on("click",function(){
+		var index = $(this).index();
+		if($(this).hasClass("active")){
+			return false;
+		}
+		$(this).addClass('active').siblings().removeClass('active');
+		ul.eq(index).show().siblings().hide();
+
+	})
+})();
+</script>
+</body>
+</html>

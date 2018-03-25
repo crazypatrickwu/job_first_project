@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+    <title>忘记密码</title>
+    <link rel="stylesheet" href="__PUBLIC__/Home/Agent/css/taizhou.css">
+    <script type="text/javascript" src="__PUBLIC__/Home/Agent/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Home/Agent/js/public.js"></script>
+</head>
+<body>
+<div>
+    <div class="form_box" id="app">
+        <div class="form_item form_item_top">
+            <div class="item item_for"><input type="text" id="phone" placeholder="请输入手机号码"/></div>
+            <div class="item item_for"><input type="text" id="yzmcode" placeholder="输入验证码"/><button id="btnSendCode" onclick="sendMessage()">获取验证码</button></div>
+        </div>
+        <div class="form_btn">
+            <button id="sub_btn">下一步</button>
+        </div>
+    </div>
+</div>
+<script>
+    //手机验证码倒计时
+    var InterValObj; //timer变量，控制时间
+    var count = 60; //间隔函数，1秒执行
+    var curCount;//当前剩余秒数
+
+    function sendMessage() {
+        curCount = count;
+        //设置button效果，开始计时
+        $("#btnSendCode").attr("disabled", "true");
+        $("#btnSendCode").text("重新发送"+curCount +"(s)");
+        $("#btnSendCode").css('color','#CECECE');
+
+        //ajax发送短信验证
+        var phone   =   $("#phone").val();
+        if (phone == '') {
+            webTip('手机号码不得为空');
+            return false;
+        };
+        var _url = "{:U('Login/sendcode')}";
+        var _param = new Object();
+            _param.phone    =   phone;
+        $.post(_url,_param,function(res){
+            if (res.code == '1') {
+                webTip(res.msg);
+                return true;
+            }else{
+                webTip(res.msg);
+                return false;
+            }
+        },'json');
+
+        InterValObj = window.setInterval(SetRemainTime, 1000); //启动计时器，1秒执行一次
+    }
+    //timer处理函数
+    function SetRemainTime() {
+        if (curCount == 0) {
+            window.clearInterval(InterValObj);//停止计时器
+            $("#btnSendCode").removeAttr("disabled");//启用按钮
+            $("#btnSendCode").text("获取验证码");
+            $("#btnSendCode").css("color",'#2695FB');
+        }
+        else {
+            $("#btnSendCode").addClass("xf-active");
+            curCount--;
+            $("#btnSendCode").text("重新发送"+curCount +"(s)");
+
+        }
+    }
+
+    $(function(){
+        $("#sub_btn").on('click',function(){
+            //ajax发送短信验证
+            var phone   =   $("#phone").val();
+            if (phone == '') {
+                webTip('手机号码不得为空');
+                return false;
+            };
+            var yzmcode   =   $("#yzmcode").val();
+            if (yzmcode == '') {
+                webTip('验证码不得为空');
+                return false;
+            };
+            var _url = "{:U('Login/forgetPwd')}";
+            var _param = new Object();
+                _param.phone    =   phone;
+                _param.yzmcode    =   yzmcode;
+                _param.step    =   1;
+            $.post(_url,_param,function(res){
+                if (res.code == '1') {
+                    webTip(res.msg);
+                    if (res.url != '') {
+                        setTimeout(function(){
+                            window.location.href = res.url;
+                        },1500);
+                    };
+                }else{
+                    webTip(res.msg);
+                    return false;
+                }
+            },'json');
+        });
+    })
+</script>
+</body>
+<include file="Index:public_wxshare" />
+</html>

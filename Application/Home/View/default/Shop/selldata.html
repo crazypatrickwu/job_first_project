@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+<script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+<title>销售统计</title>
+<link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+<link rel="stylesheet" href="__PUBLIC__/Home/css/order.css">
+<script type="text/javascript" src="__PUBLIC__/Home/js/zepto.full.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Home/js/Chart.bundle.js"></script>
+</head>
+
+<body class="gray" >
+<!-- style="overflow: hidden;padding-top: 0.88rem;" -->
+<!-- <header class="line-bottom">
+	销售统计
+</header> -->
+<div class="sell-data-wrap">
+	<ul class="sell-data-tab">
+		<li class="sell-data-tab-item">{$date['0']}年</li>
+		<li class="sell-data-tab-item">{$date['1']}月</li>
+		<li class="sell-data-tab-item">{$date['2']}日</li>
+	</ul>
+	<div class="sell-data-title">订单量</div>
+	<div class="sell-data-chart">
+		<div class="total">共计：{$count}</div>
+		<canvas id="myChart" width="800" height="800"></canvas>
+	</div>
+</div>
+<script type="text/javascript">
+    var data="{$all}";
+    var all=data.split("[");
+        all=all['1'].split(']');
+        all=all['0'].split(",");
+	var config = {
+	    type: 'line',
+	    data: {
+	        labels: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+	        datasets: [{
+	            label: "订单量",
+	            backgroundColor: '#fff',
+	            borderColor: '#45d9d3',
+	            data: all,
+	            fill: false,
+	        }]
+	    },
+	    options: {
+	        responsive: true,
+	        scales: {
+	            xAxes: [{
+	                display: true,
+	                scaleLabel: {
+	                    display: false,
+	                    labelString: '时间'
+	                }
+	            }],
+	            yAxes: [{
+	                display: true,
+	                scaleLabel: {
+	                    display: false,
+	                    labelString: '销售量'
+	                }
+	            }]
+	        },
+	        datasetFill : false,
+	        legend: {
+				display: false,
+			}
+	    }
+	};
+	window.onload = function() {
+	    var ctx = document.getElementById("myChart").getContext("2d");
+	    window.myLine = new Chart(ctx, config);
+	};
+</script>
+</body>
+</html>

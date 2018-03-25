@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+    <title>代理充卡</title>
+    <link rel="stylesheet" href="__PUBLIC__/Home/Agent/css/taizhou.css">
+    <script type="text/javascript" src="__PUBLIC__/Home/Agent/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Home/Agent/js/public.js"></script>
+</head>
+<body style="background: #fff;">
+<div>
+    <div class="list_box" id="app">
+        <div class="item_box pur_box item_box_administration">
+            <div class="clearfix pur_title">
+                <div class="left">您的房卡数量：{$agent_info['room_card']}</div>
+                <!-- <div class="right time">订单编号：5623124568235</div> -->
+            </div>
+            <div class="ash"><label>代理ID</label>：{$to_agent_info['id']}</div>
+            <div class="ash"><label>代理姓名</label>：{$to_agent_info['nickname']}</div>
+            <div class="ash"><label>代理账号</label>：{$to_agent_info['phone']}</div>
+            <div class="ash"><label>代理房卡</label>：{$to_agent_info['room_card']}</div>
+            <!-- <div class="ash"><label>返卡时间</label>：2017-01-15 15:12:45</div> -->
+        </div>
+        <div class="bg_input">
+            <input type="text" id="pay_nums" name="pay_nums" placeholder="充值数量"/><input type="password" id="agent_password" name="agent_password" placeholder="输入密码"/>
+        </div>
+        <input type="hidden" id="agent_id" name="agent_id" value="{$to_agent_info['id']|default='0'}" />
+    </div>
+    <div class="yes_pay_btn">
+        <button id="sub_btn">确认充值</button>
+    </div>
+</div>
+</body>
+    <script type="text/javascript">
+        $(function(){
+
+            //确认充值
+            var sub_btn_status  =   false;
+            $("#sub_btn").on('click',function(){
+                if (sub_btn_status) {
+                    return;
+                };
+                var agent_id =   $("#agent_id").val();
+                if (agent_id == '0') {
+                    webTip('参数错误');
+                    return false;
+                };
+                var pay_nums =  $("#pay_nums").val();
+                if (Number(pay_nums) <= 0) {
+                    webTip('请填写充值数量');
+                    return false;
+                };
+                var agent_password = $("#agent_password").val();
+                if (agent_password == '') {
+                    webTip('请输入登录密码');
+                    return false;
+                };
+
+                var _url = "{:U('addInsureScore')}";
+                var _param = new Object();
+                    _param.agent_id  =   agent_id;
+                    _param.pay_nums =   pay_nums;
+                    _param.agent_password = agent_password;
+                sub_btn_status = true;
+                $.post(_url,_param,function(res){
+
+                    if (res.code == 1) {
+                        webTip(res.msg);
+                        setTimeout(function(){
+                            window.location.href = res.url;
+                        },1000);
+                    }else{
+                        webTip(res.msg);
+                        sub_btn_status = false;
+                        setTimeout(function(){
+                            if (res.url != '') {
+                                window.location.href = res.url;
+                            }else{
+                                window.location.href = window.location.href;
+                            }
+                        },1000);
+                    }
+                },'json');
+            });
+        });
+    </script>
+    <include file="Index:public_wxshare" />
+</html>

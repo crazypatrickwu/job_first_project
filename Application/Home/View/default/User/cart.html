@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+<script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+<title>购物车</title>
+<link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+<link rel="stylesheet" href="__PUBLIC__/Home/css/order.css">
+<link rel="stylesheet" href="__PUBLIC__/Home/css/xiaotian.css">
+<script type="text/javascript" src="__PUBLIC__/Home/js/zepto.full.js"></script>
+</head>
+
+<body class="gray q">
+<header class="line-bottom">
+	<a href="#">
+		<!-- <i class="header-back"></i> -->
+	</a>
+	购物车
+</header>
+
+<div class="cart-edit clear-float">
+	<button class="cart-edit-btn" data-flag="true">编辑</button>
+</div>
+<!-- 购物车列表 -->
+<div class="cart-content">
+ <volist name='info' id='data'>
+ <div class='find_li'>
+<div class="z-cartlist-title line-bottom">
+		<a href="{:U('Shop/myshop',array('shop_id'=>$data['0']['red_id']))}">
+			<img src="__PUBLIC__/Home/img/store.png" alt="" class="z-title-img1">{$data['0']['nickname']}<img src="__PUBLIC__/Home/img/arrow-next.png" alt="" class="z-title-img2">
+		</a>
+</div>
+<ul class="cart-list">
+	 <volist name='data' id='vo'>
+		<li class="cart-list-item" data-id="{$vo.id}" data-cart_id="{$vo.id}">
+			<label class="cart-list-checkbox">
+				<input type="checkbox" class="cart-list-checkbox-input" name="">
+			</label>
+			<img src="{$vo.goods_image}" class="cart-product-cover">
+			<div class="cart-product-description">
+				<div class="cart-product-description-item">
+					<span class="cart-product-name">{:mySubstr($vo['goods_name'],7,'...')}</span>
+					<span class="cart-product-price" data-price="{$vo.sku_price}">￥{$vo.sku_price}</span>
+				</div>
+				<div class="cart-product-description-item">
+					<span class="cart-product-intro">{:mySubstr($vo['specifications'],14,'...')}</span>
+					<span class="cart-product-num" data-num="{$vo.goods_number}">×{$vo.goods_number}</span>
+				</div>
+			</div>
+			<div class="cart-count">
+				<span class="cart-count-subtract">-</span>
+				<span class="cart-count-num">1</span>
+				<span class="cart-count-add">+</span>
+			</div>
+		</li>
+	 </volist>
+</ul>
+</div>
+</volist>
+</div>
+<!-- 购物车为空 -->
+<div class="cart-empty">
+	<img src="__PUBLIC__/Home/img/nopro.png" alt="">
+	<p>您的购物车没有宝贝，您可以点击</p>
+	<a href="{:U('Index/index')}">去首页逛逛</a>
+</div>
+<!-- 购物车编辑/结算栏 -->
+<div class="card-edit-bar">
+	<label class="cart-list-checkbox cart-check-all">
+		<input type="checkbox" name="">
+		全选
+	</label>
+	<div class="cart-operation">
+		<div class="cart-collect">
+			<span class="cart-total">
+				共¥<i class="price"></i>（<i class="num"></i>件）
+			</span>
+			<span class="cart-note">不含运费</span>
+		</div>
+		<button class="cart-buy-btn" id="cart_order">结算</button>
+	</div>
+	<div class="cart-edit-operation">
+		<!-- <button class="cart-favorite-btn">添加到收藏夹</button> -->
+		<button class="cart-del-btn">删除</button>
+	</div>
+</div>
+
+<div class="confirm">
+    <div class="confirm-box clearfix">
+        <p>确定要删除订单？</p>
+        <span class='confirm-sure'>确定</span>
+        <span class='confirm-cancel'>取消</span>
+    </div>
+</div>
+<script type="text/javascript">
+	// 点击整个项目的触发复选框改变
+	var before_data=[];
+    var all=0;
+    var is_check=0;
+    $('.find_li').find('li').each(function(){
+    	 if($(this)==''){
+    	 	$(this).parent().hide();
+    	 }
+    });
+	$('.cart-list').find('input').each(function(){
+		    all=all+1;
+			if($(this).prop('checked')==true){
+                is_check=is_check+1;
+				$(this).parent().addClass('cart-list-checkbox-active');
+			}
+		});
+     if(all==is_check){
+     	$('.card-edit-bar').find('.cart-check-all').addClass('cart-list-checkbox-active');
+     }
+	$('.cart-list-item').on('tap', function(e){
+		var objName = e.target.className;
+		if (objName !== 'cart-count-add' && objName !== 'cart-count-num' && objName !== 'cart-count-subtract' && objName !== 'cart-list-checkbox-input') {
+			var val = ! $(this).find('input').prop('checked');
+			$(this).find('input').prop('checked', val).trigger('change');
+		}
+	});
+
+	// 复选
+	$('.cart-list-checkbox input').on('change', function(e){
+		e.stopPropagation();
+		if ($(this).is(':checked')) {
+			$(this).parent().addClass('cart-list-checkbox-active');
+		} else {
+			$(this).parent().removeClass('cart-list-checkbox-active');
+		}
+		if ($(this).parents('.cart-content').find('input:checked').length == $(this).parents('.cart-content').find('input').length) {
+			$('.cart-check-all').addClass('cart-list-checkbox-active');
+			$('.cart-check-all').find('input[type=checkbox]').prop('checked', true);
+		} else {
+			$('.cart-check-all').removeClass('cart-list-checkbox-active');
+			$('.cart-check-all').find('input[type=checkbox]').prop('checked', false);
+		}
+		count();
+	});
+
+	// 全选
+	$('.cart-check-all input').on('change', function(){
+		if ($('.cart-list').find('input:checked').length == $('.cart-list').find('input').length) {
+			$(this).parent().removeClass('cart-list-checkbox-active');
+			$(this).prop('checked', false);
+			$('.cart-list').find('input').each(function(){
+				$(this).parent().removeClass('cart-list-checkbox-active');
+				$(this).prop('checked', false);
+			});
+		} else {
+			$(this).parent().addClass('cart-list-checkbox-active');
+			$(this).prop('checked', true);
+			$('.cart-list').find('input').each(function(){
+				$(this).parent().addClass('cart-list-checkbox-active');
+				$(this).prop('checked', true);
+			});
+		}
+		count();
+	});
+
+	// 编辑购物车
+	$('.cart-edit-btn').on('tap', function(){
+		if ($(this).data('flag')) {
+			$(this).data('flag',false);
+			$(this).text('完成');
+			$('.cart-list').find('.cart-list-item').each(function(){
+				var obj={};
+                obj.id=$(this).attr('data-id');
+                obj.goods_number=$(this).find('.cart-product-num').data('num');
+                before_data.push(obj);
+
+				$(this).find('.cart-count-num').text($(this).find('.cart-product-num').data('num'));
+				$(this).find('.cart-count').show();
+				$(this).find('.cart-product-name').hide();
+				$(this).find('.cart-product-intro').hide();
+			});
+			$('.cart-operation').hide();
+			$('.cart-edit-operation').show();
+		} else {
+			$(this).data('flag',true);
+			$(this).text('编辑');
+			var data=[];
+			var end_data=[];
+           
+			$('.cart-list').find('.cart-list-item').each(function(){
+				var obj={};
+                obj.id=$(this).attr('data-id');
+                obj.goods_number=$(this).find('.cart-product-num').data('num');
+                data.push(obj);
+				
+			});
+			for(var i=0;i<data.length;i++){
+				for(var j=0;j<before_data.length;j++){
+					if(before_data[j].id==data[i].id){
+						if(before_data[j].goods_number != data[j].goods_number){
+							 var end_obj=[];
+							end_obj.push(data[j].id)
+							end_obj.push(data[j].goods_number)
+							end_data.push(end_obj);
+						}
+					}
+				}
+			}
+			// console.log(end_data);
+			before_data=[];
+			if(end_data.length>0){
+			var url="{:U('User/cart_edit')}"
+			$.post(url,{'end_data':end_data},function(res){
+                  if(res.Code=='0'){
+                  	$('.cart-list').find('.cart-list-item').each(function(){
+	                  	$(this).find('.cart-count').hide();
+						$(this).find('.cart-product-name').show();
+						$(this).find('.cart-product-intro').show();
+				    });
+					$('.cart-operation').show();
+				    $('.cart-edit-operation').hide();
+                  }else{
+                  	showMessage(res.Msg);
+                  }
+			},'json');
+			}else{
+				    $('.cart-list').find('.cart-list-item').each(function(){
+	                  	$(this).find('.cart-count').hide();
+						$(this).find('.cart-product-name').show();
+						$(this).find('.cart-product-intro').show();
+				    });
+					$('.cart-operation').show();
+				    $('.cart-edit-operation').hide();
+			}
+			
+		}
+		
+	});
+
+	// 添加数量
+	$('.cart-count-add').on('tap', function(){
+		var num = $(this).parent().find('.cart-count-num').text();
+		num++;
+		$(this).parent().find('.cart-count-num').text(num);
+		$(this).parents('.cart-list-item').find('.cart-product-num').data('num', num).text('x' + num);
+		count();
+	});
+
+	// 减少数量
+	$('.cart-count-subtract').on('tap', function(){
+		var num = $(this).parent().find('.cart-count-num').text();
+		if (num > 1) {
+			num--;
+		} else {
+			showMessage("数量不能小于1哦");
+		}
+		$(this).parent().find('.cart-count-num').text(num);
+		$(this).parents('.cart-list-item').find('.cart-product-num').data('num', num).text('x' + num);
+		count();
+	});
+
+	// 结算按钮
+//	$('.cart-buy-btn').on('tap', function(){
+//		if (! $('.cart-list').find('input:checked').length) {
+//			showMessage('亲，请先选择您想要的宝贝哦');
+//		}
+//	});
+        var cart_order_status   =   false;
+        $("#cart_order").click(function(){
+            if (cart_order_status) {return false;}
+            if (! $('.cart-list').find('input:checked').length) {
+                    showMessage('亲，请先选择您想要的宝贝哦');
+                    return false;
+            }
+            // alert(length);
+            var cart_arr = [];
+            $('.cart-list').find('input:checked').each(function(i,n){
+                var cart_id = ($(n).parents("li").attr("data-cart_id"));
+                cart_arr.push(cart_id);
+            });
+            cart_order_status = true;
+            var _url = "/Order/cartConfirm";
+            var _param = new Object();
+            _param.cart_id = cart_arr;
+            $.post(_url,_param,function(res){
+                    if (res.code != 1) {
+                        cart_order_status = false;
+                        alert(res.message);
+                        return false;
+                    }else{
+                        window.location.href = "/Order/confirm/?cart_id="+cart_arr;
+                    }
+            },'json');
+
+        });
+
+	// 添加到收藏夹
+	// $('.cart-favorite-btn').on('tap', function(){
+	// 	if (! $('.cart-list').find('input:checked').length) {
+	// 		showMessage('亲，请先选一个宝贝哦');
+	// 	} else {
+	// 		showMessage('添加收藏夹成功');
+	// 	}
+	// });
+
+	// 删除宝贝
+	$('.cart-del-btn').on('tap', function(){
+		if ($('.cart-list').find('input:checked').length) {
+			$('.confirm').show();
+		} else {
+			showMessage('请选择删除的宝贝');
+		}
+	});
+   $('.confirm-sure').on('tap',function(){
+		$('.confirm').hide();
+				var del=[];
+		if ($('.cart-list').find('input:checked').length) {
+			$('.cart-list').find('input:checked').each(function(){
+				var check=$(this).parents('.cart-list-item').attr('data-id');
+				del.push(check);
+			});
+			var url="{:U('User/cart_del')}";
+			$.post(url, { id:del}, function (res) {
+				if(res.Code==0){
+					 $('.cart-list').find('input:checked').each(function(){
+					  $(this).parents('.cart-list-item').remove();
+				     });
+					  $('.find_li').each(function(){
+					    	 if($(this).find('li').length == 0){
+					    	 	$(this).hide();
+					    	 }
+                     });
+
+
+                   showMessage(res.Msg);
+                   checkEmpty();
+			       count();
+				}else{
+					showMessage(res.Msg);
+				}
+			},'json');
+			
+		} else {
+			showMessage('请选择删除的宝贝');
+		}
+	});
+   	$('.confirm-cancel').on("tap",function(){
+		$('.confirm').hide();
+	});
+	function checkEmpty() {
+		if ($('.cart-list').find('.cart-list-item').length == 0) {
+			$('.cart-edit').hide();
+			$('.card-edit-bar').hide();
+			$('.z-cartlist-title').hide();
+			$('.cart-empty').show();
+		};
+	}
+	checkEmpty();
+	// 计算价格
+	function count() {
+		var price = 0, num = 0;
+		$('.cart-list').find('.cart-list-item').each(function(){
+			if ($(this).find('.cart-list-checkbox input').is(':checked')) {
+				price += $(this).find('.cart-product-price').data('price') * $(this).find('.cart-product-num').data('num');
+				num += $(this).find('.cart-product-num').data('num');
+			}
+		});
+		$('.cart-total .price').text(price);
+		$('.cart-total .num').text(num);
+	}
+	count();
+
+	// 消息提示
+	function showMessage(msg) {
+		if (! $('.msg').length) {
+			$('body').append('<div class="msg" style="position: fixed;bottom: 20%;left: 50%;margin-left: -30%;height: 0.8rem;line-height: 0.8rem;width: 60%;background-color: rgba(0,0,0,.75);border-radius: 0.6rem;text-align: center;color: #fff;display: none;font-size: 1.2em">' + msg + '</div>');
+			$('.msg').fadeIn(200);
+			setTimeout(function(){
+				$('.msg').fadeOut(200,function(){
+					$(this).remove();
+				});
+			},1500)
+		}
+	}
+
+</script>
+</body>
+</html>

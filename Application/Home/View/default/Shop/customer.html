@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+<script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+<title>客户管理</title>
+<link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+<link rel="stylesheet" href="__PUBLIC__/Home/css/xiaotian.css">
+<script type="text/javascript" src="__PUBLIC__/Home/js/zepto.full.js"></script>
+</head>
+
+<body class="gray">
+<div class="order-cells order-list-cells">
+    <volist name="customer_list" id="cus">
+	<div class="order-cell" data-avatar="{$cus.avatar}" data-nickname="{$cus.nickname|base64_decode}" data-phone="{$cus.phone}" data-sex="{$cus.phone}">
+		<div class="customer-avatar">
+			<img src="{$cus.avatar}" style="width:0.88rem;height:0.88rem">
+		</div>
+		<div class="customer-info">
+			<h4 class="customer-name">{$cus.nickname|base64_decode}</h4>
+			<p class="customer-data">你们有{$cus.cus_count}笔交易</p>
+		</div>
+	</div>
+    </volist>
+</div>
+
+<div class="z-popup">
+	<div class="z-bg"></div>
+	<div class="z-popupcon z-person-info">
+		<img src="__PUBLIC__/Home/img/pic1.png" alt="" class="z-title-pic" />
+		<name>Ellipse</name>
+		<person class="z-female z-man"><!-- <img src="img/female.png" alt=""> --><img src="__PUBLIC__/Home/img/man.png" alt=""></person>
+                <email>手机：<font id="phone_text">369564321@qq.com</font></email>
+	</div>
+</div>
+</body>
+<script>
+$(function(){
+	$('.order-cell').on("tap",function(){
+                var avatar = $(this).attr("data-avatar");
+                var nickname = $(this).attr("data-nickname");
+                var phone = $(this).attr("data-phone");
+                
+                $('.z-popup').find(".z-title-pic").attr("src",avatar);
+                $('.z-popup').find("name").text(nickname);
+                $('.z-popup').find("#phone_text").text(phone);
+                
+		$('.z-popup').show();
+	});
+
+	$('.z-bg').on("tap",function(){
+		$('.z-popup').hide();
+	});
+})
+</script>
+</html>

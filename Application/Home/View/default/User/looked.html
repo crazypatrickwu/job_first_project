@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+<script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+<title>浏览记录</title>
+<link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+<link rel="stylesheet" href="__PUBLIC__/Home/css/xiaotian.css">
+<script type="text/javascript" src="__PUBLIC__/Home/js/zepto.full.js"></script>
+</head>
+<body class="c-gray">
+<input type="hidden" value="0" id="page">
+<input type="hidden" id="totalpage" value="<?php echo $info['history_page']; ?>" />
+<div class="c-collect">
+	<div class="c-collect-con">
+		<ul class="c-collect-list looked" id="looked_show">
+		<volist name="info.history_list" id="his">
+			<li class="line-bottom">
+				<a href="{:U('Goods/proDetail',array('id'=>$his['goods_id']))}">
+					<img src="{$his.goods_image}" alt="">
+					<h4>{:mySubstr($his['goods_name'],15,'...')}</h4>
+					<p>{:mySubstr($his['introduction'],15,'...')}</p>
+					<price>￥{$his.goods_price}</price>
+				</a>
+			</li>
+			</volist>
+		</ul>
+	</div>
+</div>
+</body>
+<script>
+$(function(){
+	var onOff = true;
+    var falg = false;
+    var totalpage=$('#totalpage').val();
+    var page=0;
+    $(window).scroll(function(){
+            var totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop()) + 20;
+            //console.log(totalheight);
+            //console.log($(document).height());
+            //console.log(page);
+            if(totalheight >= $(document).height()){
+            	if(falg) return;
+                falg = true;
+                page = parseInt(page)+1;
+                if(page > (totalpage-1)){
+                    page = totalpage;
+                    return false;
+                }
+                loadContents(page);
+            }
+        });
+
+    function loadContents(page){
+    	var url="{:U('User/looked')}";
+    	$.ajax({
+    		type:'POST',
+    		url:url,
+    		data:{'page':page},
+    		success:function(res){
+    			var res=JSON.parse(res);
+    			console.log(res);
+    			if (res.code==0){
+    				var str = '';
+    				$.each(res.data.history_list,function(i,val){
+    					str +='<li class="line-bottom">';
+    					str +='<a href='+val.url+'>';
+    					str +='<img src='+val.goods_image+' alt="">';
+    					str +='<h4>'+val.goods_name.substr(0,14)+'</h4>';
+    					str +='<p>'+val.introduction.substr(0,15)+'</p>';
+    					str +='<price>￥'+val.goods_price+'</price>';
+    					str +='</a>';
+    					str +='</li>';
+    				});
+    				$('#looked_show').append(str);
+    				if(page == totalpage){
+		                            $("#loading").html('<span style="color:#999">没有更多的数据了！</span>');				
+    			}
+    			falg =false;
+    		}
+    	}
+    });
+	}
+});
+</script>
+</html>

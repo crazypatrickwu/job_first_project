@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+<script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+<title>建立订单</title>
+<link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+<link rel="stylesheet" href="__PUBLIC__/Home/css/order.css">
+<script type="text/javascript" src="__PUBLIC__/Home/js/zepto.full.js"></script>
+</head>
+
+<body class="gray p">
+<div class="order-cells">
+	<div class="order-cell">
+		<img src="__PUBLIC__/Home/img/product.jpg" class="order-product-cover">
+		<div class="order-product-description">
+			<div class="order-product-description-item">
+				<span class="order-product-name">商品名字</span>
+				<span class="order-product-price">￥100</span>
+			</div>
+			<div class="order-product-description-item">
+				<span class="order-product-intro">描述商品样式</span>
+				<span class="order-product-num">×1</span>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="order-cells">
+	<div class="order-cell">
+		<div class="order-user-info">
+			<div class="order-user-contact">
+				<span class="order-user-tel">小吴 13588888888</span>
+				<a class="order-user-change" href="">更改</a>
+			</div>
+			<div class="order-user-address">浙江省，杭州市，江干区，下沙学林街111号后面左边的大厦后面的边上的小店</div>
+		</div>
+		
+	</div>
+</div>
+<div class="order-cells">
+	<div class="order-cell order-cell-access">
+		<div class="order-cell-bd">支付方式</div>
+		<div class="order-cell-ft">微信支付</div>
+	</div>
+	<div class="order-cell order-cell-access">
+		<div class="order-cell-bd">送货方式</div>
+		<div class="order-cell-ft">普通快递</div>
+	</div>
+</div>
+<div class="order-cells">
+	<div class="order-cell">
+		<div class="order-cell-bd">使用积分抵现 可用20积分</div>
+		<div class="order-cell-ft">0</div>
+	</div>
+	<div class="order-cell order-cell-access" id="youhui>
+		<div class="order-cell-bd">使用优惠券</div>
+		<div class="order-cell-ft">未选择</div>
+	</div>
+	<div class="order-cell">
+		<div class="order-cell-bd">使用余额 可用¥100</div>
+		<div class="order-cell-ft">
+			<label class="order-cell-checkbox">
+				<input type="checkbox" class="order-cell-checkbox-input" name="">
+			</label>
+		</div>
+	</div>
+	<div class="order-cell">
+		<div class="order-cell-bd">发票</div>
+		<div class="order-cell-ft">
+			<label class="order-cell-checkbox">
+				<input type="checkbox" class="order-cell-checkbox-input" name="">
+			</label>
+		</div>
+	</div>
+</div>
+<div class="order-cells">
+	<div class="order-cell">
+		<input type="text" class="order-leave-msg" placeholder="留言" name="">
+	</div>
+</div>
+<div class="order-cells">
+	<div class="order-cell">
+		<ul class="order-info">
+			<li>
+				<span class="order-info-hd">商品价格</span>
+				<span class="order-info-bd">¥8900.00</span>
+			</li>
+			<li>
+				<span class="order-info-hd">数量</span>
+				<span class="order-info-bd">1</span>
+			</li>
+			<li>
+				<span class="order-info-hd">跑路费</span>
+				<span class="order-info-bd">¥1099.00</span>
+			</li>
+			<li>
+				<span class="order-info-hd">实付金额：</span>
+				<span class="order-info-bd">¥8900.00</span>
+			</li>
+		</ul>
+	</div>
+</div>
+<div class="order-bar">
+	<div class="order-price">
+		实付金额：<i>¥8900.00</i>
+	</div>
+	<button class="order-confirm">确认</button>
+</div>
+
+<div class="dtl_window " style="display: none;" >
+	<div class="dtl_wbg"></div>
+    	<div class="dtl_add">
+        	<title>我的优惠券</title>
+            <ul class="youhui">
+            	<li><span>满200减20</span><em></em></li>
+                <li><span>满200减30</span><em></em></li>
+                <li><span>满200减40</span><em></em></li>
+                <li><span>没有优惠券嘻嘻嘻嘻嘻嘻嘻嘻嘻</span><em class="choosen2"></em></li>
+            </ul>
+            <div class="close"><a href="#">确定</a></div>
+        </div>
+</div>
+<script type="text/javascript">
+	$('.order-cell-checkbox-input').on('change', function(){
+		if ($(this).is(':checked')) {
+			$(this).parent().addClass('order-cell-checkbox-active');
+		} else {
+			$(this).parent().removeClass('order-cell-checkbox-active');
+		}
+	});
+</script>
+</body>
+</html>

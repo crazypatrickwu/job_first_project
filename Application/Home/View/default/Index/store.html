@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+  <title>体验店</title>
+  <script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+</head>
+<style>
+@charset 'utf-8';
+body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,form,fieldset,table,td,img,div{margin:0;padding:0;border:0;} 
+body{background-color:#f2f2f2;color:#333;font-size:14px;-webkit-text-size-adjust: none;font-family: "微软雅黑", sans-serif;-webkit-tap-highlight-color: rgba(0,0,0,0);} 
+ul,ol{list-style-type:none;} 
+select,input,img,select{vertical-align:middle;}
+div,a,b,em,i{vertical-align: top;} 
+body,html{ height: 100%; width: 100%;}
+body{
+    -webkit-user-select:none;
+    -webkit-overflow-scrolling : touch;
+    background: #fff;
+    padding-top: 1px;}
+a{text-decoration:none; color: #333;} 
+img{ border:none;}
+i,em{ font-style: normal;}
+.shop-tiem{
+  margin: 0.3rem;
+  background: #f0f0f0;
+  padding: 0.3rem;
+  font-size: 0;
+  border-radius: 2px;
+}
+.shop-tiem>img{
+  display: inline-block;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 0.2rem;
+  border-radius: 0.1rem;
+}
+.shop-tiem .content{
+  display: inline-block;
+  width: 4.6rem;
+  text-align: justify;
+}
+.shop-tiem .content>h3{
+  font-size: 16px;
+  color: #3f3f3f;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin-top: 0.05rem;
+}
+.shop-tiem .content>p{
+  margin-top: 0.1rem;
+  font-size: 14px;
+  color: #a6a6a6;
+  text-align: left;
+}
+</style>
+<body>
+<div class="shop">
+    <volist name="list" id="vo">
+      <div class="shop-tiem">
+        <img src="{$vo['logo']}" alt="">
+        <div class="content">
+          <h3>{$vo['name']}</h3>
+          <p>地址:{$vo['address']}</p>
+        </div>   
+      </div>
+    </volist>
+</div>
+</body>
+</html>

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+<script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+<title>批量管理</title>
+<link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+<link rel="stylesheet" href="__PUBLIC__/Home/css/xiaotian.css">
+<script type="text/javascript" src="__PUBLIC__/Home/js/zepto.full.js"></script>
+</head>
+
+<body class="gray p">
+<div class="z-all-fix">
+    <form method="post">
+	<div class="z-search">
+		<input type="text" class="z-search1" name="search" />
+		<input type="submit" class="z-button" value=''/>
+	</div>
+	</form>
+	<div class="z-p-nav z-all-nav line-bottom">
+	<span class="onsell z-add-img">{$sale_status}</span>
+	<span class="onorder z-add-img">{$order}</span>
+	<span class="onkinds z-add-img">{$get_category}</span>
+	</div>
+</div>
+<div class="z-all-contain">
+    <volist name='info' id='vo'>
+	<div class="z-p-contain z-all-main line-bottom">
+		<span class="choosen choosen2"><input type="checkbox" class="ch-input" data-id="{$vo.id}"  value="111"/></span>
+		<img src="{$vo.goods_image}" alt="" class="z-pro-img z-all-img">
+		<name>{$vo.goods_name}</name>
+		<p class="z-p-intro">{$vo.introduction}</p>
+		<i class="z-p-money">￥{$vo.goods_price}</i>
+		<em class="z-p-amount">销量:{$vo.goods_buy}</em>
+		<em class="z-p-collect">收藏:{$vo.goods_collect}</em>
+	</div>
+	</volist>
+</div>
+<div class="z-all-btn">
+	<span class="choosen all-choose on-choose"><input type="checkbox" class="ch-input"/><name>全选</name></span>
+	<if condition="$_GET['get_sale_status'] eq 1">
+	<em class="z-all-gray" >上架</em>
+	<em class="z-all-red" id="checked_down">下架</em>
+	<else />
+	<em class="z-all-red" id="checked_up">上架</em>
+	<em class="z-all-gray" >下架</em>
+	</if>
+	<em class="z-all-gray del">删除</em>
+</div>
+
+<div class="confirm">
+    <div class="confirm-box clearfix">
+        <p>确定要删除订单？</p>
+        <span class='confirm-sure'>确定</span>
+        <span class='confirm-cancel'>取消</span>
+    </div>
+</div>
+<div class="z-nopro">
+	<img src="__PUBLIC__/Home/img/nopro.png" alt="">
+	<p>您还没有商品，点击右下角可添加</p>
+	<a href="index.html"><i>回首页逛逛</i></a>
+</div>
+
+<div class="z-p-popup z-p-popup2">
+	<div class="z-popup-bg"></div>
+	<ul class="z-popup-list ">
+	<a href="{:U('Shop/allmanage',array('get_sale_status'=>'1','get_order'=>$_GET['get_order'],'get_category'=>$_GET['get_category']))}">
+		<li class="line-bottom <eq name='get_sale_status' value='1' >z-popup-click</eq>">销售中</li>
+	</a>
+	<a href="{:U('Shop/allmanage',array('get_sale_status'=>'2','get_order'=>$_GET['get_order'],'get_category'=>$_GET['get_category']))}">
+		<li class="line-bottom <eq name='get_sale_status' value='2' >z-popup-click</eq>">未上架</li>
+	</a>
+	</ul>
+</div>
+<div class="z-p-popup z-p-popup2">
+	<div class="z-popup-bg"></div>
+	<ul class="z-popup-list">
+		<a href="{:U('Shop/allmanage',
+		array('get_sale_status'=>$_GET['get_sale_status'],'get_order'=>'1','get_category'=>$_GET['get_category']))}">
+		<li class="line-bottom <eq name='get_order' value='1' >z-popup-click</eq>">销量排行</li>
+	    </a>
+		<a href="{:U('Shop/allmanage',
+		array('get_sale_status'=>$_GET['get_sale_status'],'get_order'=>'2','get_category'=>$_GET['get_category']))}">
+		<li class="line-bottom <eq name='get_order' value='2' >z-popup-click</eq>">售价排行</li>
+		</a>
+		<a href="{:U('Shop/allmanage',
+		array('get_sale_status'=>$_GET['get_sale_status'],'get_order'=>'3','get_category'=>$_GET['get_category']))}">
+		<li class="line-bottom <eq name='get_order' value='3' >z-popup-click</eq> ">最新上架</li>
+		</a>
+		<a href="{:U('Shop/allmanage',
+		array('get_sale_status'=>$_GET['get_sale_status'],'get_order'=>'4','get_category'=>$_GET['get_category']))}">
+		<li class="line-bottom <eq name='get_order' value='4' >z-popup-click</eq> ">收藏最多</li>
+		</a>
+	</ul>
+</div>
+<div class="z-p-popup z-p-popup2">
+	<div class="z-popup-bg"></div>
+	<ul class="z-popup-list">
+			<volist name="category" id="v">
+         <a href="{:U('Shop/allmanage',
+         array('get_sale_status'=>$_GET['get_sale_status'],'get_order'=>$_GET['get_order'],'get_category'=>$v['id']))}">
+		<li class="line-bottom  <eq name='get_categoryid' value='$v.id' >z-popup-click</eq>" >{$v.category_name}</li></a>
+		</a>
+		</volist>
+	</ul>
+</div>
+</body>
+<script>
+$(function(){
+	showPro();
+	$(".ch-input").change(function(){
+        if($(this).is(":checked")){
+            $(this).parent().addClass('on-choose');
+            $(this).parent().css('border','none');
+        }else{
+            $(this).parent().removeClass('on-choose');
+            $(this).parent().css('border','1px solid #e5e5e5');
+        }	
+        isChecked()
+    });//按钮选中
+
+     //全选
+    $(".all-choose input").change(function(){
+        if($(this).is(":checked")){
+            $(this).parent().removeClass('on-choose').css('border','1px solid #e5e5e5');
+        }else{
+            $(this).parent().addClass('on-choose').css('border','none');
+        }
+        allChecked();   
+    });
+
+    //设置全选状态
+    function allChecked(){
+        if($(".choosen2 input:checked").length<$(".choosen2 input").length){
+            for(var i=0;i<$(".choosen2 input").length;i++){
+                $(".choosen2 input").eq(i).prop("checked",true);
+                $(".choosen2 input").eq(i).parent().addClass('on-choose').css('border','none');
+            }
+        }else{
+            for(var i=0;i<$(".choosen2 input").length;i++){
+                $(".choosen2 input").eq(i).prop("checked",false);
+                $(".choosen2 input").eq(i).parent().removeClass('on-choose').css('border','1px solid #e5e5e5');
+            }
+        }
+    }
+
+    //全部选中判断函数
+    function isChecked(){
+        if($(".choosen2 input:checked").length<$(".choosen2 input").length){
+            $(".all-choose input").prop("checked",false);
+            $(".all-choose input").parent().removeClass('on-choose').css('border','1px solid #e5e5e5');;
+        }else{
+            $(".all-choose input").prop("checked",true);
+            $(".all-choose input").parent().addClass('on-choose').css('border','none');
+        }
+    }
+    isChecked();
+
+    $('.del').on("tap",function(){
+    	if($(".ch-input:checked").length == 0){
+    		return false;
+    		
+    	}
+    	$('.confirm').show();	
+    })//点击删除键
+
+    $('.confirm-sure').on("tap",function(){
+    	$('.confirm').hide();
+    	var inputed=$(".z-p-contain .ch-input:checked");
+    	var delId=[];
+    	for(var i=0;i<inputed.length;i++){
+    		delId.push(inputed.eq(i).data("id"));
+    	}
+    	$.post("{:U('Shop/data_del')}", {"delId":delId}, function (res) { 
+    	  var res = JSON.parse(res);
+         if(res.Code=='0'){
+         	$(".ch-input:checked").parents('.z-all-main').remove();
+    	    showPro();
+         }
+    	});
+    	
+    })//确认删除
+
+    $('.confirm-cancel').on("tap",function(){
+    	$('.confirm').hide();
+    });//取消删除
+
+   $('.z-p-nav span').on('tap', function(e){
+		$(this).toggleClass('z-add-click').siblings('span').removeClass('z-add-click');
+		var i = $(this).index();
+		var _this = $(this);
+		var info = $('.z-p-popup').eq(i);
+		var height = 0;
+
+		if (info.is(':visible')) {
+			info.animate({'height': '0px'},300,function(){
+				info.removeAttr('style');
+			});
+		} else {
+			$('.z-p-popup').hide();
+			info.show();
+			height = info.height();
+			info.css({'height': '0','overflow': 'hidden'});
+			setTimeout(function(){
+				info.animate({'height': height + 'px'},300);
+			},0);
+		}
+
+		$('.z-popup-bg').on("tap",function(){
+			info.animate({'height': '0px'},300,function(){
+				info.removeAttr('style');
+			});
+		});
+	});
+
+	$('.z-popup-list li').on("tap",function(){
+		$(this).toggleClass('z-popup-click').siblings('li').removeClass('z-popup-click');
+	});
+
+
+	 function showPro(){
+	        var length = $('.z-p-contain').length;
+	           
+	        if(length == 0){
+	        	
+	            $('.z-all-btn').hide();
+	            $('.z-nopro').show();
+	          
+	        }else{
+	            $('.z-all-btn').show();
+	           
+	        }
+    }
+
+    $('#checked_up').click(function(){
+    	var inputed=$(".z-p-contain .ch-input:checked");
+    	var delId=[];
+    	for(var i=0;i<inputed.length;i++){
+    		delId.push(inputed.eq(i).data("id"));
+    	}
+    	var status=1
+        if(delId.length>0){
+        	$.post("{:U('Shop/up_down')}", {'delId':delId,'status':status}, function (res) { 
+        	  var res = JSON.parse(res);
+             if(res.Code=='0'){
+             	$(".ch-input:checked").parents('.z-all-main').remove();
+        	    showPro();
+             }
+        	});
+        }else{
+             showMessage('请选择上架的货品')
+        }
+    	
+    })
+
+    $('#checked_down').click(function(){
+    	var inputed=$(".z-p-contain .ch-input:checked");
+    	var delId=[];
+    	for(var i=0;i<inputed.length;i++){
+    		delId.push(inputed.eq(i).data("id"));
+    	}
+    	var status=2;
+        if(delId.length>0){
+        	$.post("{:U('Shop/up_down')}",{'delId':delId,'status':status}, function (res) { 
+        	  var res = JSON.parse(res);
+             if(res.Code=='0'){
+             	$(".ch-input:checked").parents('.z-all-main').remove();
+        	    showPro();
+             }
+        	});
+        }else{
+            showMessage('请选择下架的货品')
+        }
+    })
+
+        function showMessage(msg) {
+        if (! $('.msg').length) {
+            $('body').append('<div class="msg" style="position: fixed;bottom: 20%;left: 50%;margin-left: -30%;height: 0.8rem;line-height: 0.8rem;width: 60%;background-color: rgba(0,0,0,.75);border-radius: 0.6rem;text-align: center;color: #fff;display: none;font-size: 1.2em">' + msg + '</div>');
+            $('.msg').fadeIn(200);
+            setTimeout(function(){
+                $('.msg').fadeOut(200,function(){
+                    $(this).remove();
+                });
+            },1500)
+        }
+    }
+});
+</script>
+</html>

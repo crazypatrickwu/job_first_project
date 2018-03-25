@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <include file="Public/header" />
+  </head>
+  <body class=""> 
+  <!--<![endif]-->
+    <div class="navbar">
+        <include file="Public/top" />
+    </div>
+    <div class="sidebar-nav">
+        <ul class="breadcrumb">
+            <li><a href="{:U('Index/index')}">首页</a> <span class="divider">/</span></li>
+            <li><a href="{:U('Goods/index')}">套餐列表</a> <span class="divider">/</span></li>
+            <li class="active">套餐详情</li>
+        </ul>
+
+        <div class="container-fluid">
+            <div class="row-fluid">
+						<input type="hidden" name="id" value="0" />
+						<div class="well">
+						    <div id="myTabContent" class="tab-content">
+						      <div class="tab-pane active in" id="home">
+							        <label>订单编号：<font color="#5A6883" style="widt:200px;display:block;">{$orderInfo['order_sn']}</font></label>
+							        <label>商品名称：<font color="#5A6883" style="widt:200px;display:block;">{$orderInfo['OrderDetail']['goods_name']}</font></label>
+							        <label>代理人：<font color="#5A6883" style="widt:200px;display:block;">{$orderInfo['buyer']}</font></label>
+							        <label>联系电话：<font color="#5A6883" style="widt:200px;display:block;">{$orderInfo['telephone']}</font></label>
+							        <label>总计获得：<font color="#5A6883" style="widt:200px;display:block;">{$orderInfo['OrderDetail']['total_nums']}（颗）</font></label>
+							        <label>订单总额：<font color="#5A6883" style="widt:200px;display:block;">{$orderInfo['total_amount']}（元）</font></label>
+							        <label>下单时间：<font color="#5A6883" style="widt:200px;display:block;"><if condition="$orderInfo['add_time'] GT 0">{$orderInfo['add_time']|time_format=###}<else />--</if></font></label>
+						      </div>
+						  	</div>
+						</div>
+						<div class="btn-toolbar">
+            				<input type="hidden" id="order_sn" value="{$orderInfo['order_sn']|default=''}" />
+						    <button class="btn btn-primary" id="pay_confirm" style="margin-left:2px;"><i class="icon-save"></i>确认支付</button>
+						    <button class="btn btn-primary" style="margin-left:2px;" onclick="javascript:history.back(-1);return false;"><i class="icon-save"></i>返回</button>
+						  	<div class="btn-group"></div>
+						</div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function() {
+            var pay_confirm_status  =   false;
+            var order_sn    =   $("#order_sn").val();
+            if(order_sn == ''){
+                alert('参数错误！');
+                return false;
+            }
+            $("#pay_confirm").click(function() {
+                if(pay_confirm_status){
+                    return;
+                }
+                pay_confirm_status  =   true;
+                window.open("/Agent/Order/pay/order_sn/"+order_sn);
+            });
+            
+            
+            function getPaystatus(){
+                //轮循订单支付状态
+                var _url    =   "{:U('getPaystatus')}";
+                var _param  =   new Object();
+                _param.order_sn =   order_sn;
+                $.post(_url,_param,function(res){
+                    if(res.code == 1){
+                        alert(res.msg);
+                        window.location.href = "/Agent/Order/orderDetail/order_sn/"+order_sn+'.html';
+                    }
+                },'json');
+            }
+            setInterval(function(){
+                getPaystatus();
+            },5000);
+            getPaystatus();
+        });
+    </script>
+  </body>
+</html>

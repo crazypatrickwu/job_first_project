@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+    <title>购买</title>
+    <link rel="stylesheet" href="__PUBLIC__/Home/Agent/css/taizhou.css">
+</head>
+<body style="background: #fff;">
+<div>
+    <div class="package_box">
+        <div class="package_item clearfix">
+            <div class="left">
+                <div class="package_full">{$info['goods_name']|default="未填写"}</div>
+                <div class="package_small">套餐数量：{$info['goods_nums']|default="0"}（颗）</div>
+                <div class="package_small">赠送数量：{$info['give_goods_nums']|default="0"}（颗）</div>
+                <div class="package_small">合计数量：{$info['total_nums']|default="0"}（颗）</div>
+                <div class="package_small">套餐金额：{$info['total_money']|default="0"}（元）</div>
+            </div>
+            <div class="right">
+                <img src="__PUBLIC__/Home/Agent/img/package.png"/>
+            </div>
+        </div>
+    </div>
+    <div class="payment_btn">
+        <button id="pay_confirm">微信支付{$info['total_money']|default="0"}</button>
+    </div>
+</div>
+</body>
+<script src="__PUBLIC__/Home/Agent/js/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $("#pay_confirm").click(function() {
+            alert('请联系商家购买');return;
+            var goods_id    =   $("#id").val();
+            if(goods_id == '0'){
+                alert('缺少参数！');
+                return false;
+            }
+//                window.open("/Agent/Goods/confirmPay/goods_id/"+goods_id);
+            window.location.href = "/Agent/Goods/confirmPay/goods_id/"+goods_id;
+        });
+    });
+</script>
+<include file="Index:public_wxshare" />
+</html>

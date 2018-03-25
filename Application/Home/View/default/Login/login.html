@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+    <title>代理登录</title>
+    <link rel="stylesheet" href="__PUBLIC__/Home/Agent/css/taizhou.css">
+</head>
+<body>
+<div>
+    <div class="form_box login_box" id="app">
+        <div class="login_banner">
+            <img src="__PUBLIC__/Home/Agent/img/login.png"/>
+        </div>
+        <form id="login" method="post" onsubmit="return false;">
+            <div class="form_item login_name">
+                <div class="item"><label>手机号码</label><input type="tel" name="account" id="account" /></div>
+                <div class="item"><label>密码</label><input type="password" name="password" id="password" /></div>
+            </div>
+            <div class="form_btn">
+                <button id="sub_btn">登录</button>
+            </div>
+        </form>
+        
+        <div class="forget_pwd">
+            <font style="font-size:1.5em;color:#ABB1B6;">初始密码为12345</font>
+            <!-- <a href="{:U('Login/forgetPwd',array('step'=>1))}">忘记密码?</a> -->
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="__PUBLIC__/Home/Agent/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Home/Agent/js/public.js"></script>
+<script type="text/javascript">
+    $(function(){
+        //登录
+        var sub_btn_status  =   false;
+        $("#sub_btn").on('click',function(){
+            if (sub_btn_status) {
+                return;
+            };
+            var account     =   $("#account").val();
+            var password    =   $("#password").val();
+
+            if (account == '') {
+                webTip('手机号码不得为空');
+                return false;
+            };
+            if (password == '') {
+                webTip('密码不得为空');
+                return false;
+            };
+
+            var _url = "{:U('index')}";
+            var _param = new Object();
+                _param.account  =   account;
+                _param.password =   password;
+            sub_btn_status  =   true;
+            $.post(_url,_param,function(res){
+
+                if (res.code == 1) {
+                    webTip(res.msg);
+                    setTimeout(function(){
+                       window.location.href    =   "{:U('Home/Index/index')}";
+                    },1000);
+                }else{
+                    webTip(res.msg);
+                    sub_btn_status  =   false;
+                    setTimeout(function(){
+                        window.location.reload();
+                    },1000);
+                    return false;
+                }
+            },'json');
+        });
+    })
+</script>
+<include file="Index:public_wxshare" />
+</html>

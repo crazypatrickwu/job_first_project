@@ -1,0 +1,47 @@
+<include file="public_header" />
+<div class="main">
+	<div class="contain">
+		<div class="banner">
+			<img src="__PUBLIC__/Pcweb/img/banner.png" alt="">
+		</div>
+		<div class="parent">
+			<div class="title"><img src="__PUBLIC__/Pcweb/img/p-die.png" alt="">家长监护</div>
+			<div class="parent-title">
+				<volist name="pcweb_guardianship_list" id="vo">
+					<span <if condition="$key eq 0"> class="active"</if>>{$vo.title}</span>
+				</volist>
+				<i></i>
+			</div>
+			<div class="parent-content">
+				<div class="parent-con">
+					<volist name="pcweb_guardianship_list" id="vo">
+						<div class="article">
+							<p>{$vo.content|htmlspecialchars_decode}</p>				
+						</div>
+					</volist>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<include file="public_footer" />
+<script src="__PUBLIC__/Pcweb/js/jquery.min.js"></script>
+<script src="__PUBLIC__/Pcweb/js/common.js"></script>
+<script>
+;(function(){
+	var span = $(".parent-title span");
+	var i = $(".parent-title i");
+	var div = $(".parent-con");
+	span.on("click",function(){
+		var index = $(this).index();
+		if($(this).hasClass("active")){
+			return false;
+		}
+		$(this).addClass('active').siblings().removeClass('active');
+		i.css("left",160*index+'px');
+		div.css("left",-index*100+"%");
+	})
+})();
+</script>
+</body>
+</html>

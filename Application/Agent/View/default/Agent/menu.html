@@ -1,0 +1,47 @@
+<ul>
+	
+	<li<if condition="in_array(CONTROLLER_NAME, array('Agent'))">{:chr(32)}class="current"</if>>
+		<a class="date-tit sys-tj" href="{:U('Agent/agentInfo')}" class="addons">我的信息</a>
+		<ul class="Jcon-ctr">
+			<li class="<if condition="in_array(ACTION_NAME, array('agentInfo'))">on</if>">
+				<a href="{:U('Agent/agentInfo')}">基本信息</a>
+			</li>
+			<li class="<if condition="in_array(ACTION_NAME, array('editPwd'))">on</if>">
+				<a href="{:U('Agent/editPwd')}">修改密码</a>
+			</li>
+			<li class="<if condition="in_array(ACTION_NAME, array('agentWithdrawalsAccount'))">on</if>">
+				<a href="{:U('Agent/agentWithdrawalsAccount')}">银行信息</a>
+			</li>
+		</ul>
+	</li>
+
+	<li<if condition="in_array(CONTROLLER_NAME, array('Agent'))">{:chr(32)}class="current"</if>>
+		<a class="date-tit sys-tj" href="{:U('Agent/agentList')}" class="addons">代理管理</a>
+		<ul class="Jcon-ctr">
+			<li class="<if condition="in_array(ACTION_NAME, array('agentList'))">on</if>">
+				<a href="{:U('Agent/agentList')}">我的代理</a>
+			</li>
+			<li class="<if condition="in_array(ACTION_NAME, array('addAgent'))">on</if>">
+				<a href="{:U('Agent/addAgent')}">添加代理</a>
+			</li>
+			<!-- <li class="<if condition="in_array(ACTION_NAME, array('getGebate'))">on</if>">
+				<a href="{:U('Agent/getGebate')}">返利统计</a>
+			</li> -->
+			<li class="<if condition="in_array(ACTION_NAME, array('agentRebate'))">on</if>">
+				<a href="{:U('Agent/agentRebate',array('type'=>2))}">可提现记录</a>
+			</li>
+		</ul>
+	</li>
+
+
+<!--	<if condition="$Think.session.agentId EQ 1">
+	<li<if condition="in_array(CONTROLLER_NAME, array('GiftOrder'))">{:chr(32)}class="current"</if>>
+		<a class="date-tit sys-tj" href="{:U('GiftOrder/giftOrderList')}" class="addons">礼包订单管理</a>
+		<ul class="Jcon-ctr">
+			<li class="<if condition="in_array(ACTION_NAME, array('giftOrderList'))">on</if>">
+				<a href="{:U('GiftOrder/giftOrderList')}">礼包订单</a>
+			</li>
+		</ul>
+	</li>
+	</if>-->
+</ul>

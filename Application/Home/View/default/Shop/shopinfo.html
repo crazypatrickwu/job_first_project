@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+<script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+<title>店铺信息</title>
+<link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+<link rel="stylesheet" href="__PUBLIC__/Home/css/order.css">
+<script type="text/javascript" src="__PUBLIC__/Home/js/zepto.full.js"></script>
+</head>
+
+<body class="gray">
+<!-- <header class="line-bottom">
+	店铺信息
+</header> -->
+<div class="order-cells shop-info">
+	<div class="order-cell">
+		<div class="shop-info-avatar">
+			<img src="{$info.photo}">
+		</div>
+		<div class="order-cell-bd">头像</div>
+	</div>
+	<div class="order-cell">
+		<div class="order-cell-bd">店名</div>
+		<span class="shop-info-addon"></span>
+		<div class="order-cell-ft">{$info.nickname}</div>
+	</div>
+	<div class="order-cell ">
+		<div class="order-cell-bd">店铺等级</div>
+		<!-- <span class="shop-info-addon">可填写</span> -->
+		<div class="order-cell-ft">{$info.level}级</div>
+	</div>
+	<div class="order-cell  ">
+		<div class="order-cell-bd">联系电话</div>
+		<span class="shop-info-addon"></span>
+		<div class="order-cell-ft">{$info.mobile}</div>
+	</div>
+	<div class="order-cell ">
+		<div class="order-cell-bd">地址</div>
+		<span class="shop-info-addon"></span>
+		<div class="order-cell-ft" style="margin-top:10px;">{$info.province}-{$info.city}-{$info.county}-{$info.address}</div>
+	</div>
+	<div class="order-cell ">
+		<div class="order-cell-bd">店铺背景图</div>
+		<span class="shop-info-addon"></span>
+		<div class="order-cell-ft"><img src="{$info.background}" style="width: 100px;height: 100px"></div>
+	</div>
+</div>
+<script type="text/javascript">
+	$('.order-cell-checkbox-input').on('change', function(){
+		if ($(this).is(':checked')) {
+			$(this).parent().addClass('order-cell-checkbox-active');
+		} else {
+			$(this).parent().removeClass('order-cell-checkbox-active');
+		}
+	});
+</script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+<script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+<title>首页</title>
+<link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+<link rel="stylesheet" href="__PUBLIC__/Home/css/xiaotian.css">
+<link rel="stylesheet" href="__PUBLIC__/Home/css/swiper3.min.css">
+<script type="text/javascript" src="__PUBLIC__/Home/js/zepto.full.js"></script>
+<style>
+	/*轮播*/
+.ban-swipe{
+	height: 4.28rem;
+}
+.ban-swipe a,.ban-swipe a img{
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+.swiper-pagination-bullet{
+	background: #fff;
+	opacity: 0.3;
+}
+.swiper-pagination-bullet-active{
+	opacity: 1;
+}
+.swiper-container{
+	position: relative;
+}
+</style>
+</head>
+
+<body class="gray p">
+<div class="z-contain">
+	<div class="swiper-container ban-swipe">
+		<div class="c-index-search">
+			<form action="" id="form_search">
+				<input type="text" placeholder="搜索" id="goods_search">
+				<button class="c-index-search-btn" type="button" id="search"></button>
+			</form>
+		</div>
+		<ul class="swiper-wrapper">
+			<volist name="info.top_images_list" id="top_images">
+			<li class="swiper-slide">
+				<a href="{$top_images['picture_url']}">
+				<img src="{$top_images['picture_image']}">
+				</a>
+			</li>
+			</volist>
+		</ul>
+		<div class="swiper-pagination"></div>
+	</div>
+	<ul class="z-list clearfix">
+		<li>
+			<a href="{:U('Goods/prolist')}">
+				<img src="__PUBLIC__/Home/img/all.png" alt="">
+				全部
+			</a>
+		</li>
+
+		<volist name="info.category_list" id="cate">
+			<li>
+				<a href="{:U('Goods/prolist',array('cate'=>$cate['id']))}">
+					<img src="{$cate['url_one']}" alt="">
+					{$cate['category_name']}
+				</a>
+			</li>
+		</volist>
+		<li>
+			<a href="{:U('Goods/kand')}">
+				<img src="__PUBLIC__/Home/img/kinds.png" alt="">
+				分类
+			</a>
+		</li>
+	</ul>
+	<volist name="info.index_module_list" id="mods" offset="0" length='1'>
+	<div class="z-index-list">
+		<ul class="z-list2 line-top clearfix">
+			<li>
+				<a href="{$mods['ModuleList'][0]['module_url']}">
+					<img src="{$mods['ModuleList'][0]['module_image']}" alt=""/>
+				</a>
+			</li>
+			<li>
+				<a href="{$mods['ModuleList'][1]['module_url']}">
+					<img src="{$mods['ModuleList'][1]['module_image']}" alt=""/>
+				</a>
+			</li>
+		</ul>
+		
+		<ul class="z-list3 clearfix line-top">
+			<li class="line-bottom">
+				<a href="{$mods['ModuleList'][2]['module_url']}">
+					<img src="{$mods['ModuleList'][2]['module_image']}" alt=""/>
+				</a>
+			</li>
+			<li class="line-bottom">
+				<a href="{$mods['ModuleList'][3]['module_url']}">
+					<img src="{$mods['ModuleList'][3]['module_image']}" alt=""/>
+				</a>
+			</li>
+			<li class="line-bottom">
+				<a href="{$mods['ModuleList'][4]['module_url']}">
+					<img src="{$mods['ModuleList'][4]['module_image']}" alt=""/>
+				</a>
+			</li>
+		</ul>
+	</div>
+	</volist>
+	<volist name="info.index_module_list" id="mods" offset="1" length='1'>
+	<div class="c-index-gg line-top">
+		<volist name="mods.ModuleList" id="ModuleList" offset="0" length='4'>
+		<a href="{$ModuleList['module_url']}" class="line-bottom">
+			<img src="{$ModuleList['module_image']}" alt="">
+		</a>
+		</volist>
+	</div>
+	</volist>
+</div>
+<nav class="line-top box-shadow-top">
+	<a href="{:U('Index/index')}" class="nav-on">
+		<img src="__PUBLIC__/Home/img/index-on.png" alt="">
+		超级店
+	</a>
+	<a href="{:U('Discuz/index')}">
+		<img src="__PUBLIC__/Home/img/bubble.png" alt="">
+		气泡
+	</a>
+	<a href="{:U('Shop/index')}">
+		<img src="__PUBLIC__/Home/img/open.png" alt="">
+		开店
+	</a>
+	<a href="{:U('User/index')}">
+		<img src="__PUBLIC__/Home/img/mine.png" alt="">
+		我
+	</a>
+</nav>
+</body>
+<script type="text/javascript" src="__PUBLIC__/Home/js/swiper3.min.js"></script>
+<script type="text/javascript">
+  var mySwiper = new Swiper('.swiper-container',{
+    loop: true,
+	autoplay: 3000,
+	pagination : '.swiper-pagination',
+  });
+  $('#search').click(function(){
+       var search=$('#goods_search').val();
+       window.location.href="/Home/Goods/prolist/search/"+search;
+  	})
+  $("#form_search").on('submit',function(e){
+  	e.preventDefault();
+  	 var search=$('#goods_search').val();
+     window.location.href="/Home/Goods/prolist/search/"+search;
+  })
+</script>
+</html>

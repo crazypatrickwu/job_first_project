@@ -1,0 +1,50 @@
+/* = 分页
+------------------------------------------ */
+.page-box {
+    *zoom: 1;
+    text-align: center;
+    width:100%;
+}
+.page-box:before,
+.page-box:after {
+    display: table;
+    content: "";
+}
+.page-box:after {
+    clear:both;
+}
+.page-box a,
+.page-box span {
+    float: left;
+    margin-left: -1px;
+    padding: 0 14px;
+    height: 30px;
+    line-height: 30px;
+    color: #000;
+    border-top: 1px solid #CCCCCC;
+    border-bottom: 1px solid #CCCCCC;
+    border-left: 1px solid #CCCCCC;
+    /*background-color: #4bbd00;*/
+}
+.page-box a:hover
+ {
+    text-decoration: none;
+    background-color: #39B3D7;
+}
+.page-box .current {
+	border-top: 1px solid #387C0B;
+}
+.page-box .next,
+.page-box .prev {
+    font-family: "宋体";
+    font-weight: bold;
+}
+.page-box .rows {
+	border-right: 1px solid #CCCCCC;
+}
+.page-box a:last-child{ 
+border-right: 1px solid #CCCCCC;
+}
+.text-center{
+	text-align: center!important;
+}

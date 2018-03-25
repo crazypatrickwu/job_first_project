@@ -1,0 +1,197 @@
+<include file="public_header" />
+<div class="main">
+	<div class="contain">
+		<div class="banner">
+			<img src="__PUBLIC__/Pcweb/img/banner.png" alt="">
+		</div>
+		<div class="contain-box">
+			<div class="title">
+				<img src="__PUBLIC__/Pcweb/img/p-die.png" alt="">充值中心
+				<div class="title-line"></div>
+			</div>
+			<div class="recharge-content">
+				<form action="">
+					<table cellpadding="0" cellspacing="0" width="100%" class="recharge-table">
+						<tr>
+							<td width="10%">充值方式：</td>
+							<td width="90%">
+								<div class="re-chose">
+									<div class="chose-box active" data-type="1">
+										<div class="chose-box-left">
+											<img src="__PUBLIC__/Pcweb/img/blank.png" alt="">
+										</div>
+										<div class="chose-box-right">银行卡<div class="checked"></div></div>
+									</div>
+									<div class="chose-box">
+										<div class="chose-box-left" data-type="2">
+											<img src="__PUBLIC__/Pcweb/img/alipay.png" alt="">
+										</div>
+										<div class="chose-box-right">支付宝<div class="checked"></div></div>
+									</div>
+									<div class="chose-box">
+										<div class="chose-box-left" data-type="3">
+											<img src="__PUBLIC__/Pcweb/img/wx1.png" alt="">
+										</div>
+										<div class="chose-box-right">微信/财付通<div class="checked"></div></div>
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>充值账户：</td>
+							<td>
+								<input type="text" class="recharge-input" name="userid">
+							</td>
+						</tr>
+						<tr>
+							<td>确认账号：</td>
+							<td>
+								<input type="text" class="recharge-input" name="re_userid">
+							</td>
+						</tr>
+						<tr>
+							<td vertical-align="top">充值金额：</td>
+							<td>
+								<div class="money-chose">
+									<span data-num="10" class="active">
+										10元
+										<i class="checked"></i>
+									</span>
+									<span data-num="20">
+										20元
+										<i class="checked"></i>
+									</span>
+									<span data-num="50">
+										50元
+										<i class="checked"></i>
+									</span>
+									<span data-num="100">
+										100元
+										<i class="checked"></i>
+									</span>
+									<span data-num="200">
+										200元
+										<i class="checked"></i>
+									</span>
+									<span data-num="300">
+										300元
+										<i class="checked"></i>
+									</span>
+									<span data-num="500">
+										500元
+										<i class="checked"></i>
+									</span>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>
+								<input type="text" class="recharge-input" name="other_num" placeholder="输入其他金额">
+							</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>
+								需支付金额：<em class="recharge-num">10元</em>
+							</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>
+								<button type="button" class="recharge-btn">提交</button>
+							</td>
+						</tr>
+					</table>
+				</form>
+				<b>温馨提示：</b>
+				<div class="recharge-txt">
+					<p>虚拟货币名称：房卡</p> 
+					<p>充值比例：2元=1房卡</p> 
+					<p>我公司郑重承诺：虚拟货币不能兑换成人民币以及任何现实中的其他国家货币，发现违法兑换的行为，我公司将进行严厉打击，并将上
+					报有关部门。</p> 
+					<p>1、针对银行卡帐号用户。</p>
+					<p>2、支持全国29家银行卡(需要开通网上银行)。</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<include file="public_footer" />
+<script src="__PUBLIC__/Pcweb/js/jquery.min.js"></script>
+<script src="__PUBLIC__/Pcweb/js/common.js"></script>
+<script>
+;(function(){
+	// 选择金额
+	var span = $(".money-chose span");
+	var num = $(".recharge-num");
+	var otherInput = $("input[name='other_num']");
+	var choseNum = 10;
+	var choseType = 1;
+	span.on("click",function(){
+		var index = $(this).index();
+		if($(this).hasClass("active")){
+			return false;
+		}
+		$(this).addClass('active').siblings().removeClass('active');
+		choseNum = $(this).attr("data-num");
+		num.html(choseNum+"元");
+		otherInput.val('');
+	})
+
+	//选择支付方式	
+	var div = $(".chose-box");
+
+	div.on("click",function(){
+		var index = $(this).index();
+		if($(this).hasClass("active")){
+			return false;
+		}
+		$(this).addClass('active').siblings().removeClass('active');
+		choseType = $(this).attr('data-type');
+	})
+
+	//输入充值金额
+	otherInput.on("input property",function(){
+		var val = $(this).val();
+		if(!isNaN(val)){
+			if(val <= 0){
+				otherInput.val('');
+				num.html(choseNum+"元");
+			}else{
+				otherInput.val(val);
+				num.html(val+"元");
+			}
+		}else{
+			otherInput.val('');
+		}
+	})
+
+	$(".recharge-btn").on("click",function(){
+		var userid = $("input[name='userid']");
+		var re_user = $("input[name='re_userid']");
+		if(userid.val()==''){
+			webTip("请输入充值账号",function(){
+				userid.focus();
+			})
+			return false;
+		}
+		if(re_user.val()==''){
+			webTip("请重复充值账号",function(){
+				re_user.focus();
+			})
+			return false;
+		}
+		if(re_user.val() != userid.val()){
+			webTip("两次账号输入不相等",function(){
+				re_user.focus();
+			})
+			return false;
+		}
+		console.log(choseNum);
+		console.log(choseType);
+	})
+})();
+</script>
+</body>
+</html>

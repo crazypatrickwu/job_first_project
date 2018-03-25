@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+<script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+<title>银行卡</title>
+<link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+<link rel="stylesheet" href="__PUBLIC__/Home/css/ckf.css">
+</head>
+<body class="c-gray p">
+
+<ul class="c-blanks">
+    <volist name='info' id="vo">
+	<li class="blank-abc">
+		<h4>{$vo.card_type}</h4>
+		<!-- <em>储蓄卡</em> -->
+		<span><i>****</i><i>****</i><i>****</i><i>{$vo.card}</i></span>
+	</li>
+	</volist>
+	 <volist name='data' id="vo">
+	<li class="blank-icbc">
+		<h4>{$vo.card_type}</h4>
+		<!-- <em>储蓄卡</em> -->
+		<span><i>****</i><i>****</i><i>****</i><i>{$vo.card}</i></span>
+	</li>
+	</volist>
+</ul>
+<a href="{:U('Shop/blankadd')}" class="c-blank-add">添加银行卡</a>
+</body>
+</html>

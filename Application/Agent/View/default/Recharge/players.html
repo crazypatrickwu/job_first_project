@@ -1,0 +1,64 @@
+<extend name="Common:base" />
+
+<block name="title">充卡管理</block>
+
+<block name="menu">
+    <include file="Recharge:menu" />
+</block>
+
+<block name="main">
+    <div class="pageheader">
+        <h1 class="pagetitle">充卡管理</h1>
+        <span class="pagedesc"></span>
+    </div>
+    <div id="contentwrapper" class="contentwrapper">
+        <div>
+            <form action="" metod="get">
+                玩家ID&nbsp;:&nbsp;<input type="text" name="userid" id="userid" value="{:remove_xss(I('get.userid'))}">
+                &nbsp;
+                <input type="submit" value="查询" class="stdbtn">
+                <!--<input type="submit" name="daochu" value="导出" class="stdbtn">-->
+                <p></p>
+                <p></p>
+            </form>
+        </div>
+        <p></p>
+        <table cellpadding="0" cellspacing="0" border="0" class="stdtable stdtablequick">
+            <tr>
+                <th width="10%">玩家ID</th>
+                <th>玩家昵称</th>
+                <th>房卡数量</th>
+                <th>加入时间</th>
+                <!-- <th>操作</th> -->
+            </tr>
+            <php>$cols=4;</php>
+            <if condition="empty($game_user_list)">
+                <tr>
+                    <td colspan="{$cols}" align="center">请输入正确的玩家ID查询信息！</td>
+                </tr>
+                <else />
+                <volist name="game_user_list" id="game_user">
+                    <tr>
+                        <td class="center">{$game_user['userid']}</td>
+                        <td class="center">{$game_user['nickname']}</td>
+                        <td class="center">{$game_user['THTreasureDB']['score']}（颗）</td>
+                        <td class="center">{$game_user['registerdate']}</td>
+                        <!-- <td class="center">
+                            <a class="stdbtn btn_lime" href="{:U('Recharge/addInsureScore', array('user_id'=>$game_user['userid']))}">充卡</a>&nbsp;&nbsp;
+                        </td> -->
+                    </tr>
+                </volist>
+                <tr>
+                    <td colspan="{$cols}">
+                        <div class="page-box">{$show}</div>
+                    </td>
+                </tr>
+            </if>
+            </tbody>
+        </table>
+    </div>
+</block>
+
+<block name="script">
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/datetime.js"></script>
+</block>

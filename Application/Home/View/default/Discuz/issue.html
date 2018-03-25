@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+<script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+<title>发布</title>
+<link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+<link rel="stylesheet" href="__PUBLIC__/Home/css/xiaotian.css">
+<script type="text/javascript" src="__PUBLIC__/Home/js/zepto.full.js"></script>
+</head>
+
+<body class="gray p">
+<div class="z-contain">
+    <div class="put_int">
+       
+    </div>
+	<div class="z-issue-con line-bottom">
+		<textarea placeholder="这一刻的想法....."></textarea>
+		<!-- <span>表情</span> -->
+	</div>
+	<ul class="z-issue-list clearfix" name="">
+		<li class='add_li'><img src="__PUBLIC__/Home/img/addpic.png" alt="" >
+		</li>
+		<!-- <li class='add_li'><img src="__PUBLIC__/Home/img/addpic.png" alt="" >
+		</li >
+		<li class='add_li'><img src="__PUBLIC__/Home/img/addpic.png" alt="" >
+		</li>
+		<li class='add_li'><img src="__PUBLIC__/Home/img/addpic.png" alt="" >
+		</li> -->
+	</ul>
+</div>
+<div class="z-btn">
+	<a class="addissue">发布</a>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script >
+
+$(function(){
+	    var get_localId;
+	    var serverId_data=[];
+	    var flag_true = 1;
+		$('.z-btn').on('tap',function(){
+			if (flag_true==0) {
+				showMessage('请不要重复提交哦');
+				return false;
+			}
+			var img=[]
+		       var textarea=$.trim($('.z-issue-con').find('textarea').val());
+		        $('.put_int').find('input').each(function(){
+		        	img.push($(this).val())
+		        	
+		        })
+		        if(textarea=='' && img.length==0){
+		       	   showMessage('内容不能为空');
+		       	   return false;
+		       }
+		       var url="{:U('issue')}";
+            $.post(url,{'content':textarea,'img':img},function(res){
+            	  if(res.Code==0){
+            	  	flag_true = 0;
+            	  	showMessage(res.Msg);
+            	  	setTimeout(function(){
+                      window.location.href="{:U('Home/Discuz/index')}";
+            	  	},1000)
+            	  }else{
+            	  	showMessage(res.Msg);
+            	  }
+            	 
+            },'json');
+		       
+			})
+
+	    function isWeiXin() {
+	        var ua = window.navigator.userAgent.toLowerCase();
+	        if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+	            return true;
+	        } else {
+	            return false;
+	        }
+	    }
+
+		   if(isWeiXin()){
+		   	        var AppId       = "{$DiscuzInfo['appid']}";
+		            var timestamp   = "{$DiscuzInfo['timestamp']}";
+		            var noncestr    = "{$DiscuzInfo['noncestr']}";
+		            var signature   = "{$DiscuzInfo['signature']}";
+
+		            wx.config({
+		                debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+		                appId: AppId, // 必填，公众号的唯一标识
+		                timestamp: timestamp, // 必填，生成签名的时间戳
+		                nonceStr: noncestr, // 必填，生成签名的随机串
+		                signature: signature,// 必填，签名，见附录1
+		                jsApiList: ['chooseImage','uploadImage','previewImage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+		            });
+		          wx.ready(function(){
+		          	 wx.checkJsApi({
+		          	 	 jsApiList: [
+		                        'chooseImage',
+		                        'uploadImage',
+		                        'previewImage'
+		                    ], // 需要检测的JS接口列表
+		                 success:function(res){
+                            //alert(JSON.stringify(res));    /*用于检测请求的接口是否是正确的*/
+		                 }
+		          	 })
+		          });
+		         var images = {
+                    localId: [],
+                    serverId: []
+                };//初始化变量
+		          $('.z-issue-list').on('tap',function(){
+                     wx.chooseImage({
+						    count: 4, // 默认9
+						    sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+						    sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+						    success: function (res) {
+						        var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+						       if(localIds.length==0){
+						         	showMessage('至少选择1张图片！')
+						       }else{
+						         uploadImage(localIds);
+						       }
+						    }
+						});
+
+		          })
+
+
+		     }
+     
+
+       function uploadImage(localIds) {
+            var get_localId = localIds.pop();
+		    wx.uploadImage({
+				    localId:get_localId, // 需要上传的图片的本地ID，由chooseImage接口获得
+				    isShowProgressTips: 1, // 默认为1，显示进度提示
+				    success: function (res) {
+				         var server= res.serverId; // 返回图片的服务器端ID
+                        downloadImage(server);
+				        if(localIds.length>0){
+	                       uploadImage(localIds);
+				        }
+				    }
+			});
+       }
+
+       function downloadImage(server){
+       	var url='/Home/Shop/getImage';
+       	$.post(url,{'media_id':server,'type':2},function(res){
+       		// alert(JSON.stringify(res));
+             if(res.Code=='200'){
+             	var str='<input type="hidden" class="input_img" value='+res.targetThumb+'>';
+                if($('.put_int').find('.input_img').length>=4){
+                	$('.input_img:first').remove();
+                	$('.put_int').append(str);
+                }else{
+                	$('.put_int').append(str);
+                }
+                $('.z-issue-list').find('.add_li').remove();
+                if($('.z-issue-list').find('li').length<3){
+	             var add_img='';
+	             add_img +='<li>';
+	             add_img +='<img src="'+res.targetUrl+'" alt="" >';
+	             add_img +='</li>';
+	             add_img +='<li class="add_li">';
+	             add_img +='<img src="__PUBLIC__/Home/img/addpic.png" alt="" >';
+	             add_img +='</li>';
+                // $('.z-issue-list').find('.add_li').remove();
+                $('.z-issue-list').append(add_img);
+                }else if($('.z-issue-list').find('li').length==3){
+                 var add_img='';
+	             add_img +='<li>';
+	             add_img +='<img src="'+res.targetUrl+'" alt="" >';
+	             add_img +='</li>';
+	             $('.z-issue-list').append(add_img);
+                }else{
+                	$(".z-issue-list li:first").remove();
+                	 var add_img='';
+		             add_img +='<li>';
+		             add_img +='<img src="'+res.targetUrl+'" alt="" >';
+		             add_img +='</li>';
+		             $('.z-issue-list').append(add_img);
+                }
+
+             }
+       	},'json');
+       }
+
+   
+		function showMessage(msg) {
+		            if (! $('.msg').length) {
+		                $('body').append('<div class="msg" style="position: fixed;bottom: 20%;left: 50%;margin-left: -30%;height: 0.8rem;line-height: 0.8rem;width: 60%;background-color: rgba(0,0,0,.75);border-radius: 0.6rem;text-align: center;color: #fff; z-index:999;display: none;font-size: 1.2em">' + msg + '</div>');
+		                $('.msg').fadeIn(200);
+		                setTimeout(function(){
+		                    $('.msg').fadeOut(200,function(){
+		                        $(this).remove();
+		                    });
+		                },1500)
+		            }
+		        }
+	})
+	
+</script>

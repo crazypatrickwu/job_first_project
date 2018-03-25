@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>乐清麻将</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+  <script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+  
+<link rel="stylesheet" href="__PUBLIC__/Home/download/idangerous.swiper.css">
+<script src="__PUBLIC__/Home/download/idangerous.swiper-2.1.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/Home/download/jquery.min.js"></script>
+  <style type="text/css">
+    blockquote,body,button,dd,dl,dt,fieldset,h1,h2,h3,h4,h5,h6,hr,input,lengend,li,ol,p,pre,td,textarea,th,ul{margin:0;padding:0;color:#333}body,button,input,select,textarea{font:14px/1 Microsoft Yahei,sans-serif;}h1{font-size:18px}h2{font-size:16px}h3{font-size:14px}h4,h5,h6{font-size:100%}address,cite,dfn,em,var{font-style:normal}code,kbd,pre,samp,tt{font-family:"Courier New",Courier,monospace}small{font-size:12px}ol,ul{list-style:none}a{text-decoration:none}a:hover{text-decoration:underline}abbr[title],acronym[title]{border-bottom:1px dotted;cursor:help}q:after,q:before{content:''}legend{color:#000}fieldset,img{border:none}button,input,select,textarea{font-size:100%}table{border-collapse:collapse;border-spacing:0}hr{border:none;height:1px}body,html{height:100%;width:100%;}
+    body {
+      width: 100%;
+      height: 100%;
+      background: url('__PUBLIC__/Game/download/img/bg.jpg') center no-repeat;
+      background-size: cover;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    img {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .name {
+      width: 4.5rem;
+      height: 1.3rem;
+      margin-top: 1.9rem;
+    }
+
+    .logo {
+      width: 2.56rem;
+      height: 2.56rem;
+      margin-top: 0.5rem;
+    }
+
+    .intro {      
+      margin-top: 0.3rem;
+      line-height: 0.42rem;
+      font-size: 0.32rem;
+    }
+    
+    .download-btn {
+      margin-top: 1.5rem;
+    }
+
+    .download-btn-item {
+      width: 5.6rem;
+      height: 0.8rem;
+      margin-bottom: 0.2rem;
+    }
+    
+    
+        #weixin-tip {
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background: rgba(0, 0, 0, 0.8);
+            filter: alpha(opacity=0.7);
+            opacity:0.9;
+            width: 100%;
+            height: 100%;
+            z-index: 100;
+        }
+
+        #weixin-tip p {
+            text-align: center;
+            margin: 0;
+            height: 100%;
+            position: relative;
+        }
+
+        #weixin-tip p img {
+            width: 100%;
+            height: 100%;
+        }
+
+        #weixin-tip .close {
+            color: #fff;
+            padding: 5px;
+            font: bold 24px/26px simsun;
+            text-shadow: 0 1px 0 #ddd;
+            position: absolute;
+            top: 0;
+            left: 5px;
+        }
+
+        #ios-weixin-tip {
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background: rgba(0, 0, 0, 0.8);
+            filter: alpha(opacity=0.7);
+            opacity:0.9;
+            width: 100%;
+            height: 100%;
+            z-index: 100;
+        }
+
+        #ios-weixin-tip p {
+            text-align: center;
+            margin: 0;
+            height: 100%;
+            position: relative;
+        }
+
+        #ios-weixin-tip p img {
+            width: 100%;
+            height: 100%;
+        }
+
+        #ios-weixin-tip .close {
+            color: #fff;
+            padding: 5px;
+            font: bold 24px/26px simsun;
+            text-shadow: 0 1px 0 #ddd;
+            position: absolute;
+            top: 0;
+            left: 5px;
+        }
+  </style>
+</head>
+<body>
+  <img src="__PUBLIC__/Game/download/img/name.png" class="name">
+  <img src="__PUBLIC__/Game/download/img/logo.png" class="logo">
+  <div class="intro">
+    乐清花——武汉麻将<br/>
+    <!--1.0.17<br/>-->
+    更新于2016-12-22
+  </div>
+  <div class="download-btn">
+    <a href="javascript:;" onclick="downandroid();" >
+      <img src="__PUBLIC__/Game/download/img/android_dl.png" class="download-btn-item">
+    </a>
+    <a href="javascript:;" onclick="downios();" >
+      <img src="__PUBLIC__/Game/download/img/ios_dl.png" class="download-btn-item">
+    </a>
+<!--    <a href="#">
+      <img src="__PUBLIC__/Game/download/img/yyb_dl.png" class="download-btn-item">
+    </a>-->
+  </div>
+    <div id="weixin-tip">
+        <p>
+            <img src="__PUBLIC__/Home/download/android.png" alt="微信扫描打开APP下载链接提示代码优化">
+            <span id="close" title="关闭" class="close">×</span>
+      </p>
+    </div>
+
+    <div id="ios-weixin-tip">
+        <p>
+            <img src="__PUBLIC__/Home/download/ios.png" alt="微信扫描打开APP下载链接提示代码优化">
+            <span id="ios-close" title="关闭" class="close">×</span>
+        </p>
+    </div>
+</body>
+
+    <script type="text/javascript" src="__PUBLIC__/Home/download/zepto.min.js"></script>
+<script type="text/javascript">
+        var is_weixin = function () {
+            var ua = navigator.userAgent.toLowerCase();
+            if (ua.match(/MicroMessenger/i) == "micromessenger") {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        function doLocation(url) {
+            var a = document.createElement("a");
+            if (!a.click) {
+                window.location = url;
+                return;
+            }
+            a.setAttribute("href", url);
+            a.style.display = "none";
+            document.body.appendChild(a);
+            a.click();
+        }
+        function downandroid() {
+            window.location.href = "http://fir.im/YueqingMahjongAD";
+//            if (is_weixin()) {
+//                var winHeight = typeof window.innerHeight != "undefined" ? window.innerHeight : document.documentElement.clientHeight;
+//                //兼容IOS，不需要的可以去掉
+//                var tip = document.getElementById("weixin-tip");
+//                var close = document.getElementById("close");
+//                tip.style.height = winHeight + "px";
+//                //兼容IOS弹窗整屏
+//                tip.style.display = "block";
+//                close.onclick = function () {
+//                    tip.style.display = "none";
+//                }
+//            } else {
+//                window.location.href = "http://www.0575888.cn/Public/Game/download/YueqingMahjong_1_0.apk";
+////                window.location.href = "./jump.php";
+////                return;
+////                doLocation("./jump.php");
+//            }
+        }
+
+        function downios() {
+//                alert('敬请期待...');return;
+            window.location.href = "https://fir.im/YueqingMahjong";
+//            if (is_weixin()) {
+//                var winHeight = typeof window.innerHeight != "undefined" ? window.innerHeight : document.documentElement.clientHeight;
+//                //兼容IOS，不需要的可以去掉
+//                var tip = document.getElementById("ios-weixin-tip");
+//                var close = document.getElementById("ios-close");
+//                tip.style.height = winHeight + "px";
+//                //兼容IOS弹窗整屏
+//                tip.style.display = "block";
+//                close.onclick = function () {
+//                    tip.style.display = "none";
+//                }
+//            } else {
+//                window.location.href = "http://www.0575888.cn/Public/Game/download/YueqingMahjong_1_0.apk";
+////                window.location.href = "https://itunes.apple.com/cn/app/fu-lai-ma-jiang/id1168899847?l=zh&ls=1&mt=8";
+////                return;
+////                doLocation("./ipa/iosdown.php");
+//            }
+        }
+    </script>
+</html>

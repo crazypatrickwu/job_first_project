@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+<script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+<title>申请退款详情</title>
+<link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+<link rel="stylesheet" href="__PUBLIC__/Home/css/xiaotian.css">
+<script type="text/javascript" src="__PUBLIC__/Home/js/zepto.full.js"></script>
+</head>
+
+<body class="gray p">
+<div class="order-detail-header">
+	<p class="order-status order-status-deliver">待发货</p>
+	<p>订单编号：2016061345109687</p>
+	<p>2016-06-13 18:04:05</p>
+</div>
+
+<div class="order-cells order-detail-cells">
+	<div class="order-cell">
+		<div class="order-cell-bd">商品信息</div>
+	</div>
+	<div class="order-cell">
+		<ul class="order-detail-product">
+			<li class="order-detail-product-item">
+				<img src="__PUBLIC__/Home/img/product.jpg" class="order-detail-product-cover">
+				<div class="order-detail-product-description">
+					<div class="order-detail-product-description-item">
+						<span class="order-detail-product-name">氧气种子 气质民族钩花镂空流苏腰带长衬衫连衣裙 长褂2015夏装女</span>
+					</div>
+					<div class="order-detail-product-description-item">
+						<span class="order-detail-product-num">×1</span>
+						<span class="order-detail-product-price" data-num="1">¥279.00</span>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div class="order-cell">
+		<div class="order-cell-bd">退款数量</div>
+		<div class="order-cell-ft">1</div>
+	</div>
+	<div class="order-cell">
+		<div class="order-cell-bd">退款金额</div>
+		<div class="order-cell-ft">¥279.00</div>
+	</div>
+	<div class="order-cell z-back-reasons">
+		<div class="order-cell-bd">退款需求</div>
+		<div class="order-cell-ft z-list-arrow">退款并退货</div>
+		<ul class="z-back-list">
+        	<li>退款并退货</li>
+            <li>仅退款</li>
+        </ul>
+	</div>
+	<div class="order-cell z-back-reasons">
+		<div class="order-cell-bd">退款原因</div>
+		<div class="order-cell-ft z-list-arrow">不想拍了</div>
+		<ul class="z-back-list">
+        	<li>不喜欢</li>
+            <li>地址写错重新拍</li>
+            <li>地址写错重新拍</li>
+            <li>地址写错重新拍</li>
+            <li>地址写错重新拍</li>
+        </ul>
+	</div>
+	<div class="order-cell">
+		<div class="order-cell-bd">退款说明</div>
+		<div class="order-refund-description">
+			<input type="text" name="">
+		</div>
+	</div>
+	<div class="order-cell">
+		<div class="order-cell-bd">上传照片<!-- <span style="font-size: 12px;color: #eee">（点击查看大图，长按删除）</span> --></div>
+		<!-- <div class="order-refund-pic">
+			<ul class="order-refund-pic-group"></ul>
+			<div class="order-refund-pic-upload">
+				<input type="file" name="" id="picUpload">
+			</div>
+		</div> -->
+		<ul class="z-onload-pic clearfix">
+			<li><img src="__PUBLIC__/Home/img/addpic.png" alt=""></li>
+			<li><img src="__PUBLIC__/Home/img/addpic.png" alt=""></li>
+			<li><img src="__PUBLIC__/Home/img/addpic.png" alt=""></li>
+			<li><img src="__PUBLIC__/Home/img/addpic.png" alt=""></li>
+		</ul>
+	</div>
+</div>
+<div class="pic-view">
+	<div class="pic-view-mask">
+		<img src="__PUBLIC__/Home/img/product.jpg">
+	</div>
+</div>
+<a href="{:U('User/orderrsuccess')}"><button class="order-refund-submit">提交申请</button></a>
+
+<script type="text/javascript">
+$(function(){
+	function clearFileVal() {
+        var file = $("#picUpload");
+        file.after(file.clone().val(""));
+        file.remove();
+    }
+
+	$("#picUpload").on("change", function () {
+        var file, img;
+        var _URL = window.URL || window.webkitURL;
+        if ((file = this.files[0])) {
+            //文件规则
+            var allowType = ["jpg", "png", "gif", "JPG", "PNG", "GIF"];
+            var picType = file.name.slice(-3);
+            var allowTypeFlag = false;
+            for (var item in allowType) {
+                if (picType == allowType[item]) allowTypeFlag = true;
+            }
+            if (allowTypeFlag) {
+                img = new Image();
+                img.onload = function () {
+                    $('.order-refund-pic-group').append('<li><img src="' + img.src + '"></li>');
+                };
+                img.src = _URL.createObjectURL(file);
+            } else {
+                showMessage("文件格式不正确，请上传jpg、png、gif格式的图片");
+                clearFileVal();
+            }
+        }
+    });
+    $('.order-refund-pic-group').on('longTap', 'li', function(e){
+    	$(this).remove();
+    }).on('tap', 'li', function(){
+    	var src = $(this).find('img').attr('src');
+    	showBigPic(src);
+    });
+
+    $('.pic-view').on('tap', function(){
+    	$(this).hide();
+    });
+
+    $('.order-cell-ft').on("tap",function(){
+    	var list = $(this).parent().find('ul');
+    	if(!list.is(":visible")){
+    		list.show();
+    	}else{
+    		list.hide();
+    	}
+    	// list.show();
+    });
+
+    $('.z-back-list li').on("tap",function(){
+    	var text = $(this).text();
+
+    	$(this).parent().hide();
+    	$(this).parent().prev().text(text);	
+    });
+
+    function showBigPic(src) {
+    	$('.pic-view').find('img').attr('src', src);
+    	$('.pic-view').show();
+    }
+
+    // 消息提示
+	function showMessage(msg) {
+		if (! $('.msg').length) {
+			$('body').append('<div class="msg" style="position: fixed;bottom: 20%;left: 50%;margin-left: -40%;height: 0.8rem;line-height: 0.8rem;width: 80%;background-color: rgba(0,0,0,.75);border-radius: 0.6rem;text-align: center;color: #fff;display: none;font-size: 1.2em">' + msg + '</div>');
+			$('.msg').fadeIn(200);
+			setTimeout(function(){
+				$('.msg').fadeOut(200,function(){
+					$(this).remove();
+				});
+			},1500)
+		}
+	}
+});
+</script>
+</body>
+</html>

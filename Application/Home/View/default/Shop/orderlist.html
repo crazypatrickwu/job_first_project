@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+<script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+<title>客户订单</title>
+<link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+<link rel="stylesheet" href="__PUBLIC__/Home/css/xiaotian.css">
+<script type="text/javascript" src="__PUBLIC__/Home/js/zepto.full.js"></script>
+</head>
+
+<body class="gray" style="padding-top: 0.88rem;">
+<input type="hidden" value="{$totalpage}" id="totalpage">
+<input type="hidden" value="{$status_type}" id="status_type">
+<ul class="order-list-tab">
+	<li class="order-list-tab-item <eq name='status_type' value=''>order-list-tab-item-active</eq>" onclick="location.href='{:U('Shop/orderlist')}'">全部</li>
+	<li class="order-list-tab-item <eq name='status_type' value='unship'>order-list-tab-item-active</eq>" onclick="location.href='{:U('Shop/orderlist',array('status_type'=>'unship'))}'">待处理</li>
+	<li class="order-list-tab-item <eq name='status_type' value='unpay'>order-list-tab-item-active</eq>" onclick="location.href='{:U('Shop/orderlist',array('status_type'=>'unpay'))}'">未付款</li>
+	<li class="order-list-tab-item <eq name='status_type' value='receipted'>order-list-tab-item-active</eq>" onclick="location.href='{:U('Shop/orderlist',array('status_type'=>'receipted'))}'">已完成</li>
+	<li class="order-list-tab-item <eq name='status_type' value='canceled'>order-list-tab-item-active</eq>" onclick="location.href='{:U('Shop/orderlist',array('status_type'=>'canceled'))}'">已关闭</li>
+</ul>
+<div id="list">
+<volist name="order_list" id="order">
+    <div class="order-cells order-list-cells">
+            <div class="order-cell">
+                    <div class="order-cell-bd">订单编号：{$order['order_sn']}</div>
+                    <div class="order-cell-ft">{$order['order_status_title']}</div>
+            </div>
+            <a href="{$order['url']}">
+                    <volist name="order.OrderDetail" id="odetail">
+                        <div class="order-cell">
+                                <img src="{$odetail['goods_image']}" class="order-product-cover">
+                                <div class="order-product-description">
+                                        <div class="order-product-description-item">
+                                                <span class="order-product-name">{$odetail['goods_name']}({$odetail['specifications_text']})</span>
+                                                <span class="order-product-price">￥{$odetail['goods_price']}</span>
+                                        </div>
+                                        <div class="order-product-description-item">
+                                                <span class="order-product-num">×{$odetail['goods_number']}</span>
+                                        </div>
+                                </div>
+                        </div>
+                    </volist>
+            </a>
+            <div class="order-cell">
+                    <div class="order-cell-ft order-list-price">共{$order['goods_number']}件商品 实际收款<span>￥{$order['order_amount']}</span></div>
+            </div>
+            <switch name="order.order_status_code">
+                <case value="unpay">
+<!--                    <div class="order-cell">
+                             <a href="javascript:void(0);" class="order-contact">联系卖家</a> 
+                            <div class="order-btn-group">
+                                    <button class="order-btn-default">缺货</button>
+                                    <a href="order_detail_pay.html"><button class="order-btn-primary">去付款</button></a>
+                            </div>
+                    </div>-->
+                </case>
+                <case value="unship">
+                    <div class="order-cell">
+                            <!-- <a href="javascript:void(0);" class="order-contact">联系卖家</a> -->
+                            <!--<span class="order-btn-text">待发货...</span>-->
+                            <div class="order-btn-group">
+                                    <!--<button class="order-btn-default">缺货</button>-->
+                                    <button class="order-btn-primary confirmOrder" data-order_id="{$order['id']}">确认订单</button>
+                                    <!--<a href="order_detail_pay.html"><button class="order-btn-primary">去付款</button></a>-->
+                            </div>
+                    </div>
+                </case>
+                <case value="readyship">
+                    <div class="order-cell">
+                            <!-- <a href="javascript:void(0);" class="order-contact">联系卖家</a> -->
+                            <!--<span class="order-btn-text">待发货...</span>-->
+                            <div class="order-btn-group">
+                                <a href="{:U('Shop/orderdetail',array('order_id'=>$order['id']))}">
+                                    <button class="order-btn-primary">立即发货</button>
+                                </a>
+                            </div>
+                    </div>
+                </case>
+                <case value="unreceipt">
+                    <div class="order-cell">
+                            <div class="order-btn-group">
+                                  <a href="http://m.kuaidi100.com/index_all.html?type={$order['express_code']}&postid={$order['invoice_no']}">
+                                        <button class="order-confirm order-confirm-none">查看物流</button>
+                                  </a>
+<!--                                <a href="order_detail_receive.html">
+                                    <button class="order-btn-primary">确认收货</button>
+                                </a>-->
+                            </div>
+                    </div>
+                </case>
+                <case value="receipted">
+                    <div class="order-cell">
+                            <!-- <a href="javascript:void(0);" class="order-contact">联系卖家</a> -->
+                            <div class="order-btn-group">
+                                <button class="order-btn-default order_delete" data-id="{$order['id']}">删除</button>
+                            </div>
+                    </div>
+                </case>
+                <case value="canceled">
+                    <div class="order-cell">
+                            <!-- <a href="javascript:void(0);" class="order-contact">联系卖家</a> -->
+                            <div class="order-btn-group">
+                                <button class="order-btn-default order_delete " data-id="{$order['id']}">删除</button>
+                            </div>
+                    </div>
+                </case>
+            </switch>
+    </div>
+</volist>
+</div>
+<div class="confirm">
+    <div class="confirm-box clearfix">
+        <p>确定要删除订单？</p>
+        <span class='confirm-sure'>确定</span>
+        <span class='confirm-cancel'>取消</span>
+    </div>
+</div>
+ <input type="hidden" value="" id="input_order">
+<script type="text/javascript">
+$(function(){
+    var totalpage = parseInt($('#totalpage').val());
+    var page = 0;
+    var falg = false;
+    var status='';
+     $(document).scroll(function(){
+            var totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop()) + 20;
+            var order=''
+            if(totalheight >= $(document).height()){
+                if(falg) return;
+                falg = true;
+                page = parseInt(page)+1;
+                if(page > totalpage){
+                    page = totalpage;
+                    return false;
+                }
+                var status_type=$('#status_type').val()
+              console.log(page);
+                loadContents(page,status_type);
+            }
+        });
+    
+     function loadContents(page,status_type){
+            var url ="{:U('Shop/orderlist')}";
+            // setTimeout(function(){
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: {'status_type':status_type,'page':page},
+                    success: function(res){
+                          var res=JSON.parse(res);
+                          var data=res.Data.list;
+                         // alert(JSON.stringify(data))
+                         if(res.Code==0){
+                            var str='';
+                            $.each(data, function(i,val){  
+                                  str+='<div class="order-cells order-list-cells">';
+                                  str+='<div class="order-cell">';
+                                  str+='<div class="order-cell-bd">订单编号：'+val.order_sn+'</div>';
+                                  str+='<div class="order-cell-ft">'+val.order_status_title+'</div>';
+                                  str+='</div>';
+                                   $.each(val.OrderDetail, function(k,value){
+                                        str+='<div class="order-cell" onclick="javascript:location.href=';
+                                        str+= "'" +  val.url +"'";
+                                        str+='">';
+                                        str+='<img src="'+value.goods_image+'" class="order-product-cover">';
+                                        str+='<div class="order-product-description">';
+                                        str+='<div class="order-product-description-item">';
+                                        str+='<span class="order-product-name">'+value.goods_name+'('+value.specifications_text+')</span>';
+                                        str+='<span class="order-product-price">￥'+value.goods_price+'</span>';
+                                        str+='</div>';
+                                        str+='<div class="order-product-description-item">';
+                                        str+='<span class="order-product-num">×'+value.goods_number+'</span>';
+                                        str+='</div>';
+                                        str+='</div>';
+                                        str+='</div>';
+                                   })
+                                        str+='<div class="order-cell">';
+                                        str+='<div class="order-cell-ft order-list-price">共'+val.goods_number+'件商品 实际收款<span>￥'+val.order_amount+'</span></div>'
+                                        str+='</div>';
+                                        if(val.order_status_code=='unpay'){
+                                            // str+='<div class="order-cell">';
+                                            // str+='<div class="order-btn-group">';
+                                            // str+='<button class="order-btn-primary cancle"  data-id='+val.id+'>取消订单</button>'
+                                            // str+='<a href="'+val.url+'"><button class="order-btn-primary">去付款</button></a>';
+                                            // str+='</div>';
+                                            // str+='</div>'
+                                        }else if(val.order_status_code=='unship'){
+                                            str+='<div class="order-cell">';
+                                             str+='<div class="order-btn-group">';
+                                            str+='  <button class="order-btn-primary confirmOrder" data-order_id='+val.id+'>确认订单</button>';
+                                            str+='</div>';
+                                             str+='</div>';
+                                        }else if(val.order_status_code=='readyship'){
+                                            str+='<div class="order-cell">';
+                                            str+='<div class="order-btn-group">';
+                                            str+='<a href="Home/Shop/orderdetail/order_id/'+val.id+'"><button class="order-btn-primary">立即发货</button></a>';
+                                            str+='</div>'
+                                              str+='</div>';
+                                        }else if(val.order_status_code=='unreceipt'){
+                                          
+                                            str+='<div class="order-cell">';
+                                            str+='<div class="order-btn-group">';
+                                            str+='<button class="order-btn-primary sure_shop" data-id="'+val.id+'">确认收货</button>'
+                                            str+='<a href="http://m.kuaidi100.com/index_all.html?type='+val.express_code+'&postid='+val.invoice_no+'"><button class="order-confirm order-confirm-none" style="margin-top: 0px;margin-left: 0.2rem">查看物流</button></a>';
+                                            str+='</div>';
+                                            str+='</div>'
+                                        }else if(val.order_status_code=='receipted'){
+                                            str+='<div class="order-cell">';
+                                            str+='<div class="order-btn-group">';
+                                            str+=' <button class="order-btn-default order_delete" data-id="'+val.id+'">删除</button>'
+                                            str+='</div>';
+                                            str+='</div>'
+                                        }else if(val.order_status_code=='canceled'){
+                                            str+='<div class="order-btn-group">';
+                                            str+='<button class="order-btn-default order_delete" data-id="'+val.id+'">删除</button>';
+                                            str+='</div>'
+                                        }
+
+                                        str+='</div>';
+                          });
+                            
+                        $('#list').append(str);
+                        falg = false;
+
+                    }
+                    }
+                });
+            // },2000);
+        }
+         $('body').on('click', '.confirmOrder',function(){
+            var _this = $(this)
+            var order_id    =   $(this).attr("data-order_id");
+            var _url    =   "{:U('Shop/confirmOrder')}";
+            var _param  =   new Object();
+                _param.order_id =   order_id;
+            $.post(_url,_param,function(res){
+                 // alert(JSON.stringify(res));
+                // console.log(res);
+                if(res.Code == '0'){
+                    showMessage('操作成功');
+                    var  str='  <a href=/Home/Shop/confirmShip/order_id/'+order_id+'>'
+                        str +=' <button class="order-btn-primary">立即发货</button>'
+                        str +='</a>'
+                        setTimeout(function(){
+                             _this.parents('.order-list-cells').find('.order-btn-group').html(str)
+                        },300)
+                   
+                    return true;
+                }else{
+                    showMessage('操作失败');
+                    return false;
+                }
+            },'json');
+        });
+
+    // 消息提示
+	function showMessage(msg) {
+		if (! $('.msg').length) {
+			$('body').append('<div class="msg" style="position: fixed;bottom: 20%;left: 50%;margin-left: -40%;height: 0.8rem;line-height: 0.8rem;width: 80%;background-color: rgba(0,0,0,.75);border-radius: 0.6rem;text-align: center;color: #fff;display: none;font-size: 1.2em">' + msg + '</div>');
+			$('.msg').fadeIn(200);
+			setTimeout(function(){
+				$('.msg').fadeOut(200,function(){
+					$(this).remove();
+				});
+			},1500)
+		}
+	}
+     $('body').on('click', '.order_delete',function(){
+        $('.confirm').show();
+        console.log($(this).data('id'));
+        var id=$(this).data('id')
+        $('#input_order').val(id);
+    })
+
+     $('.confirm-cancel').click(function(){
+        $('.confirm').hide();
+    });//取消删除
+
+     $('.confirm-sure').on("click",function(){
+        $('.confirm').hide();
+        var id=$('#input_order').val();
+       
+        $.post("{:U('Shop/order_del')}", {"id":id}, function (res) { 
+               if(res.Code==0){
+                  showMessage('删除成功！');
+                  setTimeout(function(){
+                    window.location.reload();
+                  })
+               }else{
+                  showMessage('删除失败！');
+               }
+        },'json');
+        
+    })//确认删除
+});
+</script>
+</body>
+</html>

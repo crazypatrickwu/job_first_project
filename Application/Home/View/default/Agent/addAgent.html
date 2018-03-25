@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+    <title>添加代理</title>
+    <link href="__PUBLIC__/Home/Agent/css/LArea.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="__PUBLIC__/Home/Agent/css/taizhou.css">
+</head>
+<body style="background: #fff;">
+<div id="app">
+        <div class="form_box form_box2">
+            <div class="form_item form_my_item form_my_item2">
+                <div class="item my_item address"><b>*</b><label>姓名</label><input type="text" id="nickname" name="nickname" placeholder="请输入姓名"/></div>
+                <div class="item my_item address"><b>*</b><label>手机号码</label><input type="tel" id="phone" name="phone" placeholder="请输入手机号码"/></div>
+                <div class="item my_item address"><b>*</b><label>微信名</label><input type="text" id="wechat_id" name="wechat_id" placeholder="请输入微信号"/></div>
+            </div>
+            <div class="form_btn form_btn_out two">
+                <input type="hidden" name="id" value="0" />
+                <button id="btnAgentAdd">确认添加</button>
+            </div>
+        </div>
+</div>
+<script type="text/javascript" src="__PUBLIC__/Home/Agent/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Home/Agent/js/public.js"></script>
+<script>
+
+
+    //ajax入库判断
+    $(function(){
+
+        var btnAgentAdd = false;
+        $("#btnAgentAdd").on('click',function(){
+            if (btnAgentAdd) {
+                return;
+            };
+            var phone = $("#phone").val();
+            var nickname = $("#nickname").val();
+            var wechat_id = $("#wechat_id").val();
+            if (phone == '') {
+                webTip('请输入正确的手机号码');
+                return false;
+            };
+            if (nickname == '') {
+                webTip('请输入代理姓名');
+                return false;
+            };
+            if (wechat_id == '') {
+                webTip('请输入微信号');
+                return false;
+            };
+
+            var _url = "{:U('addAgent')}";
+            var _param = new Object();
+                _param.phone = phone;
+                _param.nickname = nickname;
+                _param.wechat_id = wechat_id;
+                // console.log(_param);
+                // return;
+            btnAgentAdd = true;
+            $.post(_url,_param,function(res){
+                if (res.code == 1) {
+                    webTip(res.msg,function(){
+                        window.location.href = "{:U('agentList')}";
+                    },3000);
+                    return true;
+                }else{
+                    webTip(res.msg,function(){
+                        window.location.href = window.location.href;
+                    },3000);
+                    return true;
+                }
+            },'json');
+        });
+
+
+    })
+</script>
+<include file="Index:public_wxshare" />
+</body>
+</html>

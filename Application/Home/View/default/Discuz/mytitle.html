@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+<script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+<title>消息提醒</title>
+<link rel="stylesheet" href="__PUBLIC__/Home/css/base.css">
+<link rel="stylesheet" href="__PUBLIC__/Home/css/xiaotian.css">
+<script type="text/javascript" src="__PUBLIC__/Home/js/zepto.full.js"></script>
+</head>
+
+<body class="gray p">
+<div class="z-contain">
+	<volist name="info.discuz_list" id="new">
+	<a href="{:U('Discuz/detail',array('id'=>$new['discuz_id']))}">
+	<div class="z-maintop z-comment line-half">	
+		<img src="{$new['avatar']}" alt="">
+		<name >{$new['nickname']}<em class="z-floor"></em></name>
+		<span>{:date('m-d H:i',$new['time'])} 来自[{$new['school']}]</span>
+		<p class="z-com">{$new['content']|base64_decode}</p>
+		<!-- <p class="z-reply">回复@某某人：<text></text></p> -->
+		<div class="reply">
+		  <volist name="data_in" id="v">
+			<if condition="$v['pid'] eq $mes['id']">
+				<p class="z-reply">{$v['nickname']}回复:<text>{$v['content']}</text></p>
+			</if>
+		</volist>
+		</div>
+		<i></i>
+		<div class="z-text" data-id="{$mes['id']}">
+			<textarea class="clearfix" id='reply_data'></textarea>
+			<em class="z-cancel">取消</em>
+			<em class="z-submit">提交</em>
+		</div>
+	</div>
+	</a>
+	</volist>
+</div>
+
+</body>
+<script>
+$(function(){
+	$('body').on("tap",".z-submit",function(){
+			var newtext = $(this).parent().find('textarea');
+			var reply = $(this).parents('.z-comment').find('.reply');
+			var val = $(this).parent().find('textarea').val();
+			if(val == ""){
+				showMessage('请输入内容');
+			}else{
+				var pid=$(this).parent().attr('data-id');//留言ID
+				var msg_user_id=$(this).parent().attr('data-user_id');//留言者user_id
+
+				var discuz_id=$(".z-b-main").attr('data-id');//当前主题ID
+				var url="/Discuz/msg";
+				$.ajax({
+					type:"post",
+					url:url,
+					data:{
+						'msg':val,
+						'discuz_id':discuz_id,
+						'pid':pid
+					},
+					success:function(res){
+						var res=JSON.parse(res);
+	                    if(res.Code=='0'){
+	                    	var data=res.info ;
+	                    	var str='';
+	                    	 $('.z-comtitle').html('评论'+data['0'].count+'条');
+	     					str +='<p class="z-reply">'+data['0'].nickname+'回复:<text>'+data['0'].content+'</text></p>';
+                              reply.append(str);
+							newtext.val('');
+	                    }
+					}
+				})
+				$('.z-text').hide();
+				// $('.z-comtitle').after(newCon);
+			}
+			
+		});//点击提交
+
+	$('.z-cancel').on("tap",function(){
+		$(this).parent().hide();
+	});//点击取消
+
+});
+</script>
+</html>

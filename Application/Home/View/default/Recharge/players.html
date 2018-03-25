@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+    <title>玩家列表</title>
+    <link rel="stylesheet" href="__PUBLIC__/Home/Agent/css/taizhou.css">
+    <script type="text/javascript" src="__PUBLIC__/Home/Agent/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Home/Agent/js/public.js"></script>
+</head>
+<body style="background: #fff;">
+<div>
+    <div class="bg_top">
+        <div class="search_box"><input type="text" id="keyword" placeholder="输入玩家ID"/><i><img src="__PUBLIC__/Home/Agent/img/clear.png"/></i><span id="search_btn">搜索</span></div>
+    </div>
+    <div class="list_box">
+        <if condition="empty($game_user_list)">
+            <div align="center" style="text-align: center !important;line-height:80px;">没有相关数据~！</div>
+        <else />
+            <div class="list_main_result">
+            <volist name="game_user_list" id="game_user">
+                <div class="item_box item_box_administration">
+                    <div class="clearfix item_title">
+                        <div class="left">玩家ID：{$game_user['userid']}</div>
+                    </div>
+                    <div class="ash">玩家昵称：{$game_user['nickname']}</div>
+                    <div class="ash">房卡数量：{$game_user['THTreasureDB']['score']}</div>
+                    <div class="ash">加入时间：{$game_user['registerdate']}</div>
+                </div>
+                <a href="{:U('Recharge/addInsureScore', array('user_id'=>$game_user['userid']))}"><div class="bg_bottom">充房卡</div></a>
+            </volist>
+            </div>
+        </if>
+    </div>
+</div>
+</body>
+
+    <input type="hidden" value="1" id="page">
+    <input type="hidden" id="totalpage" value="<?php echo $totalpage; ?>" />
+    <div id="loading" style="margin:auto;text-align:center;margin:10px;margin-bottom:50px;"></div>
+    <script>
+    var _url ="{:U('Home/Recharge/players')}";
+    var totalpage = parseInt($('#totalpage').val());
+    var falg = false;
+    $(function(){
+        var page = 1;
+        var loading  = '<span style="text-align:center;font-family: yahei;font-size: 14px;margin-left:5px;line-height:15px;color:#666;">加载中...</span>';
+        //下拉分页
+        $(window).scroll(function(){
+            var totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop()) + 20;
+            if(totalheight >= $(document).height()){
+                if(falg) return;
+                falg = true;
+                page = parseInt(page)+1;
+                if(page > totalpage){
+                    page = totalpage;
+                    return false;
+                }
+                $('#loading').html(loading);
+                loadContents(page);
+            }
+        });
+    });
+    function loadContents(page){
+        var keyword = $("#keyword").val();
+        var _param  =   new Object();
+            _param.page = page;
+            _param.keyword = keyword;
+            _param.isAjax       =   1;
+        setTimeout(function(){
+            $.get(_url,_param,function(res){
+                // console.log(res);
+                if(res.code == '1'){
+                    timer=0;
+                    $('#loading').html('');
+                    var new_html = '';
+                    $.each(res.info,function(i,list) {
+                        /**/
+                        new_html +='<div class="item_box item_box_administration">';
+                        new_html +='<div class="clearfix item_title">';
+                        new_html +='<div class="left">玩家ID：'+list.userid+'</div>';
+                        new_html +='</div>';
+                        new_html +='<div class="ash">玩家昵称：'+list.nickname+'</div>';
+                        new_html +='<div class="ash">房卡数量：'+list.THTreasureDB.score+'</div>';
+                        new_html +='<div class="ash">加入时间：'+list.registerdate+'</div>';
+                        new_html +='</div>';
+                        new_html +='<a href="'+list.add_card_url+'"><div class="bg_bottom">充房卡</div></a>';
+
+                    });
+                    $(".list_main_result").append(new_html);
+                    // $("#totalpage").val(data.list.last_page);
+
+                    if(page == totalpage){
+                        timer = 1;
+                        $("#loading").html('<span style="color:#999">没有更多的数据了！</span>');
+                    }
+                    falg = false;
+                }else{
+                    showBox(data.code, '获取失败');
+                }
+            },'json');
+        },1500);
+    };
+
+    /*点击搜索*/
+    $("#search_btn").on('click',function(){
+        $(".list_main_result").html("");
+        loadContents(1);
+    });
+
+    /*删除搜索文字*/
+    $(".search_box").find("i").on("click",function(){
+        $("#keyword").val("").focus();
+    });
+</script>
+<include file="Index:public_wxshare" />
+</html>

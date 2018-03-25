@@ -1,0 +1,100 @@
+<extend name="Common:base" />
+
+<block name="title">代理列表</block>
+
+<block name="menu">
+    <include file="Agent:menu" />
+</block>
+
+<block name="main">
+    <div class="pageheader">
+        <h1 class="pagetitle">代理列表</h1>
+        <span class="pagedesc"></span>
+    </div>
+    <div id="contentwrapper" class="contentwrapper">
+        <div>
+            <form action="" metod="get">
+                &nbsp;
+                代理昵称&nbsp;:&nbsp;<input type="text" name="nickname" id="nickname" value="{:remove_xss(I('get.nickname'))}">
+                &nbsp;
+                手机号码&nbsp;:&nbsp;<input type="text" name="phone" id="phone" value="{:remove_xss(I('get.phone'))}">
+                &nbsp;
+                加入时间&nbsp;:&nbsp;
+                <input type="text" name="start_time" id="start_time" value="{:remove_xss(search_time_format(I('get.start_time')))}" class="sang_Calender">
+                -
+                <input type="text" name="end_time" id="end_time" value="{:remove_xss(search_time_format(I('get.end_time')))}" class="sang_Calender">
+                &nbsp;&nbsp;
+                <input type="submit" value="查询" class="stdbtn">
+                <!-- <input type="submit" name="daochu" value="导出" class="stdbtn"> -->
+                <p></p>
+                <p></p>
+            </form>
+        </div>
+        <p></p>
+        <table cellpadding="0" cellspacing="0" border="0" class="stdtable stdtablequick">
+            <tr>
+                <th width="3%">ID</th>
+                <th>代理昵称</th>
+                <th>微信号</th>
+                <th>手机号</th>
+                <th>房卡数量</th>
+                <th>加入时间</th>
+                <th>操作</th>
+            </tr>
+
+            <if condition="empty($agentList)">
+                <tr>
+                    <td colspan="7">没有代理列表~！</td>
+                </tr>
+                <else />
+                <volist name="agentList" id="agent">
+                    <tr>
+                        <td class="center">{$agent['id']}</td>
+                        <td class="center">{$agent['nickname']}</td>
+                        <td class="center">{$agent['wechat_id']}</td>
+                        <td class="center">{$agent['phone']}</td>
+                        <td class="center">{$agent['room_card']}（颗）</td>
+                        <td class="center">{$agent['dateline']|time_format=###}</td>
+                        <td class="center">
+                            <a class="stdbtn btn_lime" href="{:U('Agent/editAgent', array('id'=>$agent['id']))}">编辑</a>&nbsp;&nbsp;
+                            <a class="stdbtn btn_lime resetPwd_confirm" action_href="{:U('Agent/resetPwd', array('id'=>$agent['id']))}">重置密码</a>&nbsp;&nbsp;
+                            <a class="stdbtn btn_lime del_confirm" action_href="{:U('Agent/delAgent', array('id'=>$agent['id']))}">删除</a>&nbsp;&nbsp;
+                        </td>
+                    </tr>
+                </volist>
+
+                <tr>
+                    <td colspan="7">
+                        <div class="page-box">{$show}</div>
+                    </td>
+                </tr>
+            </if>
+            </tbody>
+        </table>
+    </div>
+</block>
+
+<block name="script">
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/datetime.js"></script>
+    <script type="text/javascript">
+        //单个删除
+        $(".del_confirm").on('click',function(){
+            var action_name = $(this).html();
+            var action_url = $(this).attr("action_href");
+            //                        alert("action_name:"+action_name+";action_url:"+action_url);return;
+            if(confirm('是否确定【'+action_name+'】?')){
+                location.href = action_url;
+            }
+        });
+        
+        //密码重置
+        $(".resetPwd_confirm").on('click',function(){
+            var action_name = $(this).html();
+            var action_url = $(this).attr("action_href");
+            //                        alert("action_name:"+action_name+";action_url:"+action_url);return;
+            if(confirm('是否确定【'+action_name+'】?')){
+                location.href = action_url;
+            }
+        });
+    </script>
+</block>

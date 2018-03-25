@@ -1,0 +1,74 @@
+[ 2018-03-24T18:03:23+08:00 ] 127.0.0.1 /Xadmin/Login/login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.013000s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.013000s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2018-03-24T18:06:12+08:00 ] 127.0.0.1 /Xadmin/Login/login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `jianjiao_admin` [ RunTime:0.0100s ]
+SQL: SELECT `id`,`is_lock`,`admin_account` FROM `jianjiao_admin` WHERE `admin_account` = 'admin' AND `admin_password` = '18285c099ac0d8b85fa09a17b18c6078' LIMIT 1   [ RunTime:0.0000s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.006000s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.006000s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2018-03-24T18:06:14+08:00 ] 127.0.0.1 /Xadmin/Index/statistics.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `jianjiao_config` [ RunTime:0.0210s ]
+SQL: SELECT `config_sign`,`config_value` FROM `jianjiao_config` WHERE `status` = 1  [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `jianjiao_admin_auth_group_access` [ RunTime:0.0160s ]
+SQL: SELECT `uid`,`group_id`,`title`,`rules`,`rules_menu` FROM jianjiao_admin_auth_group_access a INNER JOIN jianjiao_admin_auth_group g on a.group_id=g.id  WHERE ( a.uid='1' and g.status='1' )  [ RunTime:0.0050s ]
+SQL: SHOW COLUMNS FROM `jianjiao_admin_menu` [ RunTime:0.0080s ]
+SQL: SELECT `id`,`name`,`title`,`status`,`direct_jump`,`sort`,`condition`,`pid`,`pid_list`,`level`,`m_controller`,`m_action`,`m_param` FROM `jianjiao_admin_menu` WHERE `status` = 1 AND `level` = 1  [ RunTime:0.0010s ]
+SQL: SELECT `id`,`name`,`title`,`status`,`direct_jump`,`sort`,`condition`,`pid`,`pid_list`,`level`,`m_controller`,`m_action`,`m_param` FROM `jianjiao_admin_menu` WHERE `status` = 1 AND `level` > 1 AND `m_controller` = 'Index'  [ RunTime:0.0000s ]
+NOTIC: [8] Undefined variable: left_son_menu D:\MyJob\project\majiang\Application\Xadmin\Controller\BaseController.class.php 第 97 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\MyJob\project\majiang\Application\Xadmin\Controller\BaseController.class.php 第 97 行.
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+NOTIC: [2] in_array() expects parameter 2 to be array, null given D:\MyJob\project\majiang\Application\Common\Common\function.php 第 370 行.
+NOTIC: [2] in_array() expects parameter 2 to be array, null given D:\MyJob\project\majiang\Application\Common\Common\function.php 第 370 行.
+NOTIC: [2] in_array() expects parameter 2 to be array, null given D:\MyJob\project\majiang\Application\Common\Common\function.php 第 320 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.022000s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.023000s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+

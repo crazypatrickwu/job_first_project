@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>德清罗松，德清人都爱玩的本地游戏！</title>
+<link rel="stylesheet" href="__PUBLIC__/Pcweb/css/reset.css">
+<link rel="stylesheet" href="__PUBLIC__/Pcweb/css/style.css">
+</head>
+<body>
+<div class="header">
+	<div class="header-contain">
+		<div class="header-logo">德清罗松</div>
+		<div class="nav">
+			<a href="{:U('Index/index')}">官网首页</a>
+			<a href="{:U('Index/about')}">关于我们</a>
+			<a href="{:U('Index/games')}">游戏介绍</a>
+			<a href="{:U('Index/download')}">游戏下载</a>
+			<a href="{:U('Index/service')}">用户服务</a>
+			<a href="{:U('Index/guardianship')}">家长监护</a>
+			<a href="{:U('Index/voucher')}">充值中心</a>
+			<a href="{:U('Index/contact')}">客服中心</a>
+			<span>
+				<if condition="$Think.session.pcwebUserId">
+					<a href="{:U('Login/register')}">注册</a>/<a href="{:U('Index/index')}">登陆</a>
+				<else />
+					<a href="{:U('Login/logout')}">[退出]</a>
+				</if>
+			</span>
+		</div>
+	</div>
+</div>

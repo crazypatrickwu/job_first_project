@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+    <title>银行信息</title>
+    <link href="__PUBLIC__/Home/Agent/css/LArea.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="__PUBLIC__/Home/Agent/css/taizhou.css">
+    <style type="text/css">
+    .ckf-select{
+        width: 4rem;
+        border: none;
+        padding: 0;
+        vertical-align: middle;
+        line-height: 0.36rem;
+        font-size: 1.4em;
+        position: absolute;
+        top: 0.23rem;
+        right: 0.45rem;
+        color: #999;
+        text-align: right;
+        -webkit-appearance: none;
+        direction: rtl;
+        background: #fff;
+    }
+    .ckf-select option{
+        direction: rtl;
+    }
+    </style>
+</head>
+<body style="background: #fff;">
+<div id="app">
+        <div class="form_box form_box2">
+            <div class="form_item form_my_item form_my_item2">
+                <div class="item my_item address"><b>*</b><label>真实姓名</label><input type="text" id="truename" name="truename" placeholder="请输入真实姓名" value="{$agent_withdrawals_account['truename']}" maxlength="10"/></div>
+                <div class="item my_item address"><b>*</b><label>支付宝账号</label><input type="text" id="alipay_account" name="alipay_account" placeholder="请输入支付宝账号" value="{$agent_withdrawals_account['alipay_account']}"  maxlength="20"/></div>
+                <div class="item my_item address"><b>*</b><label>提现银行</label>
+                    <!-- <input type="tel" id="bank_name" name="bank_name" placeholder="请输入提现银行"/> -->
+                    <select class="ckf-select" id="bank_name" name="bank_name">
+                        <option value="">请选择提现银行</option>
+                        <volist name="bankList" id="bank">
+                            <if condition="$bank eq $agent_withdrawals_account['bank_name']">
+                            <option value="{$bank}" selected>{$bank}</option>
+                            <else />
+                            <option value="{$bank}">{$bank}</option>
+                            </if>
+                        </volist>
+                    </select>
+                </div>
+                <div class="item my_item address"><b>*</b><label>支行名称</label><input type="text" id="bank_subbranch" name="bank_subbranch" placeholder="请输入支行名称" value="{$agent_withdrawals_account['bank_subbranch']}"  maxlength="20" /></div>
+                <div class="item my_item address"><b>*</b><label>银行卡号码</label><input type="tel" id="bank_card" name="bank_card" placeholder="请输入银行卡号码"  value="{$agent_withdrawals_account['bank_card']}"   maxlength="20"/></div>
+                <div class="item my_item address"><b>*</b><label>登录密码</label><input type="password" id="agent_password" name="agent_password" placeholder="请输入登录密码"/></div>
+            </div>
+            <div class="form_btn form_btn_out two">
+                <input type="hidden" name="id" value="0" />
+                <button id="btnAgentAdd">保存</button>
+            </div>
+        </div>
+</div>
+<script type="text/javascript" src="__PUBLIC__/Home/Agent/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Home/Agent/js/public.js"></script>
+<script>
+
+
+    //ajax入库判断
+    $(function(){
+
+        var btnAgentAdd = false;
+        $("#btnAgentAdd").on('click',function(){
+            if (btnAgentAdd) {
+                return;
+            };
+            var truename = $("#truename").val();
+            var alipay_account = $("#alipay_account").val();
+            var bank_name = $("#bank_name").val();
+            var bank_subbranch = $("#bank_subbranch").val();
+            var bank_card = $("#bank_card").val();
+            var agent_password = $("#agent_password").val();
+            if (truename == '') {
+                webTip('请输入真实姓名');
+                return false;
+            };
+            if (alipay_account == '') {
+                webTip('请输入正确的支付宝账号');
+                return false;
+            };
+            if (bank_name == '') {
+                webTip('请输入正确的银行名称');
+                return false;
+            };
+            if (bank_subbranch == '') {
+                webTip('请输入正确的支行名称');
+                return false;
+            };
+            if (bank_card == '') {
+                webTip('请输入正确的银行卡号');
+                return false;
+            };
+            if (agent_password == '') {
+                webTip('请输入正确的登录密码');
+                return false;
+            };
+
+            var _url = "{:U('agentWithdrawalsAccount')}";
+            var _param = new Object();
+                _param.truename = truename;
+                _param.alipay_account = alipay_account;
+                _param.bank_name = bank_name;
+                _param.bank_subbranch = bank_subbranch;
+                _param.bank_card = bank_card;
+                _param.agent_password = agent_password;
+                // console.log(_param);
+                // return;
+            btnAgentAdd = true;
+            $.post(_url,_param,function(res){
+                if (res.code == 1) {
+                    webTip(res.msg,function(){
+                        window.location.href = "{:U('Index/index')}";
+                    },3000);
+                    return true;
+                }else{
+                    webTip(res.msg,function(){
+                        window.location.href = window.location.href;
+                    },3000);
+                    return true;
+                }
+            },'json');
+        });
+
+
+    })
+</script>
+<include file="Index:public_wxshare" />
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+    <title>设置新密码</title>
+    <link rel="stylesheet" href="__PUBLIC__/Home/Agent/css/taizhou.css">
+    <script type="text/javascript" src="__PUBLIC__/Home/Agent/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Home/Agent/js/public.js"></script>
+</head>
+<body>
+<div>
+    <div class="form_box" id="app">
+        <div class="form_item form_item_top">
+            <div class="item new"><label>新密码</label><input type="password" id="pwd1" placeholder=""/></div>
+            <div class="item new"><label>确认密码</label><input type="password" id="pwd2" placeholder=""/></div>
+        </div>
+        <div class="form_btn">
+            <input type="hidden" id="phone" value="{$phone|default=''}" />
+            <button id="sub_btn">确认提交</button>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    $(function(){
+        $("#sub_btn").on('click',function(){
+            //ajax发送短信验证
+            var phone   =   $("#phone").val();
+            if (phone == '') {
+                webTip('手机号码不得为空');
+                return false;
+            };
+            var pwd1   =   $("#pwd1").val();
+            if (pwd1 == '') {
+                webTip('请输入密码');
+                return false;
+            };
+            var pwd2   =   $("#pwd2").val();
+            if (pwd2 == '') {
+                webTip('请确认密码');
+                return false;
+            };
+            if (pwd1 != pwd2) {
+                webTip('两次密码输入不一致');
+                return false;
+            };
+            var _url = "{:U('Login/forgetPwd')}";
+            var _param = new Object();
+                _param.phone    =   phone;
+                _param.pwd1    =   pwd1;
+                _param.pwd2    =   pwd2;
+                _param.step    =   2;
+            $.post(_url,_param,function(res){
+                
+                if (res.code == '1') {
+                    webTip(res.msg);
+                    if (res.url != '') {
+                        setTimeout(function(){
+                            window.location.href = res.url;
+                        },1500);
+                    };
+                }else{
+                    webTip(res.msg);
+                    return false;
+                }
+            },'json');
+        });
+    })
+</script>
+<include file="Index:public_wxshare" />
+</html>

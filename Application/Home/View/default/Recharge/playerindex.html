@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <script>!function(n){var e=n.document,t=e.documentElement,i=750,d=i/100,o="orientationchange"in n?"orientationchange":"resize",a=function(){var n=t.clientWidth||320;n>750&&(n=750),t.style.fontSize=n/d+"px"};e.addEventListener&&(n.addEventListener(o,a,!1),e.addEventListener("DOMContentLoaded",a,!1))}(window);</script>
+    <title>玩家管理</title>
+    <link rel="stylesheet" href="__PUBLIC__/Home/Agent/css/taizhou.css">
+</head>
+<body style="background: #fff;">
+<div>
+    <div style="height: 0.3rem;"></div>
+    <div class="service_city">
+        <!-- <div class="service_top">玩家管理</div> -->
+        <div class="service_bottom">
+            <a class="a_margin" href="{:U('Recharge/players')}">玩家列表</a>
+            <a class="a_margin" href="{:U('Recharge/playersBuyRecored')}">玩家购买</a>
+        </div>
+    </div>
+</div>
+</body>
+<include file="Index:public_wxshare" />
+</html>

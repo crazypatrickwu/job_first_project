@@ -1,0 +1,10 @@
+<ul>
+	<li<if condition="in_array(CONTROLLER_NAME, array('Index'))">{:chr(32)}class="current"</if>>
+		<a class="date-tit sys-tj" href="{:U('Index/statistics')}" class="addons">控制台</a>
+		<ul class="Jcon-ctr">
+			<li class="<if condition="in_array(ACTION_NAME, array('statistics'))">on</if>">
+				<a href="{:U('Index/statistics')}">统计</a>
+			</li>
+		</ul>
+	</li>
+</ul>
