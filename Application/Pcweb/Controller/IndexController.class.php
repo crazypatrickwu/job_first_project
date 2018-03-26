@@ -25,7 +25,7 @@ class IndexController extends Controller {
 
     public function index() {
         session_start();
-//        dump(session($pcwebUserId));exit;
+//        dump(session('pcwebUserId'));exit;
         //游戏介绍
         $pcweb_games_list   =   M('pcweb_games')->where('1=1')->field(true)->limit(8)->order('sort DESC')->select();
         $this->assign('pcweb_games_list', $pcweb_games_list);
