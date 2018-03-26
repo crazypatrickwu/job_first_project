@@ -22,7 +22,7 @@ return array(
     'PLATFORM_INVITATION_CODE'=>'123456',   //平台默认邀请码
 
     'TAGLIB_BUILD_IN'     => 'cx,diy',
-    'SESSION_AUTO_START'  => false,
+    'SESSION_AUTO_START'  => true,
     'TMPL_ACTION_ERROR'   => './Public/MsgPage/PC/dispatch_jump.html',   // 默认错误跳转对应的模板文件
     'TMPL_ACTION_SUCCESS' => './Public/MsgPage/PC/dispatch_jump.html',   // 默认成功跳转对应的模板文件
     'TMPL_EXCEPTION_FILE' => './Public/MsgPage/PC/think_exception.html', // 异常页面的模板文件

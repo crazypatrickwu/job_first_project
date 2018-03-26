@@ -1,7 +1,8 @@
 <?php
 namespace Pcweb\Controller;
+
 use Think\Controller;
-use User\Api\UserApi;
+//use User\Api\UserApi;
 
 /**
  * 前台公共控制器
@@ -15,13 +16,15 @@ class HomeController extends Controller {
 	public function _initialize(){
                 header("Content-type:text/html;charset=utf8");
                 session_start();
-//                $agentId                =   session('agentId');
-//                $agentAccount           =   session('agentAccount');
-//                if(!$agentId || !$agentAccount){
-//                    redirect(U('Login/index'));
-//                }
-                echo "<h3>Page Not Found !</h3>";
-                exit();
+                $agentId                =   session('agentId');
+                $agentAccount           =   session('agentAccount');
+                $otherCondition = !in_array(CONTROLLER_NAME, array('Login'));
+                if (empty($agentId) && empty($agentAccount) && $otherCondition) {
+                    header('LOCATION:' . U('Login/index'));
+                    exit();
+                }
+//                echo "<h3>Page Not Found !</h3>";
+//                exit();
 	}
         
         public function publicSuccess($msg='操作成功',$url=''){

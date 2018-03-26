@@ -10,9 +10,10 @@
 
 namespace Pcweb\Controller;
 
+use Think\Controller;
 use OT\DataDictionary;
 
-class IndexController extends HomeController {
+class IndexController extends Controller {
 
     public function __construct() {
         parent::__construct();
@@ -23,7 +24,8 @@ class IndexController extends HomeController {
      */
 
     public function index() {
-//        dump(session('pcwebUserId'));die;
+        session_start();
+//        dump(session($pcwebUserId));exit;
         //游戏介绍
         $pcweb_games_list   =   M('pcweb_games')->where('1=1')->field(true)->limit(8)->order('sort DESC')->select();
         $this->assign('pcweb_games_list', $pcweb_games_list);

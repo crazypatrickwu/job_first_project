@@ -34,7 +34,7 @@ class LoginController extends Controller {
             // 采用系统加密
 
             $agentInfo = M('pcweb_user')->where(array('username'=>$account))->field(true)->find();
-           // dump($agentInfo);die;
+//            dump($agentInfo);die;
             if(empty($agentInfo)){
                 die(json_encode(array('code'=>0,'msg'=>'账号不存在')));
             }
@@ -49,9 +49,12 @@ class LoginController extends Controller {
             }
 
             die(json_encode(array('code'=>1,'msg'=>'登录成功')));
+
+//            redirect(U('Index/index'));
         }  else {
-            $agentId                =   session('pcwebUserId');
-            if($agentId){
+            $pcwebUserId                =   session('pcwebUserId');
+            dump($pcwebUserId);exit;
+            if($pcwebUserId){
                 redirect(U('Index/index'));
             }
         }
