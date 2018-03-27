@@ -28,11 +28,14 @@ return array(
     'TMPL_EXCEPTION_FILE' => './Public/MsgPage/PC/think_exception.html', // 异常页面的模板文件
     
     'SQLSRV_CONFIG' =>  array(
-        'DB_HOST'   =>  '118.31.5.52',
+//        'DB_HOST'   =>  '118.31.5.52',
+        'DB_HOST'   =>  '192.168.8.234',
         'DB_USER'   =>  'sa',
-        'DB_PWD'    =>  '~~!!qp123',
+//        'DB_PWD'    =>  '~~!!qp123',
+        'DB_PWD'    =>  'wzEcbx3IV7j4',
         'DB_PORT'   =>  1433,
-        'DB_PREFIX' =>  'QP'
+        'DB_PREFIX' =>  'QP',
+//        'DB_TYPE'   =>  'pdo'
     ),
 
     // 'AGENT_LEVEL' => array(

@@ -22,13 +22,14 @@
 				</ul>
 			</div>
 			<div class="index-login">
-				<h3>用户登录</h3>
-				<if condition="($Think.session.pcwebUserId)">
+
+				<if condition="$Think.session.pcwebUserId eq null">
+					<h3>用户登录</h3>
 				<form action="" class="index-login-form">
 					<div class="login-input-box">
 						<div class="label">
 							<img src="__PUBLIC__/Pcweb/img/user-die.png" alt="">
-							<input type="text" name="user" placeholder="用户名">
+							<input type="text" name="user" placeholder="{$Think.session.pcwebUserId}">
 						</div>
 						<div class="label">
 							<img src="__PUBLIC__/Pcweb/img/pw-die.png" alt="">

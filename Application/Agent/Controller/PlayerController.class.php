@@ -84,9 +84,10 @@ class PlayerController extends BaseController {
                         $data['total'] += $game_user_list[$key]['money'];
                         $game_user_list[$key]['THTreasureDB']   =   $QPTreasureDB;
 					}
-					//            dump($game_user_list);die;
+
 				}
 		}
+//		            dump($game_user_list);die;
 		$this->assign('game_user_list', $game_user_list);
         $this->assign('data', $data);
 		$this->assign('show', $show);

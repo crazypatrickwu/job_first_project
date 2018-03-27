@@ -15,7 +15,7 @@ class StatisticsController extends BaseController {
     public function fansChart(){
         $type  = I('get.type','all','trim');
         $date_type  = I('get.date_type','7day','trim');
-        
+
         switch ($type) {
             case 'player':  //玩家
                 $list   =   $this->fansChartPlayer($date_type);
@@ -68,7 +68,7 @@ class StatisticsController extends BaseController {
         //        dump($sqlsrv_model->table('AccountsInfo')->getLastSql());die;
                 $todayWxuserCount       = intval($count);
                 $list['todayWxuserCount']    =   $todayWxuserCount;
-//                dump($list);die;
+//                dump($chartList);die;
                 $this->assign('result',$list);
                 $this->assign('chartList',$chartList);
                 $this->display('fansChart_all');
@@ -184,7 +184,6 @@ class StatisticsController extends BaseController {
 //        dump($list);die;
         $list =   json_encode($list);
         return $list;
-        dump($list);die;
     }
 
 

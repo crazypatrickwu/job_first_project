@@ -117,7 +117,7 @@ class UserController extends BaseController {
         $sql         = "SELECT count(*) AS count " . 
                        "FROM `{$dbPrefix}order` AS o " . 
                        "LEFT JOIN `{$dbPrefix}agent` AS a ON a.id = o.agent_id " . 
-                       "WHERE o.user_id = {$id} {$whereStr} ";
+                       "WHERE o.agent_id = {$id} {$whereStr} ";
         $count       = M()->query($sql);
         $page        = new \Think\Page($count[0]['count'], 25);
 		
@@ -131,7 +131,7 @@ class UserController extends BaseController {
         $sql         = "SELECT o.id, o.order_sn, a.level, o.add_time " . 
                         "FROM `{$dbPrefix}order` AS o " . 
                         "LEFT JOIN `{$dbPrefix}agent` AS a ON a.id = o.agent_id " . 
-                        "WHERE o.user_id = {$id} {$whereStr} " . 
+                        "WHERE o.agent_id = {$id} {$whereStr} " .
                         "LIMIT {$page->firstRow}, {$page->listRows}";
 
         $orderList   = M()->query($sql);

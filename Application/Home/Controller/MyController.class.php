@@ -88,7 +88,6 @@ class MyController extends HomeController {
                     $where['parent_id'] =   array('in',$parent_id_tmp);
                     $funscountquan      =   $User->where($where)->count();// 查询满足要求的总记录数
                 }
-                
 		$this->assign('title','我的粉丝');
 		$this->assign('wxuser',$wxuser);
 		$this->assign('totalpage',$totalpage);

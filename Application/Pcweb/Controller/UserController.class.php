@@ -118,7 +118,7 @@ class UserController extends HomeController {
             $info_target = json_decode($info['user_person']['lable']);
             $target = json_decode($info['user_person']['lable_list']);
             $target_data = $this->Compare($target, $info_target);
-//            dump(array('$target'=>$target,'$info_target'=>$info_target,'$target_data'=>$target_data));die;
+            dump($target_data);die;
             $this->assign('target', $target_data);
             $this->assign('info', $info);
             $this->display();

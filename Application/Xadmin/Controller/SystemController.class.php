@@ -62,6 +62,7 @@ class SystemController extends BaseController {
     public function introduction(){
             //当前用户代理agent_id
             $sqlsrv_model   =   $this->sqlsrv_model('PlatformDB', 'WeiXinInfo');
+        dump($sqlsrv_model);exit;
             if(IS_POST){
                 $FeedbaceMail   =   I('post.FeedbaceMail','');
                 $where          =   array('1=1');
