@@ -11,7 +11,7 @@ class BaseController extends Controller {
 		session_start();
 		$adminId 	  = session('adminId');         // 管理员用户id
 		$adminAccount = session('adminAccount');    // 管理员用户名
-
+	
 		// 其他条件
 		$otherCondition = !in_array(CONTROLLER_NAME , array('Login'));
 		if ( empty($adminId) && empty($adminAccount) && $otherCondition ) {

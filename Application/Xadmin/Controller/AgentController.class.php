@@ -645,7 +645,7 @@ class AgentController extends BaseController {
 
             $where = array();
             $whereStr = '';
-            
+
             if( !empty($nickname) ) {
                 $nickname   = addslashes($nickname);
                 $nickname   = urldecode($nickname);
@@ -686,16 +686,16 @@ class AgentController extends BaseController {
             if (!empty($getData['end_time'])) {
                 $getData['end_time'] = search_time_format($getData['end_time']);
             }
-            
+
             $AgentModel = M('agent_withdrawals');
 
             $count    = $AgentModel->alias('w')->join('LEFT JOIN '.C('DB_PREFIX').'agent as a ON w.agent_id=a.id')->where($where)->count();
             $page     = new \Think\Page($count, 10,$getData);
-            
+
             if ($this->iswap()) {
                 $page->rollPage = 5;
             }
-            
+
             $show     = $page->show();
 
             $join = ' LEFT JOIN '.C('DB_PREFIX').'agent as a ON w.agent_id=a.id';
@@ -1012,6 +1012,11 @@ class AgentController extends BaseController {
             $agent_one_rebate_config = M('agent_one_rebate_config')->where(array('agent_id'=>$agent_id))->field(true)->find();
             // dump($agent_id);die;
             $agentInfo = M('agent')->where(array('id'=>$agent_id))->field(true)->find();
+
+            //如果不是一级代理则不允许平台设置比例
+            if($agentInfo['level'] != 1){
+                $this->error('平台只能设置一级代理返佣比例');
+            }
 
             $configList = M('agent_rebate_config')->where(array('agent_id'=>$agent_id))->field(true)->order('id ASC')->select();
             // $levelData  =   C('AGENT_LEVEL');
