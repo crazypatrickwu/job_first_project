@@ -78,11 +78,50 @@ class AgentController extends BaseController {
 
 		$show     = $page->show();
 
-		$agentList = $AgentModel->where($where)->limit($page->firstRow . ',' . $page->listRows)->order('dateline DESC')->select();
+		$agentList = $AgentModel->alias('a')->join(C('DB_PREFIX') . 'agent_one_rebate_config as orc on a.id=orc.agent_id' , 'left')->where($where)
+					->limit($page->firstRow . ',' . $page->listRows)->order('dateline DESC')->field('a.* , orc.player')->select();
 		//        dump($agentList);die;
 		$this->assign('agentList', $agentList);
 		$this->assign('show', $show);
 		$this->display('agentList');
+	}
+
+	/**
+	 * 设置返佣比例
+	 */
+	public function editRebate()
+	{
+		//代理商有权对自己的下级代理设置返佣比例
+		if(IS_POST){
+			$agent_id	=	I('post.id' , '' , 'intval');
+			$player	=	I('post.player' , '' , 'intval');
+			$agentConfig	=	M('agent_one_rebate_config');
+			$ifConfig	=	$agentConfig->where(['agent_id' => $agent_id])->find();
+			//如果没有配置就添加，如果有的话就直接修改
+			if($ifConfig){
+				$res	=	$agentConfig->where(['agent_id'	=>	$agent_id])->setField(['player'	=>	$player]);
+			}else{
+				$res	=	$agentConfig->add(['agent_id'	=>	$agent_id , 'player'	=>	$player , 'update_time'	=> NOW_TIME]);
+			}
+
+			if($res !== false){
+				$this->success('设置成功' , U('Agent/agentList'));
+			}else{
+				$this->error('设置失败');
+			}
+
+		}else{
+			$id	=	I('get.id' , '' , 'intval');
+			if(empty($id)){
+				$this->error('参数丢失！' , U('Agent/agentList'));
+			}
+			$agentInfo	= M('agent')->alias('a')->join(C('DB_PREFIX') . 'agent_one_rebate_config as orc on a.id=orc.agent_id' , 'left')->where(['a.is_delete' => 0 , 'a.is_lock' => 0 , 'a.id' => $id])
+							->field('a.nickname , a.wechat_id , a.phone , orc.player , a.id')->find();
+			//不需要读取系统配置了
+			$this->assign(['agentInfo'	=>	$agentInfo]);
+			$this->display();
+		}
+
 	}
 
 	/**

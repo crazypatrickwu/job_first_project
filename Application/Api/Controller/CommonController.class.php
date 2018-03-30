@@ -81,6 +81,7 @@ class CommonController extends Controller {
 					$this->ReturnJson(array('code' => $val[4], 'msg'=>$val[3].'不能为空'));
 				}
 			}
+
 			//hash不参与签名
 			if ($val[0] != 'hash')
 			{
@@ -92,6 +93,7 @@ class CommonController extends Controller {
 			}
 			$BackData[$val[0]]	= $val[1] == 'Int' ? intval($PostData[$val[0]]) : trim($PostData[$val[0]]);
 		}
+
 		//判断签名校验是否通过
 		if ($this->ArraySort($sign,$hash) == false)
 		{
@@ -107,12 +109,12 @@ class CommonController extends Controller {
 			$this->ReturnJson(array('code' =>'4','msg'=>'用户ID不合法'));
 		}
 		//校验用户是否存在
-		$user 		= new UserApi;
-		$userinfo	= $user->info($uid);
-		if ($userinfo == '-1')
-		{
-			$this->ReturnJson(array('code' =>'5','msg'=>'用户不存在'));
-		}
+//		$user 		= new UserApi;
+//		$userinfo	= $user->info($uid);
+//		if ($userinfo == '-1')
+//		{
+//			$this->ReturnJson(array('code' =>'5','msg'=>'用户不存在'));
+//		}
 	}
 	//加密校验串
 	protected function check_hashid($str,$hashid,$msg='')

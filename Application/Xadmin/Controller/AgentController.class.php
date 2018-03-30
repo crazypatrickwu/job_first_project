@@ -1024,7 +1024,7 @@ class AgentController extends BaseController {
             foreach ($configList as $key => $value) {
                 $levelData[$value['id']] = $value;
             }
-
+            
             if(!empty($agentInfo['pid'])){
 
                 $rebateMoneyPercent1 = $levelData[2]['player']; //平台返佣

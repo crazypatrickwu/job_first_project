@@ -62,7 +62,7 @@ class SystemController extends BaseController {
     public function introduction(){
             //当前用户代理agent_id
             $sqlsrv_model   =   $this->sqlsrv_model('PlatformDB', 'WeiXinInfo');
-        dump($sqlsrv_model);exit;
+
             if(IS_POST){
                 $FeedbaceMail   =   I('post.FeedbaceMail','');
                 $where          =   array('1=1');
@@ -86,25 +86,7 @@ class SystemController extends BaseController {
      * 公告
      */
     public function notice(){
-            //当前用户代理agent_id
-            $sqlsrv_model   =   $this->sqlsrv_model('PlatformDB', 'WeiXinInfo');
-            if(IS_POST){
-                $GameWeixin   =   I('post.GameWeixin','');
-                $where          =   array('1=1');
-                $WeiXinInfo    = $sqlsrv_model->table('WeiXinInfo')->where($where)->find();
-                if(!empty($WeiXinInfo)){
-                    $res    =   $sqlsrv_model->table('WeiXinInfo')->where($where)->setField(array('GameWeixin'=>$GameWeixin));
-                    $this->success('保存成功！');
-                }  else {
-                    $this->error('保存失败！');
-                }
-            }  else {
-                $where          =   array('1=1');
-                $GameWeixin    = $sqlsrv_model->table('WeiXinInfo')->where($where)->getField('GameWeixin');
-        	    	$this->assign('GameWeixin', rtrim($GameWeixin));
-        //                dump($FeedbaceMail);die;
-        	    	$this->display();
-            }
+           
     }
 
 

@@ -23,7 +23,7 @@ class PayController extends CommonController {
     public function index() {
         $this->errorInfo = $this->getApiError(ACTION_NAME);
         $CheckParam = array(
-            array('time', 'Int', 1, '服务器时间异常', '1'),
+//            array('time', 'Int', 1, '服务器时间异常', '1'),
             array('hash', 'String', 1, '签名错误', '2'),
             array('uid', 'Int', 1, $this->errorInfo['1001'], '1001'),
             array('hashid', 'String', 1, $this->errorInfo['1002'], '1002'),
@@ -32,6 +32,7 @@ class PayController extends CommonController {
             array('paytype', 'Int', 1, $this->errorInfo['1005'], '1005'),
         );
         $BackData = $this->CheckData(I('request.'), $CheckParam);
+
         dblog(array('api/pay/index 111', '$BackData' => $BackData));
         //用户检测
         $this->check_user($BackData['uid'], $BackData['hashid']);
@@ -42,22 +43,22 @@ class PayController extends CommonController {
 
         $orderModel = M('order');
         $payModel = M('pay');
-        $shoplistModel = M('shoplist');
+//        $shoplistModel = M('shoplist');
         //检验订单是否合法
         $map = array();
         $map['id'] = $BackData['orderid'];
         $map['order_sn'] = $BackData['order_sn'];
         $map['uid'] = $BackData['uid'];
-        $orderInfo = $orderModel->where($map)->field(array('id', 'tag', 'ispay'))->find();
+        $orderInfo = $orderModel->where($map)->field(array('id', 'order_sn' , 'pay_status'))->find();
         if (empty($orderInfo)) {
             $this->ReturnJson(array('code' => '1010', 'msg' => $this->errorInfo['1010']));
         }
         //支付状态判断
-        if ($orderInfo['ispay'] != 0) {
+        if ($orderInfo['pay_status'] != 0) {
             $this->ReturnJson(array('code' => '1011', 'msg' => $this->errorInfo['1011']));
         }
         //支付单号
-        $tag = $orderInfo['tag']; //支付单号
+        $tag = $orderInfo['order_sn']; //支付单号
         //支付信息
         $fields = array('id', 'money', 'total');
         $map = array();
@@ -108,7 +109,7 @@ class PayController extends CommonController {
     public function recharge_Add() {
         $this->errorInfo = $this->getApiError(ACTION_NAME);
         $CheckParam = array(
-            array('time', 'Int', 1, '服务器时间异常', '1'),
+//            array('time', 'Int', 1, '服务器时间异常', '1'),
             array('hash', 'String', 1, '签名错误', '2'),
             array('uid', 'Int', 1, $this->errorInfo['1001'], '1001'),
             array('goodsid', 'Int', 1, $this->errorInfo['1015'], '1015'),
@@ -404,6 +405,7 @@ class PayController extends CommonController {
                 }
             }
         }
+
         $sign = rsaSign($str, VENDOR_PATH . '/Alipay/key/rsa_private_key.pem');
         $sign = urlencode($sign);
         $pay_info = $str . '&sign=' . '"' . $sign . '"' . '&sign_type="RSA"';
@@ -591,16 +593,15 @@ class PayController extends CommonController {
     *分佣
     */
     public function commissionToAgentByPlayer($orderInfo){
-            if (!empty($orderInfo['uid'])) {
-                $gameuser = M('gameuser')->where(array('game_user_id'=>$orderInfo['uid'],'user_id'=>0))->field(true)->find();
+            if (!empty($orderInfo['agent_id'])) {
+                $gameuser = M('gameuser')->where(array('game_user_id'=>$orderInfo['agent_id'],'user_id'=>0))->field(true)->find();
                 if (!empty($gameuser) && !empty($gameuser['invitation_code'])) {
                     $invitation_code_agent = M('agent')->where(array('invitation_code'=>$gameuser['invitation_code']))->field(true)->find();
-
                     //抽取自己会员分佣
                     if (!empty($invitation_code_agent)) {
                         //销售记录
                         $agent_sales_volume_data = array();
-                        $agent_sales_volume_data['total_price'] = $orderInfo['total_price'];
+                        $agent_sales_volume_data['total_price'] = $orderInfo['total_amount'];
                         $agent_sales_volume_data['dateline'] = NOW_TIME;
                         $agent_sales_volume_data['agent_id'] = $invitation_code_agent['id'];
                         $agent_sales_volume_data['uid'] = $gameuser['game_user_id'];
@@ -675,8 +676,7 @@ class PayController extends CommonController {
                 }
             }
     }
-
-
+    
     /*
     *分佣给上级代理
     */

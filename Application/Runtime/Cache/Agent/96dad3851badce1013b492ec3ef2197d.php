@@ -165,13 +165,14 @@
                 <th>代理昵称</th>
                 <th>微信号</th>
                 <th>手机号</th>
+                <th>返佣比例</th>
                 <th>房卡数量</th>
                 <th>加入时间</th>
                 <th>操作</th>
             </tr>
 
             <?php if(empty($agentList)): ?><tr>
-                    <td colspan="7">没有代理列表~！</td>
+                    <td colspan="8">没有代理列表~！</td>
                 </tr>
                 <?php else: ?>
                 <?php if(is_array($agentList)): $i = 0; $__LIST__ = $agentList;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$agent): $mod = ($i % 2 );++$i;?><tr>
@@ -179,17 +180,19 @@
                         <td class="center"><?php echo ($agent['nickname']); ?></td>
                         <td class="center"><?php echo ($agent['wechat_id']); ?></td>
                         <td class="center"><?php echo ($agent['phone']); ?></td>
+                        <td class="center"><?php echo ($agent['player']); ?></td>
                         <td class="center"><?php echo ($agent['room_card']); ?>（颗）</td>
                         <td class="center"><?php echo (time_format($agent['dateline'])); ?></td>
                         <td class="center">
                             <a class="stdbtn btn_lime" href="<?php echo U('Agent/editAgent', array('id'=>$agent['id']));?>">编辑</a>&nbsp;&nbsp;
+                            <a class="stdbtn btn_lime" href="<?php echo U('Agent/editRebate', array('id'=>$agent['id']));?>">返佣</a>&nbsp;&nbsp;
                             <a class="stdbtn btn_lime resetPwd_confirm" action_href="<?php echo U('Agent/resetPwd', array('id'=>$agent['id']));?>">重置密码</a>&nbsp;&nbsp;
                             <a class="stdbtn btn_lime del_confirm" action_href="<?php echo U('Agent/delAgent', array('id'=>$agent['id']));?>">删除</a>&nbsp;&nbsp;
                         </td>
                     </tr><?php endforeach; endif; else: echo "" ;endif; ?>
 
                 <tr>
-                    <td colspan="7">
+                    <td colspan="8">
                         <div class="page-box"><?php echo ($show); ?></div>
                     </td>
                 </tr><?php endif; ?>

@@ -37,6 +37,7 @@
                 <th>代理昵称</th>
                 <th>微信号</th>
                 <th>手机号</th>
+                <th>返佣比例</th>
                 <th>房卡数量</th>
                 <th>加入时间</th>
                 <th>操作</th>
@@ -44,7 +45,7 @@
 
             <if condition="empty($agentList)">
                 <tr>
-                    <td colspan="7">没有代理列表~！</td>
+                    <td colspan="8">没有代理列表~！</td>
                 </tr>
                 <else />
                 <volist name="agentList" id="agent">
@@ -53,10 +54,12 @@
                         <td class="center">{$agent['nickname']}</td>
                         <td class="center">{$agent['wechat_id']}</td>
                         <td class="center">{$agent['phone']}</td>
+                        <td class="center">{$agent['player']}</td>
                         <td class="center">{$agent['room_card']}（颗）</td>
                         <td class="center">{$agent['dateline']|time_format=###}</td>
                         <td class="center">
                             <a class="stdbtn btn_lime" href="{:U('Agent/editAgent', array('id'=>$agent['id']))}">编辑</a>&nbsp;&nbsp;
+                            <a class="stdbtn btn_lime" href="{:U('Agent/editRebate', array('id'=>$agent['id']))}">返佣</a>&nbsp;&nbsp;
                             <a class="stdbtn btn_lime resetPwd_confirm" action_href="{:U('Agent/resetPwd', array('id'=>$agent['id']))}">重置密码</a>&nbsp;&nbsp;
                             <a class="stdbtn btn_lime del_confirm" action_href="{:U('Agent/delAgent', array('id'=>$agent['id']))}">删除</a>&nbsp;&nbsp;
                         </td>
@@ -64,7 +67,7 @@
                 </volist>
 
                 <tr>
-                    <td colspan="7">
+                    <td colspan="8">
                         <div class="page-box">{$show}</div>
                     </td>
                 </tr>
