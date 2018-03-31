@@ -128,6 +128,7 @@ class PayController extends CommonController {
         
         $tag        =  date('ymdHis', NOW_TIME) . $BackData['uid'] . randomString('6', 0); //支付编号
         $order_sn   =   'CA' . date('ymdHis', NOW_TIME) . randomString('6', 0); //支付编号
+       
         if(in_array($goods_info['type'], array('jb','qilibi'))){  //旗力币
                 $orderModel = M('recharge_gold');
 
